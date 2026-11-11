@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>보험료 비교 영수증</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 검은 바탕에서 영수증 한 장이 출력된다. 줄마다 회사별 가격이 돌다가 최저 조합에 멈추고, 맨 아래에 차액 도장이 찍힌다 */
+  --ink:#090c12;
+  --ink-2:#141a26;
+  --line:#273044;
+  --paper:#f2f4f7;
+  --paper-ink:#0c111b;
+  --paper-mute:#566074;
+  --paper-rule:#c3cad6;
+  --muted:#97a2b8;
+  --soft:#c9d1e0;
+  --blue:#2f6bff;
+  --gold:#f2b93b;
+  --display:"Black Han Sans","IBM Plex Sans KR",sans-serif;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--ink);color:#fff;font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.app{max-width:440px;min-height:100%;margin:0 auto;padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;position:relative}
+.app.shake{animation:shake .38s}
+@keyframes shake{10%{transform:translate(-5px,3px)}30%{transform:translate(5px,-4px)}50%{transform:translate(-4px,2px)}70%{transform:translate(3px,-2px)}100%{transform:none}}
+
+.top{display:block}
+.top h1{font-family:var(--display);font-weight:400;font-size:clamp(26px,8.2vw,34px);line-height:1.14;letter-spacing:-.01em}
+.top h1 span{color:var(--gold)}
+.top p{font-size:13.5px;color:var(--soft);font-weight:500;margin-top:6px;line-height:1.5}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:-2px}
+.bar span{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.01em}
+.hook{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.hook div{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:baseline;padding:10px 0 10px 10px;border-bottom:1px solid var(--line);border-left:3px solid transparent}
+.hook dt{font-size:13px;font-weight:700;color:var(--muted)}
+.hook dd{font-size:14.5px;font-weight:500;line-height:1.4;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(135,146,168,.5)}
+.hook .now{border-left-color:var(--gold)}
+.hook .now dt{color:var(--gold)}
+.hook .now dd{color:#fff;font-weight:700;text-decoration:none}
+.hk-sub{font-size:14.5px;line-height:1.55;color:var(--soft);font-weight:500;margin-top:-4px}
+.snd{flex:none;font-size:12px;font-weight:600;color:var(--muted);padding:7px 10px;border-radius:8px;border:1px solid var(--line)}
+.snd[aria-pressed="true"]{color:#fff}
+
+/* 조건 고르기 */
+.pickers{display:flex;flex-direction:column;gap:8px}
+#ages button{padding:14px 8px;font-size:16px}
+#sexes button{padding:14px 12px;font-size:16px}
+.lab{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.02em;margin-bottom:-2px}
+.pair{display:grid;grid-template-columns:1fr auto;gap:8px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;padding:9px 12px;position:relative;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);background:var(--ink-2);white-space:nowrap}
+.seg button[aria-pressed="true"]{color:var(--ink);background:#fff}
+.scroll{display:flex;flex-wrap:wrap;gap:6px}
+.scroll::-webkit-scrollbar{display:none}
+.scroll button,.wrap button{flex:none;padding:9px 13px;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);background:var(--ink-2);white-space:nowrap}
+.scroll button[aria-pressed="true"],.wrap button[aria-pressed="true"]{color:#1b1400;background:var(--gold)}
+.wrap{display:none;flex-direction:column;gap:10px}
+.wrap.show{display:flex}
+.cg{display:flex;flex-direction:column;gap:6px}
+.cg > span{font-size:11.5px;font-weight:600;color:var(--muted)}
+.cg > div{display:flex;flex-wrap:wrap;gap:6px}
+.wrap button{padding:8px 11px;font-size:13.5px}
+.rec{font-style:normal;font-size:10px;font-weight:700;color:#1b1400;background:var(--gold);border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:1px}
+.qm{width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);color:var(--soft);font-size:11px;font-weight:700;line-height:1;margin-left:4px;vertical-align:middle}
+.rb{font-style:normal;font-size:11px;font-weight:700;color:var(--paper-mute);border:1px solid var(--paper-rule);border-radius:4px;padding:1px 4px;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.renew{display:none;font-size:13.5px;line-height:1.55;color:var(--paper-mute);font-weight:500;margin-top:12px}
+.renew.show{display:block}
+.renew b{font-family:var(--mono);font-weight:700;color:var(--paper-ink)}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.sheet-bg.show{display:flex}
+.sheet{width:100%;max-width:440px;max-height:88%;overflow:auto;background:var(--ink-2);border-radius:18px 18px 0 0;padding:18px 18px 28px;display:flex;flex-direction:column;gap:14px;animation:up .26s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sh-top{display:flex;justify-content:space-between;align-items:center}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:22px}
+.sheet .x{font-size:14px;font-weight:600;color:var(--muted);padding:6px 4px}
+.sh-lead{font-size:14px;line-height:1.55;color:var(--gold);font-weight:600}
+.hb{display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:1px solid var(--line)}
+.hb h3{font-size:16px;font-weight:700}
+.hb p{font-size:14px;line-height:1.65;color:var(--soft);font-weight:500}
+.hb ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.hb li{font-size:13px;line-height:1.55;color:var(--muted);font-weight:500}
+.cap{display:none;font-size:13px;color:var(--muted);font-weight:500}
+.cap.show{display:block}
+
+/* 출력구 + 영수증 */
+.printer{display:flex;flex-direction:column;position:relative}
+.slot{height:14px;border-radius:7px;background:#000;border:1px solid var(--line);box-shadow:inset 0 3px 6px rgba(0,0,0,.9);position:relative;z-index:3}
+.feed{overflow:hidden;padding:0 10px 14px;margin-top:-7px}
+.receipt{background:var(--paper);color:var(--paper-ink);padding:20px 18px 28px;position:relative;
+  --z:10px;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--z)) no-repeat, conic-gradient(from -45deg at 50% 100%, #0000 0 90deg, #000 0) bottom left/calc(var(--z)*2) var(--z) repeat-x;
+          mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--z)) no-repeat, conic-gradient(from -45deg at 50% 100%, #0000 0 90deg, #000 0) bottom left/calc(var(--z)*2) var(--z) repeat-x;
+}
+.receipt.print{animation:print .9s cubic-bezier(.2,.7,.2,1)}
+.receipt.stale{opacity:.55}
+@keyframes print{0%{transform:translateY(-100%)}20%{transform:translateY(-76%)}28%{transform:translateY(-76%)}50%{transform:translateY(-46%)}58%{transform:translateY(-46%)}80%{transform:translateY(-16%)}86%{transform:translateY(-16%)}100%{transform:none}}
+
+.r-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.r-no{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--paper-mute);letter-spacing:.04em}
+.r-theme{font-family:var(--display);font-size:28px;line-height:1.12;margin-top:6px;letter-spacing:-.01em}
+.r-sub{font-size:12px;color:var(--paper-mute);font-weight:500;margin-top:4px}
+.rule{border:0;border-top:1.5px dashed var(--paper-rule);margin:14px 0}
+
+.rows{display:flex;flex-direction:column}
+.rowb{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 10px;padding:9px 6px;margin:0 -6px;border-radius:8px;text-align:left;width:calc(100% + 12px);color:inherit}
+.rowb + .rowb{border-top:1px solid #dfe3ea}
+.rowb .name{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.rowb .pick{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.co{display:inline-grid;place-items:center;min-width:34px;height:24px;padding:0 6px;border-radius:5px;background:var(--paper-ink);color:#fff;font-size:12px;font-weight:700;font-family:var(--sans)}
+.won{font-size:16px;font-weight:700;min-width:70px;text-align:right}
+.tag{grid-column:1/-1;display:none;justify-content:space-between;gap:8px;font-size:12.5px;font-weight:600;color:var(--paper-mute);margin-top:-2px}
+.rowb.done .tag{display:flex}
+.tag b{font-weight:700;color:var(--paper-ink);white-space:nowrap}
+.c0{--cc:#2563eb}.c1{--cc:#d9791a}.c2{--cc:#7b4ee6}.c3{--cc:#0e9f8e}.c4{--cc:#c23a8a}
+.rowb.done .co{background:var(--cc,var(--blue))}
+.rowb{cursor:pointer}
+.r-cond{font-size:12px;color:var(--paper-mute);font-weight:500;margin-top:14px;text-align:center}
+.rowb.spin .pick{filter:blur(1.2px);opacity:.75}
+.rowb.spin .co{background:#8f99ab}
+.rowb.idle .pick{color:#b4bcc9}
+.rowb.idle .co{background:#c9cfda}
+.rowb.lock{animation:lock .32s cubic-bezier(.2,1.8,.4,1)}
+@keyframes lock{0%{transform:scale(1.06);background:#fff}100%{transform:none;background:transparent}}
+.all{grid-column:1/-1;display:none;flex-direction:column;gap:6px;padding:8px 0 4px}
+.rowb.open .all{display:flex}
+.all div{display:grid;grid-template-columns:34px 1fr 64px;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;font-weight:500;font-variant-numeric:tabular-nums}
+.all div span{font-family:var(--sans);font-weight:700;font-size:12px}
+.all div i{display:block;height:8px;border-radius:2px;background:#b9c1cf}
+.all div span{color:var(--cc)}
+.all div i{background:var(--cc);opacity:.3}
+.all div.min i{opacity:1}
+.all div.min{font-weight:700}
+.all div em{font-style:normal;text-align:right}
+.all p{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--paper-mute);font-weight:500;margin-top:2px}
+
+.gh{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 4px;font-size:12.5px;font-weight:700;color:var(--paper-mute);letter-spacing:.02em;border-bottom:1.5px solid var(--paper-ink)}
+.gh:first-child{padding-top:0}
+.gh em{font-style:normal;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--paper-ink)}
+.gh + .rowb{border-top:0}
+.rows.dense .rowb:not(.open) .tag{display:none}
+.rows.dense .rowb{padding:6px 6px}
+.rows.dense .rowb .name{font-size:14px}
+.rows.dense .won{font-size:15px}
+.scan{display:none;flex-direction:column;gap:8px;padding:12px;margin-bottom:2px;border:1.5px solid var(--paper-ink);border-radius:8px}
+.scan.show{display:flex}
+.sc-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:700}
+.sc-top b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sc-cos{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.sc-cos span{text-align:center;font-size:12px;font-weight:700;padding:5px 0;border-radius:5px;background:#dfe3ea;color:var(--paper-mute);transition:background .2s,color .2s}
+.sc-cos span.on{background:var(--cc);color:#fff}
+.sc-bar{height:6px;border-radius:3px;background:#dfe3ea;overflow:hidden}
+.sc-bar i{display:block;height:100%;width:0;background:var(--paper-ink)}
+.scan.ok{border-color:var(--paper-rule)}
+.scan.ok .sc-bar{display:none}
+.extra{display:none;justify-content:space-between;align-items:baseline;font-size:13.5px;font-weight:600;padding:2px 0}
+.extra.show{display:flex}
+.extra em{font-style:normal;font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
+
+.total{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;position:relative;min-height:62px}
+.total small{display:block;font-size:12px;font-weight:600;color:var(--paper-mute)}
+.total .sum{font-family:var(--mono);font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.total .sum i{font-style:normal;font-size:17px;font-family:var(--sans);margin-left:2px}
+.stamp{position:absolute;right:-4px;top:-22px;transform:rotate(-11deg);border:3px solid #1a2b5c;color:#1a2b5c;border-radius:10px;padding:6px 12px 5px;text-align:center;opacity:0;pointer-events:none;background:rgba(242,244,247,.86)}
+.stamp span{display:block;font-size:11.5px;font-weight:700}
+.stamp strong{display:block;font-family:var(--mono);font-size:23px;line-height:1.1;font-weight:700;letter-spacing:-.03em}
+.stamp.hit{animation:hit .34s cubic-bezier(.3,0,.2,1) forwards}
+@keyframes hit{0%{opacity:0;transform:rotate(-11deg) scale(3.2)}70%{opacity:1;transform:rotate(-11deg) scale(.92)}100%{opacity:1;transform:rotate(-11deg) scale(1)}}
+
+.cmp{display:none;flex-direction:column;gap:11px}
+.cmp.show{display:flex}
+.cb{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:baseline}
+.cb span{font-size:13.5px;font-weight:600;color:var(--paper-mute)}
+.cb em{font-style:normal;font-family:var(--mono);font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.cb i{grid-column:1/-1;display:block;height:10px;border-radius:2px;background:#b9c1cf;width:0;transition:width .7s cubic-bezier(.2,.9,.3,1)}
+.cb.mix span,.cb.mix em{color:var(--paper-ink)}
+.cb.mix i{background:var(--paper-ink)}
+.vs{font-size:14.5px;font-weight:600;line-height:1.55;margin-top:2px}
+.vs b{font-family:var(--mono);font-weight:700}
+.why{display:none;font-size:14px;line-height:1.6;color:#3b4557;font-weight:500;padding:10px 12px;border-radius:8px;background:#e6e9ef}
+.why.show{display:block}
+.why b{color:var(--paper-ink);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 12px}
+.tags span{font-size:12.5px;font-weight:700;padding:3px 8px;border-radius:4px;background:#e1e5ec;color:var(--paper-ink)}
+.sec{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:700;margin-bottom:10px}
+.sec span:last-child{font-weight:500;color:var(--paper-mute);font-size:12.5px}
+.r-foot{font-size:11px;color:var(--paper-mute);text-align:center;margin-top:14px;font-weight:500;line-height:1.5}
+
+canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+
+/* 영수증 뒤에 이어지는 단계 */
+.step{display:flex;flex-direction:column;gap:14px;padding:22px 2px 4px;border-top:1px solid var(--line)}
+.step[hidden]{display:none}
+.step .k{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.08em}
+.step h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;letter-spacing:-.01em;text-wrap:balance}
+.step h2 b{font-weight:400;color:var(--gold)}
+.q{display:flex;flex-direction:column;gap:8px}
+.q label{font-size:14.5px;font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts button{padding:10px 13px;border-radius:8px;background:var(--ink-2);font-size:14px;font-weight:600;color:var(--soft)}
+.opts button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+.diag{display:none;flex-direction:column;gap:10px;background:var(--ink-2);border-radius:12px;padding:16px}
+.diag.show{display:flex}
+.diag h3{font-size:13px;font-weight:700;color:var(--gold)}
+.diag ul{display:flex;flex-direction:column;gap:8px}
+.diag li{list-style:none;font-size:14.5px;line-height:1.55;padding-left:14px;position:relative;font-weight:500}
+.diag li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;background:var(--gold)}
+.how{display:flex;flex-direction:column;counter-reset:n}
+.how div{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.5;font-weight:500}
+.how div::before{counter-increment:n;content:counter(n);font-family:var(--mono);font-weight:700;color:var(--gold);font-size:15px}
+.how div small{display:block;color:var(--muted);font-size:12.5px;font-weight:500}
+.kakao{padding:17px;border-radius:12px;background:#fff;color:var(--ink);font-size:17px;font-weight:700;text-align:center;text-decoration:none;display:block}
+.fine2{font-size:13.5px;line-height:1.6;color:var(--soft);font-weight:500}
+.daily1{font-size:14.5px;font-weight:600;color:var(--soft);text-align:center}
+.daily1 b{color:var(--gold);font-weight:700}
+.who{font-size:13px;line-height:1.6;color:var(--muted)}
+.who b{color:#fff;font-weight:600}
+.pnote{display:none;font-size:12.5px;color:var(--gold);font-weight:600;text-align:center}
+.pnote.show{display:block}
+
+.dock{position:sticky;bottom:0;z-index:8;display:flex;gap:8px;padding:22px 0 12px;margin-bottom:-6px;background:linear-gradient(to bottom, rgba(9,12,18,0), var(--ink) 30%)}
+.go{flex:1;padding:17px 10px;border-radius:12px;background:var(--gold);color:#1b1400;font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-.01em;transition:transform .08s;box-shadow:0 5px 0 #a87a14}
+.go:active{transform:translateY(4px);box-shadow:0 1px 0 #a87a14}
+.go.wait{background:var(--ink-2);color:var(--soft);box-shadow:none;font-size:17px}
+#ages.nudge{animation:nudge .5s}
+@keyframes nudge{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.go[disabled]{background:var(--ink-2);color:var(--muted);box-shadow:none;cursor:default;transform:none}
+.again{padding:0 16px;border-radius:12px;border:1px solid var(--line);font-size:14px;font-weight:700;color:var(--soft);display:none}
+.again.show{display:block}
+.note{font-size:12.5px;line-height:1.55;color:var(--muted);text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="bar"><span>보험료 비교 영수증</span><button class="snd" type="button" id="snd" aria-pressed="true">소리 켬</button></div>
+  <header class="top">
+    <h1>같은 보장,<br><span>회사마다 얼마나 다를까</span></h1>
+  </header>
+  <dl class="hook">
+    <div><dt>예전</dt><dd>아는 설계사 한 명, 그 회사 상품으로 전부</dd></div>
+    <div class="now"><dt>요즘</dt><dd>담보마다 싼 회사를 골라 2~3곳에 나눠서</dd></div>
+  </dl>
+  <p class="hk-sub">담보마다 가장 싼 회사가 달라요. 내 나이로 확인해보세요.</p>
+
+  <div class="pickers">
+    <div class="pair">
+      <div><div class="lab" style="margin-bottom:6px">내 나이대</div>
+        <div class="seg" id="ages" role="group" aria-label="나이대">
+          <button type="button" data-v="20" aria-pressed="false">20대</button><button type="button" data-v="30" aria-pressed="false">30대</button><button type="button" data-v="40" aria-pressed="false">40대</button><button type="button" data-v="50" aria-pressed="false">50대</button>
+        </div></div>
+      <div><div class="lab" style="margin-bottom:6px">성별</div>
+        <div class="seg" id="sexes" role="group" aria-label="성별">
+          <button type="button" data-v="m" aria-pressed="true">남</button><button type="button" data-v="f" aria-pressed="false">여</button>
+        </div></div>
+    </div>
+  </div>
+
+  <main class="printer">
+    <canvas id="fx"></canvas>
+    <div class="slot"></div>
+    <div class="feed">
+      <article class="receipt" id="receipt">
+        <div class="r-head"><span class="r-no" id="rNo">NO. 0000</span><span class="r-no">5개사 비교 · 예시 수치</span></div>
+        <div class="r-theme" id="rTheme"></div>
+        <div class="tags" id="rSub"></div>
+        <div class="scan" id="scan">
+          <div class="sc-top"><span id="scT">5개사 가격표 대조 중</span><b id="scN"></b></div>
+          <div class="sc-cos" id="scCos"><span class="c0">A사</span><span class="c1">B사</span><span class="c2">C사</span><span class="c3">D사</span><span class="c4">E사</span></div>
+          <div class="sc-bar"><i id="scBar"></i></div>
+        </div>
+        <hr class="rule">
+        <div class="total">
+          <div><small id="sumL">가장 싼 조합의 월 합계</small><div class="sum"><span id="sum">?</span><i>원</i></div></div>
+          <div class="stamp" id="stamp"><span>월 최대</span><strong id="stV"></strong><span>차이</span></div>
+        </div>
+        <div class="cmp" id="cmp"><div id="cmpBars" style="display:flex;flex-direction:column;gap:11px;margin-top:6px"></div><div class="vs" id="vs"></div><p class="why" id="why"></p></div>
+        <p class="renew" id="renew"></p>
+        <hr class="rule">
+        <div class="sec"><span>담보별 명세</span><span id="rFoot">버튼을 누르면 채워져요</span></div>
+        <div class="rows" id="rows"></div>
+        <div class="extra" id="extra" style="margin-top:10px"><span id="extraL"></span><em id="extraV"></em></div>
+        <div class="r-cond" id="rCond"></div>
+      </article>
+    </div>
+  </main>
+
+  <section class="step" id="stepOpt" hidden>
+    <span class="k">조건 바꿔보기</span>
+    <h2>내 상황에 맞게 <b>바꿔서</b> 다시 보기</h2>
+    <div class="pickers">
+    <div class="lab">납입 방식 <button type="button" class="qm" id="helpBtn" aria-label="갱신형과 비갱신형 설명 보기">?</button></div>
+    <div class="seg" id="modes" role="group" aria-label="납입 방식">
+      <button type="button" data-v="fix" aria-pressed="false">비갱신</button><button type="button" data-v="ren" aria-pressed="false">갱신</button><button type="button" data-v="mix" aria-pressed="true">섞기<i class="rec">추천</i></button>
+    </div>
+    <div class="lab">보장 크기</div>
+    <div class="seg" id="tiers" role="group" aria-label="보장 크기">
+      <button type="button" data-v="0" aria-pressed="false">가볍게</button><button type="button" data-v="1" aria-pressed="true">표준</button><button type="button" data-v="2" aria-pressed="false">든든하게</button>
+    </div>
+    <div class="cap show" id="tierCap"></div>
+    <div class="lab">넣을 보장</div>
+    <div class="scroll" id="sets" role="group" aria-label="보장 묶음"></div>
+    <div class="wrap" id="custom" role="group" aria-label="담보 직접 고르기"></div>
+    <div class="cap" id="cap">2개 이상 고르면 돼요. 실손은 비교에서 뺐어요</div>
+    </div>
+  </section>
+
+  <section class="step" id="stepSelf" hidden>
+    <span class="k">내 보험 점검</span>
+    <h2>그럼 <b>내 보험</b>은 어떨까</h2>
+    <div class="q"><label id="q1l">지금 보험, 어디에 들어 있나요?</label>
+      <div class="opts" data-q="q1" role="group" aria-labelledby="q1l"><button type="button" data-v="one">한 회사에 전부</button><button type="button" data-v="many">여러 회사에 나눠서</button><button type="button" data-v="idk">잘 모르겠어요</button></div></div>
+    <div class="q"><label id="q2l">가입한 지 얼마나 됐나요?</label>
+      <div class="opts" data-q="q2" role="group" aria-labelledby="q2l"><button type="button" data-v="new">3년 안쪽</button><button type="button" data-v="mid">3~10년</button><button type="button" data-v="old">10년 넘음</button><button type="button" data-v="idk">잘 모르겠어요</button></div></div>
+    <div class="diag" id="diag"><h3>내 보험에서 확인해볼 것</h3><ul id="diagList"></ul></div>
+  </section>
+
+  <section class="step" id="stepCta" hidden>
+    <span class="k">점검 신청</span>
+    <h2>내 보험, <b>한 번</b> 점검해드려요</h2>
+    <div class="how">
+      <div><span>인스타 DM으로 신청해요<small>"점검" 두 글자만 보내도 돼요</small></span></div>
+      <div><span>간단한 동의만 하면 돼요<small>동의 없이는 아무것도 조회하지 않아요</small></span></div>
+      <div><span>내 보험을 한눈에 정리해드려요<small>유지가 나으면 유지하라고 말씀드려요</small></span></div>
+    </div>
+    <p class="daily1">꼼꼼히 보려고 점검은 <b>하루 1명</b>만 받아요</p>
+    <a class="kakao" id="kakao" href="https://ig.me/m/bohum.check.note" target="_blank" rel="noopener">DM으로 점검 신청하기</a>
+    <p class="fine2">점검이 아니어도 괜찮아요. 보험 때문에 궁금하거나 고민되는 게 있으면 편하게 물어보세요.</p>
+    <p class="fine2">여러 회사를 한자리에서 볼 수 있는 건, 한 회사에 소속되지 않고 생명·손해보험 35개사 상품을 함께 다루는 보험대리점(GA) 설계사라서예요.</p>
+  </section>
+
+  <div class="dock">
+    <button class="go" id="go" type="button">비교 영수증 뽑기</button>
+    <button class="again" id="again" type="button">다시</button>
+  </div>
+  <p class="note">프로토타입입니다. 보험료는 화면 확인용 예시 수치이고 실제 견적이 아닙니다. 실제 보험료는 나이·병력·직업과 심사 결과에 따라 달라집니다.</p>
+</div>
+
+<div class="sheet-bg" id="help" role="dialog" aria-modal="true" aria-labelledby="helpT">
+  <div class="sheet">
+    <div class="sh-top"><h2 id="helpT">갱신형과 비갱신형</h2><button type="button" class="x" id="helpX">닫기</button></div>
+    <p class="sh-lead">어느 한쪽이 정답은 아니에요. 담보 성격과 예산에 맞춰 고르는 거라, 둘을 섞는 방식을 가장 많이 써요.</p>
+    <div class="hb"><h3>비갱신형</h3>
+      <p>처음 정한 보험료를 정해진 기간(예: 20년)만 내요. 다 내면 더 내지 않아도 만기까지 보장이 이어져요. 나중 몫까지 미리 내는 구조라 월 보험료가 갱신형보다 높아요.</p>
+      <ul><li>맞는 경우: 진단금처럼 평생 가져갈 보장, 은퇴 뒤 납입 부담을 없애고 싶을 때</li><li>아쉬운 점: 지금 부담이 크고, 중간에 해지하면 손해가 커요</li></ul></div>
+    <div class="hb"><h3>갱신형</h3>
+      <p>10년·20년마다 그때 나이와 위험률로 보험료를 다시 계산해요. 지금은 훨씬 싸지만 나이가 들수록 오르고, 보장받는 동안 계속 내요.</p>
+      <ul><li>맞는 경우: 지금 예산이 빠듯할 때, 치료 기술에 따라 자주 바뀌는 치료비 담보, 특정 시기만 크게 보장받고 싶을 때</li><li>아쉬운 점: 60~70대 보험료가 부담될 수 있고, 총 납입액은 더 많아질 수 있어요</li></ul></div>
+    <div class="hb"><h3>섞기 <i class="rec">추천</i></h3>
+      <p>오래 가져갈 진단금은 비갱신으로 묶고, 수술·치료·간병처럼 바뀌기 쉬운 담보는 갱신으로 가볍게 드는 방식이에요. 여기서는 그 한 가지 예를 보여줘요.</p></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ── 예시 데이터. 실제 견적으로 바꿀 곳은 여기뿐이다 ──
+  // base = 30세 남성 비갱신 월 보험료(원), f = 여성 배율, m = A~E사 배율, MAIN = 회사별 주계약(기본 계약) 월 보험료
+  // a = 보장 크기 3단계의 [가입금액 표시, base 금액 대비 보험료 배율]. base는 배율 1인 금액(암 3천 등)의 견적이고 나머지는 비례 계산
+  // r = 갱신형 첫 보험료가 비갱신의 몇 배인지, ro = 갱신형으로만 파는 담보
+  var CO=["A","B","C","D","E"];
+  var MAIN=[1200,1000,1500,1100,1300];
+  var MAX_CO=3;
+  var D={
+    // 암·뇌·심 진단
+    cancer:{g:0,r:.34,nm:"암 진단(유사암 제외)",base:26800,f:.92,m:[1.00,1.09,1.14,1.05,1.19],t:"일반암에서 유방·생식기암을 빼는 회사가 있어요. 그 경우 남녀특정암 담보로 채워요"},
+    fem:{g:0,r:.4,nm:"남녀특정암 진단",base:1500,f:2.6,m:[1.07,1.00,1.15,1.10,1.04],t:"유방·자궁·전립선 같은 암이에요. 일반암 진단금에 포함되는지 회사마다 달라요"},
+    minor:{g:0,r:.4,nm:"유사암 진단",base:4200,f:1.25,m:[1.12,1.00,1.07,1.18,1.04],t:"갑상선암·제자리암·경계성종양·기타피부암이에요. 일반암의 20%까지만 받는 회사가 많아요"},
+    brain:{g:0,r:.26,nm:"뇌혈관질환 진단",base:6100,f:.88,m:[1.17,1.08,1.00,1.22,1.11],t:"뇌졸중보다 넓은 범위예요. 최초 1회만 주는지 확인하세요"},
+    heart:{g:0,r:.38,nm:"허혈성심장질환 진단",base:7700,f:.62,m:[1.06,1.21,1.13,1.00,1.16],t:"협심증까지 포함돼요. 부정맥·심부전은 별도 담보예요"},
+    arr:{g:0,r:.4,nm:"부정맥 진단",base:900,f:.9,m:[1.10,1.18,1.00,1.06,1.14],t:"허혈성심장 진단에는 안 들어가요. 해당 질병코드를 확인하세요"},
+    hf:{g:0,r:.4,nm:"심부전 진단",base:1100,f:.9,m:[1.00,1.12,1.08,1.16,1.05],t:"허혈성심장 진단과는 별개예요"},
+    // 수술·치료
+    opb:{g:1,r:.35,nm:"질병수술비",base:7800,f:1.1,m:[1.06,1.13,1.00,1.17,1.09],t:"수술할 때마다 받는 기본 수술비예요. 종수술과 따로 받아요. 제외되는 수술을 확인하세요"},
+    op5:{g:1,r:.35,nm:"질병 1~5종 수술",base:10200,f:1.08,m:[1.15,1.00,1.20,1.09,1.05],t:"수술 종류별로 금액이 정해져요. 같은 수술이 회사마다 다른 종으로 분류돼요"},
+    op7:{g:1,r:.35,nm:"급여 1~7종 수술",base:20900,f:1.05,m:[1.29,1.12,1.00,1.18,1.07],t:"1~5종과 분류표가 달라요. 수술코드당 연 1회"},
+    bhop:{g:1,r:.35,nm:"뇌·심장 수술비",base:2400,f:.8,m:[1.10,1.00,1.22,1.06,1.15],t:"진단금과는 달라요. 수술을 해야 받고, 회차에 따라 금액이 달라지는 상품도 있어요"},
+    chemoD:{g:1,r:.4,nm:"항암약물치료",base:2700,f:.95,m:[1.08,1.24,1.15,1.00,1.19],t:"최초 1회인지, 해마다 반복해서 주는지 확인하세요"},
+    radio:{g:1,r:.4,nm:"항암방사선치료",base:2500,f:.95,m:[1.12,1.00,1.20,1.07,1.15],t:"1회 한도인지 확인하세요. 유사암은 금액이 줄어요"},
+    target:{g:1,ro:1,nm:"표적항암약물허가치료",base:1800,f:1.1,m:[1.00,1.27,1.10,1.18,1.06],t:"갱신형으로만 나와요. 첫 지급과 반복 지급 조건이 달라요"},
+    ion:{g:1,ro:1,nm:"항암중입자방사선 5천",base:400,f:1,m:[1.00,1.20,1.08,1.15,1.25],t:"갱신형이에요. 치료받을 수 있는 병원이 정해져 있어요"},
+    nonpay:{g:1,ro:1,nm:"암주요치료비(비급여 포함)",base:9000,f:.97,m:[1.20,1.44,1.00,1.31,1.12],t:"총한도와 항목별 금액은 따로예요. 한도 전체를 한 번에 받는 게 아니에요"},
+    polyp:{g:1,r:.53,nm:"용종 수술비",base:1500,f:.95,m:[1.19,1.07,1.13,1.00,1.10],t:"급여 수술만, 연 1회 한도예요"},
+    // 입원·간병
+    care:{g:2,r:.3,nm:"질병 간병인 일당",base:18000,f:1.12,m:[1.31,1.14,1.22,1.07,1.00],t:"요양병원·한방병원 입원은 빠져요. 사용형인지 지원형인지 확인하세요"},
+    carei:{g:2,flat:1,r:.4,nm:"상해 간병인 일당",base:2800,f:.8,m:[1.20,1.05,1.12,1.00,1.09],t:"질병 간병인 일당과 따로 가입해요"},
+    careY:{g:2,r:.4,nm:"요양병원 간병인 일당 5만",base:2000,f:1.2,m:[1.15,1.00,1.22,1.08,1.12],t:"요양병원에 입원했을 때는 금액이 따로 정해져요"},
+    nurse:{g:2,r:.4,nm:"질병 간호간병통합 일당",base:3200,f:1.1,m:[1.08,1.15,1.00,1.20,1.05],t:"간병인 일당과는 다른 담보예요. 통합서비스 병동에 입원했을 때만 받아요"},
+    nursei:{g:2,flat:1,r:.4,nm:"상해 간호간병통합 일당",base:900,f:.8,m:[1.05,1.12,1.00,1.15,1.08],t:"다쳐서 통합서비스 병동에 입원했을 때 받아요"},
+    hosp:{g:2,r:.4,nm:"질병입원 일당",base:6900,f:1.15,m:[1.00,1.12,1.18,1.07,1.22],t:"며칠째부터 주는지, 한 번 입원에 최대 며칠인지 확인하세요"},
+    // 상해·배상·운전자
+    death:{g:3,flat:1,r:.6,nm:"상해사망",base:1500,f:.5,m:[1.00,1.05,1.03,1.08,1.02],t:"기본 계약으로 꼭 넣어야 하는 회사가 많아요"},
+    dis:{g:3,flat:1,r:.6,nm:"상해후유장해",base:2100,f:.6,m:[1.00,1.08,1.05,1.14,1.10],t:"3% 이상부터 주는지, 80% 이상만 주는지 확인하세요"},
+    injop:{g:3,flat:1,r:.6,nm:"상해수술비",base:1300,f:.7,m:[1.06,1.00,1.12,1.15,1.03],t:"질병수술비로는 다쳐서 하는 수술을 대신할 수 없어요"},
+    injop5:{g:3,flat:1,r:.6,nm:"상해 1~5종 수술",base:700,f:.7,m:[1.00,1.10,1.06,1.14,1.03],t:"다쳐서 하는 수술을 종별로 보장해요"},
+    bone:{g:3,flat:1,r:.6,nm:"골절 진단",base:3900,f:.9,m:[1.05,1.11,1.00,1.08,1.14],t:"치아 파절을 빼는 회사가 있어요"},
+    liab:{g:3,flat:1,ro:1,nm:"일상생활배상책임 1억",base:900,f:1,m:[1.00,1.05,1.02,1.08,1.04],t:"가족이 이미 들었으면 중복이에요. 누수 사고 자기부담금을 확인하세요"},
+    drv1:{g:3,flat:1,r:.7,nm:"교통사고처리지원금",base:4200,f:.85,m:[1.12,1.00,1.07,1.18,1.03],t:"6주 미만 사고와 중상해를 포함하는지가 회사마다 달라요"},
+    drv2:{g:3,flat:1,r:.7,nm:"변호사선임비용",base:1900,f:.85,m:[1.00,1.14,1.09,1.05,1.20],t:"경찰 조사 단계부터 주는지 확인하세요"},
+    drv3:{g:3,flat:1,r:.7,nm:"운전자 벌금 3천",base:600,f:.85,m:[1.05,1.00,1.03,1.08,1.02],t:"스쿨존 사고 한도를 확인하세요"}
+  };
+  // 가입금액(만원). b = base 보험료가 가리키는 금액, t = 가볍게/표준/든든하게, s = 한 번에 바뀌는 폭
+  var AMT={
+    cancer:{b:3000,t:[3000,5000,10000],s:1000,min:1000,max:10000},
+    fem:{b:1000,t:[1000,2000,3000],s:500,min:500,max:5000},
+    minor:{b:600,t:[600,1000,2000],s:200,min:200,max:2000},
+    brain:{b:1000,t:[1000,2000,3000],s:500,min:500,max:3000},
+    heart:{b:1000,t:[1000,2000,3000],s:500,min:500,max:3000},
+    arr:{b:100,t:[100,200,300],s:100,min:100,max:500},
+    hf:{b:300,t:[300,500,1000],s:100,min:100,max:1000},
+    opb:{b:30,t:[30,50,100],s:10,min:10,max:100},
+    bhop:{b:500,t:[500,1000,2000],s:500,min:500,max:2000},
+    chemoD:{b:1000,t:[1000,2000,3000],s:500,min:500,max:5000},
+    radio:{b:1000,t:[1000,2000,3000],s:500,min:500,max:5000},
+    target:{b:5000,t:[3000,5000,10000],s:1000,min:1000,max:10000},
+    nonpay:{b:5000,t:[3000,5000,10000],s:1000,min:1000,max:10000},
+    polyp:{b:20,t:[10,20,30],s:10,min:10,max:30},
+    care:{b:15,t:[10,15,20],s:5,min:5,max:20},
+    carei:{b:15,t:[10,15,20],s:5,min:5,max:20},
+    nurse:{b:5,t:[3,5,7],s:1,min:1,max:10},
+    nursei:{b:5,t:[3,5,7],s:1,min:1,max:10},
+    hosp:{b:3,t:[2,3,5],s:1,min:1,max:5},
+    death:{b:5000,t:[5000,10000,20000],s:5000,min:5000,max:20000},
+    dis:{b:10000,t:[10000,20000,30000],s:10000,min:10000,max:30000},
+    injop:{b:50,t:[30,50,100],s:10,min:10,max:100},
+    bone:{b:30,t:[30,50,100],s:10,min:10,max:100},
+    drv1:{b:20000,t:[10000,20000,30000],s:5000,min:5000,max:30000},
+    drv2:{b:5000,t:[3000,5000,7000],s:1000,min:1000,max:7000}
+  };
+  var GROUPS=["암·뇌·심 진단","수술·치료","입원·간병","상해·배상·운전자"];
+  var ORDER=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","polyp","care","carei","careY","nurse","nursei","hosp","death","dis","injop","injop5","bone","liab","drv1","drv2","drv3"];
+  // rows는 나이대에 따라 달라질 수 있다(간병인 일당은 40대부터)
+  var SETS=[
+    {id:"core",name:"핵심 진단",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart"]}},
+    {id:"basic",name:"진단+수술",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart","opb","op5","injop","bone"]}},
+    {id:"full",name:"풀세팅",ages:[30,40,50],rows:function(a){
+      var r=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","nurse","nursei","death","dis","injop","injop5","bone","liab"];
+      if(a>=40)r.splice(16,0,"care","carei");return r}},
+    {id:"young",name:"사회초년생 실속",ages:[20,30],rows:function(){return ["cancer","minor","opb","op5","polyp","injop","bone","liab"]}},
+    {id:"cancer",name:"암 집중",ages:[30,40,50],rows:function(){return ["cancer","fem","minor","chemoD","radio","target","ion","nonpay"]}},
+    {id:"care",name:"간병·노후",ages:[40,50],rows:function(){return ["brain","heart","bhop","care","carei","careY","nurse","hosp"]}},
+    {id:"driver",name:"운전자",ages:[20,30,40,50],rows:function(){return ["drv1","drv2","drv3","death","dis","injop","bone"]}}
+  ];
+  var AGE={20:.76,30:1,40:1.55,50:2.4,60:3.6,70:5.4};
+  var MODE={fix:"비갱신",ren:"갱신",mix:"섞기"};
+  var TIER=["가볍게","표준","든든하게"];
+
+  function $(id){return document.getElementById(id)}
+  function won(n){return Math.round(n).toLocaleString("ko-KR")}
+  var S={picked:false,amt:{},tier:1,mode:"mix",age:30,sex:"m",set:"basic",rows:SETS[1].rows(30),busy:false,done:false,stale:false,sound:true,serial:0,res:null};
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var rowsEl=$("rows"), receipt=$("receipt"), goBtn=$("go"), againBtn=$("again"), stamp=$("stamp"), app=$("app");
+
+  // 섞기 = 진단금은 비갱신, 나머지(수술·치료·간병·상해)는 갱신
+  function amt(key){var A=AMT[key];return A?(S.amt[key]!=null?S.amt[key]:A.t[S.tier]):null}
+  function fmtAmt(v){
+    if(v>=10000){var e=Math.floor(v/10000),r=v%10000;return e+"억"+(r?" "+r/1000+"천":"")}
+    if(v>=1000){var c=Math.floor(v/1000),h=v%1000;return c+"천"+(h?" "+h+"만":"")}
+    return v+"만";
+  }
+  function nm(key){return D[key].nm+(AMT[key]?" "+fmtAmt(amt(key)):"")}
+  function isRen(key){var d=D[key];return !!d.ro||S.mode==="ren"||(S.mode==="mix"&&d.g!==0)}
+  function price(key,ci,age){
+    var d=D[key],A=AGE[age||S.age],a=d.flat?Math.pow(A,.2):A;
+    return Math.round(d.base*a*(S.sex==="f"?d.f:1)*d.m[ci]*(isRen(key)&&!d.ro?d.r:1)*(AMT[key]?amt(key)/AMT[key].b:1)/100)*100;
+  }
+
+  // ── 계산: 주계약까지 넣고 가장 싼 조합 찾기(모든 회사 배정을 다 따져본다) ──
+  function solve(){
+    var P=S.rows.map(function(k){return CO.map(function(_,c){return price(k,c)})}), best=null;
+    for(var mask=1;mask<32;mask++){
+      var mains=0,cnt=0,sum=0,picks=[];
+      for(var c=0;c<5;c++)if(mask>>c&1){mains+=MAIN[c];cnt++}
+      if(cnt>MAX_CO)continue; // 실제 설계처럼 회사는 최대 3곳까지만 나눈다
+      P.forEach(function(r){var b=-1;for(var c=0;c<5;c++)if(mask>>c&1&&(b<0||r[c]<r[b]))b=c;picks.push(b);sum+=r[b]});
+      var used=0;picks.forEach(function(c){used|=1<<c});
+      if(used!==mask)continue; // 안 쓰는 회사가 낀 묶음은 건너뛴다
+      var t=sum+mains;
+      if(!best||t<best.total||(t===best.total&&cnt<best.cnt))best={total:t,picks:picks,mains:mains,cnt:cnt,mask:mask};
+    }
+    var singles=CO.map(function(_,c){return P.reduce(function(s,r){return s+r[c]},0)+MAIN[c]});
+    var lo=Math.min.apply(null,singles), hi=Math.max.apply(null,singles);
+    best.P=P; best.lo=lo; best.hi=hi; best.loCo=singles.indexOf(lo); best.hiCo=singles.indexOf(hi);
+    best.cos=CO.filter(function(_,c){return best.mask>>c&1});
+    return best;
+  }
+
+  // ── 소리(파일 없이 합성) ──
+  var ac=null;
+  function tone(f,d,type,g,delay){
+    if(!S.sound)return;
+    try{
+      ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+      var t=ac.currentTime+(delay||0), o=ac.createOscillator(), v=ac.createGain();
+      o.type=type||"square"; o.frequency.setValueAtTime(f,t);
+      v.gain.setValueAtTime(g||.05,t); v.gain.exponentialRampToValueAtTime(.0001,t+d);
+      o.connect(v); v.connect(ac.destination); o.start(t); o.stop(t+d+.02);
+    }catch(e){}
+  }
+  function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+  var sfx={
+    feed:function(){for(var i=0;i<8;i++)tone(90+Math.random()*40,.05,"sawtooth",.03,i*.1)},
+    lock:function(i){tone(620+i*70,.09,"square",.05);tone(1240+i*70,.1,"square",.03,.06);buzz(14)},
+    count:function(){tone(1200,.02,"square",.015)},
+    stamp:function(){tone(70,.25,"sawtooth",.12);[523,659,784,1047].forEach(function(f,i){tone(f,.2,"square",.055,.12+i*.09)});buzz([50,40,120])}
+  };
+
+  // ── 영수증 줄 ──
+  function rowHTML(key,i){
+    return '<div class="rowb idle" role="button" tabindex="0" data-i="'+i+'" aria-expanded="false"><span class="name">'+nm(key)+(isRen(key)?'<i class="rb">갱신</i>':'')+'</span>'+
+      '<span class="pick"><span class="co">?사</span><span class="won">· · ·</span></span>'+
+      '<span class="tag"><span class="rng"></span><b></b></span><span class="all"></span></div>';
+  }
+  function rowEl(i){return rowsEl.querySelector('.rowb[data-i="'+i+'"]')}
+  function idle(){
+    var set=SETS.filter(function(t){return t.id===S.set})[0];
+    $("rTheme").textContent=set?set.name:"직접 고른 보장";
+    $("rSub").innerHTML=[S.age+"대 "+(S.sex==="f"?"여성":"남성"),"보장 "+TIER[S.tier],MODE[S.mode]+(S.mode==="mix"?" (진단 비갱신 + 나머지 갱신)":""),"담보 "+S.rows.length+"개"].map(function(t){return "<span>"+t+"</span>"}).join("");
+    var html="", g=-1;
+    S.rows.forEach(function(k,i){
+      if(D[k].g!==g){g=D[k].g;html+='<div class="gh"><span>'+GROUPS[g]+'</span><em data-g="'+g+'"></em></div>'}
+      html+=rowHTML(k,i);
+    });
+    rowsEl.innerHTML=html;
+    rowsEl.classList.toggle("dense",S.rows.length>8);
+    $("rCond").textContent={fix:"20년납 · 100세 만기 · 일반심사(건강체) 기준",ren:"20년 갱신 · 최대 100세 · 일반심사(건강체) 기준",mix:"진단 20년납 100세 만기 · 나머지 20년 갱신 · 일반심사(건강체) 기준"}[S.mode];
+  }
+  function showRow(i,ci,final){
+    var r=rowEl(i), P=S.res.P[i];
+    var badge=r.querySelector(".co"); badge.textContent=CO[ci]+"사"; badge.className="co c"+ci;
+    r.querySelector(".won").textContent=won(P[ci]);
+    if(!final)return;
+    var lo=Math.min.apply(null,P), hi=Math.max.apply(null,P), isMin=P[ci]===lo;
+    r.classList.remove("spin","idle"); r.classList.add("done");
+    r.querySelector(".rng").textContent="5개사 "+won(lo)+"~"+won(hi)+"원";
+    r.querySelector(".tag b").textContent=isMin?"최저":"묶어서 절약";
+    var order=CO.map(function(_,c){return c}).sort(function(a,b){return P[a]-P[b]});
+    r.querySelector(".all").innerHTML=order.map(function(c){
+      return '<div class="c'+c+(P[c]===lo?" min":"")+'"><span>'+CO[c]+'사</span><i style="width:'+Math.round(P[c]/hi*100)+'%"></i><em>'+won(P[c])+'</em></div>';
+    }).join("")+"<p>"+(isMin?"":"이 담보만 보면 "+CO[order[0]]+"사가 더 싸지만, 회사를 하나 더 쓰면 주계약 보험료가 붙어서 묶는 쪽이 싸요. ")+D[S.rows[i]].t+"</p>";
+  }
+  function spinRow(i,finalCi,ms){
+    return new Promise(function(res){
+      var r=rowEl(i);
+      r.classList.remove("idle","done","lock","open"); r.classList.add("spin");
+      if(reduce){finish();return}
+      var iv=setInterval(function(){showRow(i,Math.floor(Math.random()*5),false)},55);
+      setTimeout(function(){clearInterval(iv);finish()},ms);
+      function finish(){showRow(i,finalCi,true);void r.offsetWidth;r.classList.add("lock");sfx.lock(i);res()}
+    });
+  }
+  function countTo(to,ms){
+    return new Promise(function(res){
+      var el=$("sum"); if(reduce){el.textContent=won(to);res();return}
+      var t0=performance.now(), last=0;
+      (function step(t){
+        var k=Math.min(1,(t-t0)/ms), e=1-Math.pow(1-k,3);
+        el.textContent=won(Math.round(to*e/100)*100);
+        if(t-last>55){sfx.count();last=t}
+        if(k<1)requestAnimationFrame(step);else res();
+      })(t0);
+    });
+  }
+  var SCAN_MS=2800;
+  function scan(){
+    var n=S.rows.length*5, el=$("scan"), chips=$("scCos").children, lit=0;
+    el.classList.add("show"); el.classList.remove("ok");
+    $("scT").textContent="5개사 가격표 대조 중";
+    Array.prototype.forEach.call(chips,function(c){c.classList.remove("on")});
+    return new Promise(function(res){
+      function finish(){
+        Array.prototype.forEach.call(chips,function(c){c.classList.add("on")});
+        $("scN").textContent=n+"/"+n; $("scBar").style.width="100%";
+        $("scT").textContent="담보 "+S.rows.length+"개 × 5개사, 가격 "+n+"개 대조 완료"; el.classList.add("ok"); res();
+      }
+      if(reduce){finish();return}
+      var t0=performance.now();
+      (function step(t){
+        var k=Math.min(1,(t-t0)/SCAN_MS);
+        $("scN").textContent=Math.round(n*k)+"/"+n; $("scBar").style.width=(k*100)+"%";
+        var want=Math.min(5,Math.floor(k*5.2));
+        while(lit<want){chips[lit].classList.add("on");tone(500+lit*90,.07,"square",.04);lit++}
+        if(k<1)requestAnimationFrame(step);else finish();
+      })(t0);
+    });
+  }
+  function wait(ms){return new Promise(function(r){setTimeout(r,reduce?0:ms)})}
+
+  function fillAfter(R){
+    var sub={};S.rows.forEach(function(k,i){sub[D[k].g]=(sub[D[k].g]||0)+R.P[i][R.picks[i]]});
+    Array.prototype.forEach.call(rowsEl.querySelectorAll(".gh em"),function(e){e.textContent=won(sub[e.dataset.g])});
+    $("extraL").textContent="주계약 보험료 (회사 "+R.cnt+"곳)"; $("extraV").textContent="+"+won(R.mains);
+    $("extra").classList.add("show");
+    var rn=0,now=0,later=0;
+    S.rows.forEach(function(k,i){if(isRen(k)){rn++;now+=R.P[i][R.picks[i]];later+=price(k,R.picks[i],S.age+20)}});
+    $("renew").innerHTML=rn?"갱신 담보 "+rn+"개는 지금 월 <b>"+won(now)+"원</b>, 20년 뒤 갱신 때는 약 <b>"+won(later)+"원</b>으로 예상돼요. 보장받는 동안 계속 내요.":"전부 비갱신이라 20년 납입이 끝나면 더 내지 않고 만기까지 보장받아요.";
+    $("renew").classList.add("show");
+    $("sumL").textContent=R.cnt===1?"한 회사로 가입한 월 합계":"회사 "+R.cnt+"곳에 나눈 월 합계";
+  }
+  function showResult(){
+    var R=S.res, top=R.hi, gap=R.hi-R.total, viaPick=R.hi-R.lo, viaMix=R.lo-R.total;
+    var mixName=R.cnt===1?CO[R.loCo]+"사 한 곳":R.cos.join("+")+"사로 나눔";
+    var bars=[
+      {c:"",l:"가장 비싼 한 곳에 전부 ("+CO[R.hiCo]+"사)",v:R.hi},
+      {c:"",l:"가장 싼 한 곳에 전부 ("+CO[R.loCo]+"사)",v:R.lo},
+      {c:"mix",l:"가장 싼 조합 ("+mixName+")",v:R.total}
+    ];
+    $("cmpBars").innerHTML=bars.map(function(b){return '<div class="cb '+b.c+'"><span>'+b.l+'</span><em>'+won(b.v)+'원</em><i data-w="'+Math.round(b.v/top*100)+'"></i></div>'}).join("");
+    $("cmp").classList.add("show");
+    setTimeout(function(){Array.prototype.forEach.call($("cmpBars").querySelectorAll("i"),function(b){b.style.width=b.dataset.w+"%"})},reduce?0:80);
+    $("stV").textContent=won(gap)+"원";
+    $("vs").innerHTML="같은 보장인데 20년이면 <b>"+won(Math.round(gap*240/10000))+"만 원</b> 차이예요. "+
+      "회사만 잘 골라도 월 <b>"+won(viaPick)+"원</b>"+(viaMix>0?", 담보별로 나누면 <b>"+won(viaMix)+"원</b> 더 줄어요.":"이 줄고, 이 조합은 한 회사로 드는 게 가장 싸요.");
+    var why="";
+    if(viaMix>0){
+      var nOther=0,sav=0;
+      S.rows.forEach(function(k,i){if(R.picks[i]!==R.loCo){nOther++;sav+=R.P[i][R.loCo]-R.P[i][R.picks[i]]}});
+      var addMain=R.mains-MAIN[R.loCo];
+      why="<b>왜 나누면 더 쌀까요?</b> 합계로는 "+CO[R.loCo]+"사가 가장 싸지만, 담보 "+S.rows.length+"개 중 "+nOther+"개는 다른 회사가 더 싸요. 그 "+nOther+"개만 옮기면 <b>"+won(sav)+"원</b>이 줄고, "+
+        (addMain>0?"회사가 늘어 주계약 <b>"+won(addMain)+"원</b>이 더 붙어도 <b>"+won(viaMix)+"원</b>이 남아요.":"주계약도 더 들지 않아요.");
+    }
+    $("why").innerHTML=why; $("why").classList.toggle("show",!!why);
+    $("rFoot").textContent="줄을 누르면 5개사 가격";
+    stamp.classList.remove("hit"); void stamp.offsetWidth; stamp.classList.add("hit");
+    sfx.stamp();
+    if(!reduce){app.classList.remove("shake");void app.offsetWidth;app.classList.add("shake");burst(["#2f6bff","#ffffff","#f2b93b"],90)}
+    $("stepOpt").hidden=false; $("stepSelf").hidden=false; $("stepCta").hidden=false;
+  }
+
+  function ui(){
+    goBtn.disabled=S.busy;
+    if(S.busy)return;
+    receipt.classList.toggle("stale",S.done&&S.stale);
+    goBtn.classList.toggle("wait",!S.done&&!S.picked);
+    if(!S.done){goBtn.textContent=S.picked?"비교 영수증 뽑기":"나이대를 먼저 눌러주세요";againBtn.classList.remove("show")}
+    else if(S.stale){goBtn.textContent="바꾼 조건으로 다시 뽑기";againBtn.classList.remove("show")}
+    else{goBtn.textContent="내 보험도 점검해보기";againBtn.classList.add("show")}
+  }
+
+  function run(){
+    if(S.busy)return;
+    S.busy=true; S.stale=false; receipt.classList.remove("stale"); ui();
+    Array.prototype.forEach.call($("ages").children,function(x){x.setAttribute("aria-pressed",+x.dataset.v===S.age?"true":"false")});
+    S.res=solve(); S.serial++;
+    idle();
+    $("rNo").textContent="NO. "+("000"+S.serial).slice(-4);
+    $("sum").textContent="?"; $("cmp").classList.remove("show"); $("extra").classList.remove("show"); $("renew").classList.remove("show"); stamp.classList.remove("hit");
+    $("rFoot").textContent="비교하는 중"; $("scan").classList.remove("show");
+    receipt.classList.remove("print"); void receipt.offsetWidth; receipt.classList.add("print");
+    receipt.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+    sfx.feed(); buzz(20);
+    var R=S.res;
+    wait(850).then(function(){
+      var gapMs=S.rows.length>12?130:S.rows.length>8?200:340;
+      scan();
+      return Promise.all(S.rows.map(function(k,i){return spinRow(i,R.picks[i],(reduce?0:SCAN_MS)+420+i*gapMs)}));
+    }).then(function(){
+      fillAfter(R);
+      return wait(200);
+    }).then(function(){return countTo(R.total,700)})
+      .then(function(){return wait(180)})
+      .then(function(){S.done=true;showResult();S.busy=false;ui();receipt.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})});
+  }
+
+  // ── 종이 가루 ──
+  var fx=$("fx"), ctx=fx.getContext("2d"), parts=[], raf=0;
+  function burst(colors,count){
+    var r=fx.getBoundingClientRect(), d=window.devicePixelRatio||1;
+    fx.width=r.width*d; fx.height=r.height*d; ctx.setTransform(d,0,0,d,0,0);
+    var sr=stamp.getBoundingClientRect(), ox=sr.left-r.left+sr.width/2, oy=sr.top-r.top+sr.height/2;
+    for(var i=0;i<count;i++){
+      var a=-Math.PI/2+(Math.random()-.5)*2.6, v=4+Math.random()*9;
+      parts.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,w:4+Math.random()*5,h:7+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.5,life:1,c:colors[i%colors.length]});
+    }
+    if(!raf)raf=requestAnimationFrame(tick);
+  }
+  function tick(){
+    var r=fx.getBoundingClientRect();
+    ctx.clearRect(0,0,r.width,r.height);
+    parts=parts.filter(function(p){return p.life>0&&p.y<r.height+30});
+    parts.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.vy+=.28;p.vx*=.985;p.r+=p.vr;p.life-=.009;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.globalAlpha=Math.min(1,p.life*2);ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+    });
+    raf=parts.length?requestAnimationFrame(tick):0;
+  }
+
+  // ── 조건 고르기 ──
+  function tierCap(){$("tierCap").textContent="암 진단 "+fmtAmt(AMT.cancer.t[S.tier])+" · 뇌·심장 진단 각 "+fmtAmt(AMT.brain.t[S.tier])+" · 표적항암 "+fmtAmt(AMT.target.t[S.tier])+" 기준"}
+  function drawSets(){
+    tierCap();
+    var ok=SETS.filter(function(t){return t.ages.indexOf(S.age)>=0});
+    if(S.set!=="custom"&&!ok.some(function(t){return t.id===S.set}))S.set=ok[0].id;
+    var cur=SETS.filter(function(t){return t.id===S.set})[0]; if(cur)S.rows=cur.rows(S.age);
+    $("sets").innerHTML=ok.map(function(t){return '<button type="button" data-id="'+t.id+'" aria-pressed="'+(S.set===t.id)+'">'+t.name+'</button>'}).join("")+
+      '<button type="button" data-id="custom" aria-pressed="'+(S.set==="custom")+'">직접 고르기</button>';
+    $("custom").classList.toggle("show",S.set==="custom"); $("cap").classList.toggle("show",S.set==="custom");
+    $("custom").innerHTML=GROUPS.map(function(gn,g){
+      return '<div class="cg"><span>'+gn+'</span><div>'+ORDER.filter(function(k){return D[k].g===g}).map(function(k){return '<button type="button" data-k="'+k+'" aria-pressed="'+(S.rows.indexOf(k)>=0)+'">'+nm(k)+'</button>'}).join("")+'</div></div>';
+    }).join("");
+  }
+  function changed(){
+    if(S.done){S.stale=true}else{idle()}
+    ui();
+  }
+  function seg(id,key,cast,auto){
+    $(id).addEventListener("click",function(e){
+      var b=e.target.closest("button"); if(!b||S.busy)return;
+      S[key]=cast(b.dataset.v); if(key==="age")S.picked=true;
+      Array.prototype.forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      drawSets();
+      if(auto)run(); else changed();
+    });
+  }
+  seg("ages","age",Number); seg("sexes","sex",String); seg("modes","mode",String); seg("tiers","tier",Number);
+  $("helpBtn").addEventListener("click",function(){$("help").classList.add("show")});
+  $("helpX").addEventListener("click",function(){$("help").classList.remove("show")});
+  $("help").addEventListener("click",function(e){if(e.target===this)this.classList.remove("show")});
+  $("sets").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b||S.busy)return;
+    S.set=b.dataset.id;
+    var t=SETS.filter(function(x){return x.id===S.set})[0];
+    drawSets(); changed();
+  });
+  $("custom").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b||S.busy)return;
+    var k=b.dataset.k, at=S.rows.indexOf(k);
+    if(at>=0){if(S.rows.length<=2)return;S.rows.splice(at,1)}else{S.rows.push(k)}
+    S.rows.sort(function(a,b){return ORDER.indexOf(a)-ORDER.indexOf(b)});
+    drawSets(); changed();
+  });
+
+  // ── 버튼 ──
+  goBtn.addEventListener("click",function(){
+    if(S.done&&!S.stale){$("stepSelf").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});return}
+    if(!S.picked){var a=$("ages");a.classList.remove("nudge");void a.offsetWidth;a.classList.add("nudge");a.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});return}
+    run();
+  });
+  againBtn.addEventListener("click",run);
+  rowsEl.addEventListener("click",function(e){
+    var b=e.target.closest(".rowb"); if(!b||!b.classList.contains("done"))return;
+    var open=b.classList.toggle("open"); b.setAttribute("aria-expanded",open?"true":"false");
+  });
+  rowsEl.addEventListener("keydown",function(e){
+    if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("rowb")){e.preventDefault();e.target.click()}
+  });
+  $("snd").addEventListener("click",function(){S.sound=!S.sound;this.setAttribute("aria-pressed",S.sound?"true":"false");this.textContent=S.sound?"소리 켬":"소리 끔"});
+
+  // ── 내 보험 점검 ──
+  var ANS={}, TIP={
+    q1:{one:"한 회사에 전부 들었다면, 그 회사가 싼 쪽인지 비싼 쪽인지 비교해본 적이 없을 가능성이 커요.",
+        many:"나눠 들었어도 같은 담보가 겹치거나, 비싼 회사 쪽에 몰려 있을 수 있어요.",
+        idk:"어느 회사에 어떤 담보가 있는지부터 한눈에 정리하는 게 먼저예요."},
+    q2:{"new":"낸 보험료가 적을 때가 고치기 가장 쉬워요. 잘못 짜인 부분이 있다면 지금 잡아야 손해가 제일 작아요.",
+        mid:"가입할 때와 지금은 상황이 달라졌을 거예요. 그 사이 새로 나온 보장도 많아서, 빠진 게 가장 많이 나오는 구간이에요.",
+        old:"예전 기준이라 보장 범위가 좁고 만기가 짧은 경우가 많아요. 정작 필요한 나이에 보장이 끝나 있거나, 진단받고도 해당이 안 될 수 있어요.",
+        idk:"언제 들었는지 기억이 안 난다면, 그동안 아무도 봐주지 않았다는 뜻이에요. 지금 뭐가 들어 있는지부터 정리해드려요."}
+  };
+  Array.prototype.forEach.call(document.querySelectorAll(".opts"),function(g){
+    g.addEventListener("click",function(e){
+      var b=e.target.closest("button"); if(!b)return;
+      ANS[g.dataset.q]=b.dataset.v;
+      Array.prototype.forEach.call(g.children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      if(ANS.q1&&ANS.q2){
+        $("diagList").innerHTML=[TIP.q1[ANS.q1],TIP.q2[ANS.q2],"바꾸는 게 손해인 경우도 있어요. 점검해보고 유지할지 정하면 돼요."].map(function(t){return "<li>"+t+"</li>"}).join("");
+        $("diag").classList.add("show");
+      }
+    });
+  });
+
+  drawSets(); idle(); ui();
+})();
+</script>
+</body>
+</html>
