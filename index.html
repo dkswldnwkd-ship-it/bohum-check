@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>보험료 비교 영수증</title>
-<meta name="description" content="내 나이대만 누르면 담보마다 어느 회사가 싼지 영수증으로 보여줘요.">
-<meta name="theme-color" content="#090c12">
+<meta name="description" content="내 나이대만 누르면 보장마다 어느 회사가 싼지 영수증으로 보여줘요.">
+<meta name="theme-color" content="#fff6e5">
 <link rel="canonical" href="https://dkswldnwkd-ship-it.github.io/bohum-check/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="보험료 비교 영수증">
 <meta property="og:title" content="같은 보장, 회사마다 얼마나 다를까">
-<meta property="og:description" content="내 나이대만 누르면 담보마다 어느 회사가 싼지 영수증으로 보여줘요.">
+<meta property="og:description" content="내 나이대만 누르면 보장마다 어느 회사가 싼지 영수증으로 보여줘요.">
 <meta property="og:url" content="https://dkswldnwkd-ship-it.github.io/bohum-check/">
 <meta property="og:image" content="https://dkswldnwkd-ship-it.github.io/bohum-check/og.png">
 <meta property="og:image:width" content="1200">
@@ -245,6 +245,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 
 .dock{position:sticky;bottom:0;z-index:8;display:flex;gap:8px;padding:22px 0 12px;margin-bottom:-6px;background:linear-gradient(to bottom, rgba(9,12,18,0), var(--ink) 30%)}
 .go{flex:1;padding:17px 10px;border-radius:12px;background:var(--gold);color:#1b1400;font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-.01em;transition:transform .08s;box-shadow:0 5px 0 #a87a14}
+a.go{display:block;text-align:center;text-decoration:none}
 .go:active{transform:translateY(4px);box-shadow:0 1px 0 #a87a14}
 .go.wait{background:var(--ink-2);color:var(--soft);box-shadow:none;font-size:17px}
 #ages.nudge{animation:nudge .5s}
@@ -276,6 +277,93 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 #stepCta{padding-top:6px}
 #stepCta .kakao{display:none}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* 보장 한 가지 = 캡슐 하나 */
+.rows{gap:6px}
+.rowb{grid-template-columns:34px 1fr auto;gap:4px 10px;background:#fff;border-radius:16px;padding:9px 12px 9px 9px;margin:0;width:100%;box-shadow:0 1px 0 rgba(12,17,27,.07)}
+.rowb + .rowb,.gh + .rowb{border-top:0}
+.ic{width:34px;height:34px;border-radius:50%;background:#eef1f6;display:grid;place-items:center;font-size:17px;line-height:1}
+.rowb .name{display:flex;flex-direction:column;gap:1px;min-width:0}
+.sit{font-size:13px;font-weight:600;color:var(--paper-mute);line-height:1.32;word-break:keep-all;letter-spacing:-.01em}
+.amt{font-size:16.5px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.won{min-width:60px}
+.rowb.spin .ic,.rowb.idle .ic{filter:grayscale(1);opacity:.55}
+.rowb .tag,.rowb .all{padding-left:44px}
+.gh{border-bottom:0;padding:12px 2px 2px}
+.rows.dense .rowb{padding:7px 12px 7px 8px}
+.rows.dense .ic{width:30px;height:30px;font-size:15px}
+.rows.dense .rowb{grid-template-columns:30px 1fr auto}
+.rows.dense .sit{font-size:12.5px}
+.rows.dense .amt{font-size:15.5px}
+.rows.dense .rowb .tag,.rows.dense .rowb .all{padding-left:40px}
+.all p.off{font-size:12.5px;color:#8a93a5;margin-top:4px}
+/* 합계 아래: 한 줄 결론 → 막대 3개 → 나머지는 접어둠 */
+.cmp{gap:12px;margin-top:12px}
+.gapline{background:var(--paper-ink);color:#fff;border-radius:14px;padding:13px 16px 14px;font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.gapline small{display:block;font-size:13px;font-weight:600;color:#aab3c5;margin-bottom:2px;letter-spacing:0}
+.gapline b{font-family:var(--mono);font-size:26px;color:var(--gold);letter-spacing:-.03em}
+.bars{display:flex;flex-direction:column;gap:6px}
+.cb{background:#fff;border-radius:12px;padding:9px 12px 10px;gap:6px 10px}
+.cb span{font-size:14px;font-weight:700;color:#7a8497}
+.cb span small{font-size:12px;font-weight:600;color:#a1a9b8;margin-left:2px}
+.cb em{font-size:15px;color:#7a8497}
+.cb i{height:8px;border-radius:4px;background:#cfd5df}
+.cb.mix{background:#eaf1ff;box-shadow:inset 0 0 0 1.5px #2563eb}
+.cb.mix span{color:var(--paper-ink)}
+.cb.mix span small{color:#2563eb}
+.cb.mix em{color:#1d4ed8;font-size:17px}
+.cb.mix i{background:#2563eb}
+.more{border-top:1.5px dashed var(--paper-rule);padding-top:10px}
+.more summary{list-style:none;cursor:pointer;font-size:14px;font-weight:700;color:var(--paper-ink);display:flex;justify-content:space-between;align-items:center}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"펼치기";font-size:12.5px;font-weight:600;color:var(--paper-mute)}
+.more[open] summary::after{content:"접기"}
+.more[open] summary{margin-bottom:10px}
+.more .vs{font-size:14px;margin:0 0 10px}
+.more .renew{margin-top:10px}
+/* 캡슐을 모든 화면의 공통 단위로 */
+.pv{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.cap1{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;background:#fff;color:var(--paper-ink);border-radius:16px;padding:9px 12px 9px 9px}
+.cap1 .name{display:flex;flex-direction:column;gap:1px;min-width:0}
+.cap1 .qz{display:flex;align-items:center;gap:3px}
+.cap1 .qz i{font-style:normal;font-size:12px;font-weight:700;color:#fff;background:var(--cc);border-radius:5px;padding:4px 7px}
+.cap1 .qz b{font-family:var(--mono);font-size:16px;font-weight:700;margin-left:8px;color:#9aa3b3}
+.pv-cap{display:flex;flex-direction:column;gap:3px;margin-bottom:3px}
+.pv-cap s{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration-color:rgba(151,162,184,.6)}
+.pv-cap b{font-size:16px;font-weight:700;color:var(--gold);letter-spacing:-.01em}
+@media(max-height:718px){.pv .c3rd{display:none}}
+@media(max-height:652px){.pv .cap1:nth-of-type(2){display:none}}
+@media(max-height:592px){.pv{display:none}}
+.app[data-s="0"] .hk-sub{margin-top:-2px}
+#stepSelf .opts button{display:flex;align-items:center;gap:12px;background:#fff;color:var(--paper-ink);border-radius:16px;padding:11px 16px 11px 11px;font-size:16.5px}
+#stepSelf .opts button .ic{background:#eef1f6;flex:none}
+#stepSelf .opts button[aria-pressed="true"]{background:var(--gold);color:#1b1400}
+#stepSelf .opts button[aria-pressed="true"] .ic{background:rgba(255,255,255,.55)}
+#stepCta .diag{background:#fff;color:var(--paper-ink);border-radius:16px}
+#stepCta .diag h3{color:#8a6410}
+#stepCta .diag li{font-weight:600}
+#stepCta .how{gap:7px;counter-reset:none}
+#stepCta .how div{grid-template-columns:34px 1fr;align-items:center;background:var(--ink-2);border:0;border-radius:16px;padding:10px 14px 10px 10px}
+#stepCta .how div::before{content:none}
+#stepCta .how .ic{font-style:normal;background:#232c3f}
+/* 첫 화면: 제목은 크게 위에, 고르는 것과 버튼은 엄지 닿는 아래에 */
+.app[data-s="0"] .top{margin-top:10px}
+.app[data-s="0"] .top h1{font-size:clamp(28px,9.4vw,40px);line-height:1.14}
+.app[data-s="0"] .top h1 span{white-space:nowrap}
+.app[data-s="0"] .hook{margin-top:6px}
+.app[data-s="0"] .hook dd{font-size:15.5px}
+.app[data-s="0"] .hk-sub{font-size:15.5px;line-height:1.5;margin-top:2px}
+.app[data-s="0"] .pickers{margin-top:auto}
+.app[data-s="0"] .pickers .seg button{padding:14px 12px;font-size:15.5px}
+.app[data-s="0"] .dock{margin-top:0;padding-top:12px}
+/* 질문 화면: 가운데로 */
+.app[data-s="4"] .step{border-top:0}
+#stepSelf{margin:auto 0}
+@media(max-width:340px){.app[data-s="0"] .pickers .seg button{padding:13px 6px;font-size:14px}}
+/* 신청 화면: 촘촘하게 */
+#stepCta{gap:12px}
+#stepCta .how div{padding:10px 0}
+#stepCta .diag{padding:14px 16px}
+#stepCta .diag h3{font-size:14px}
 @media(prefers-reduced-motion:reduce){.app.enter > [data-on],.app.enterB > [data-on]{animation:none}}
 .sharebar{display:flex;flex-direction:column;gap:8px;margin-top:14px}
 .sharebar[hidden]{display:none}
@@ -284,6 +372,90 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 .note{font-size:13px;line-height:1.55;color:var(--muted);text-align:center}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+
+/* ===== 마트 컨셉: 밝은 바탕, 빨간 가격표, 직접 그린 그림 ===== */
+:root{--ink:#fff6e5;--ink-2:#fff;--line:#ead9bb;--paper:#fffdf9;--paper-ink:#2a211b;--paper-mute:#7d6e60;--paper-rule:#d9cbb4;--muted:#8c7b6a;--soft:#5d5046;--gold:#ee4b2b;--tx:#2a211b;--yel:#ffd43b;color-scheme:light}
+body{background:var(--ink);color:var(--tx)}
+.app::before{content:"";flex:none;height:14px;margin:-16px -18px 0;background:repeating-linear-gradient(90deg,#ee4b2b 0 22px,#fff 22px 44px);border-bottom:2px solid var(--tx)}
+.back,.snd[aria-pressed="true"],.who b{color:var(--tx)}
+.seg button,.scroll button,.wrap button{background:#fff;color:var(--soft);box-shadow:inset 0 0 0 1.500px var(--line)}
+.seg button[aria-pressed="true"],.scroll button[aria-pressed="true"],.wrap button[aria-pressed="true"]{background:var(--yel);color:var(--tx);box-shadow:inset 0 0 0 2px var(--tx)}
+.rec{background:var(--gold);color:#fff}
+.go{background:var(--gold);color:#fff;box-shadow:0 5px 0 #b3361c}
+.go:active{box-shadow:0 1px 0 #b3361c}
+.go.wait,.go[disabled]{background:#f1e4cc;color:var(--muted);box-shadow:none}
+.dock{background:linear-gradient(to bottom,rgba(255,246,229,0),var(--ink) 30%)}
+.sheet-bg{background:rgba(42,33,27,.5)}
+.share{background:#fff;color:var(--tx);border:1.500px solid var(--line)}
+.ic svg{width:24px;height:24px;display:block}
+.rows.dense .ic svg{width:21px;height:21px}
+/* 첫 화면 */
+.pv{gap:8px;margin-top:2px}
+.pv-item{align-self:center;font-size:14px;font-weight:700;background:#fff;border:1.500px solid var(--tx);border-radius:999px;padding:5px 12px 5px 5px;display:flex;align-items:center;gap:8px}
+.pv-item span{font-size:12px;background:var(--tx);color:#fff;border-radius:999px;padding:3px 9px}
+.stalls{width:100%;height:auto;display:block;font-family:var(--sans)}
+.pv-cap{align-items:center;margin:2px 0 0}
+.pv-cap s{color:var(--muted)}
+.pv-cap b{color:var(--tx);font-size:16.500px;background:linear-gradient(transparent 58%,var(--yel) 58%);padding:0 3px}
+/* 계산대와 영수증 */
+.pos{width:100%;height:auto;display:block;position:relative;z-index:3;font-family:var(--sans)}
+.feed{margin-top:-9px;filter:drop-shadow(0 4px 7px rgba(90,60,20,.2))}
+.rowb{background:#fff5e1;box-shadow:none}
+.ic{background:#fff}
+@keyframes lock{0%{transform:scale(1.06);background:var(--yel)}100%{transform:none;background:#fff5e1}}
+.co{border-radius:4px;padding:0 6px 0 11px;clip-path:polygon(9px 0,100% 0,100% 100%,9px 100%,0 50%);min-width:42px}
+.cap1 .qz i{border-radius:4px}
+.tags span{background:#fff0d2}
+.sc-cos span,.sc-bar{background:#f1e6d2}
+.stamp{border-color:#d7331a;color:#d7331a;background:rgba(255,253,249,.9)}
+.gapline{background:var(--yel);color:var(--tx);border:2px solid var(--tx)}
+.gapline small{color:#6b5300}
+.gapline b{color:#d7331a}
+.cb{background:#fff5e1}
+.cb span,.cb em{color:#8c7b6a}
+.cb span small{color:#b3a391}
+.cb i{background:#e3d5bd}
+.cb.mix{background:#fff0ec;box-shadow:inset 0 0 0 2px var(--gold)}
+.cb.mix span small,.cb.mix em{color:#d7331a}
+.cb.mix i{background:var(--gold)}
+.why{background:#fff3da;color:#4a3f36}
+.r-cond::after{content:"";display:block;height:28px;width:64%;margin:12px auto 0;background:repeating-linear-gradient(90deg,#2a211b 0 2px,transparent 2px 4px,#2a211b 4px 5px,transparent 5px 9px,#2a211b 9px 12px,transparent 12px 14px)}
+/* 질문 · 신청 */
+#stepSelf .opts button{background:#fff;color:var(--tx);box-shadow:inset 0 0 0 1.500px var(--line)}
+#stepSelf .opts button .ic{background:#fff3da}
+#stepSelf .opts button[aria-pressed="true"]{background:var(--yel);color:var(--tx);box-shadow:inset 0 0 0 2px var(--tx)}
+#stepCta .diag{box-shadow:inset 0 0 0 1.500px var(--line)}
+#stepCta .diag h3{color:#d7331a}
+#stepCta .how div{background:#fff;box-shadow:inset 0 0 0 1.500px var(--line);padding:10px 14px 10px 10px}
+#stepCta .how .ic{background:#fff3da}
+
+/* 빨강은 가격과 버튼에만 */
+.top h1 span,.step h2 b,.daily1 b{color:var(--tx);background:linear-gradient(transparent 62%,var(--yel) 62%)}
+.step .k{color:var(--muted)}
+.dots b.on{background:var(--tx)}
+#stepCta .diag h3{color:var(--tx)}
+.diag li::before{background:var(--tx)}
+.sharemsg,.pnote,.sh-lead{color:var(--soft)}
+/* 가격표가 차례로 걸린다 */
+.pt{transform-box:fill-box;transform-origin:50% 0;animation:ptin .5s cubic-bezier(.3,1.6,.5,1) both}
+.pt0{animation-delay:.35s}.pt1{animation-delay:.95s}.pt2{animation-delay:.65s}
+@keyframes ptin{from{transform:scaleY(0) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+.pt.best{animation:ptin .5s cubic-bezier(.3,1.6,.5,1) .95s both,ptw 1.6s ease-in-out 1.6s infinite}
+@keyframes ptw{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+@media(max-height:730px){.pv-item{display:none}}
+@media(max-height:700px){.pv-cap s{display:none}.app[data-s="0"] .top{margin-top:0}}
+@media(max-height:670px){.app[data-s="0"] .hk-sub{display:none}}
+@media(max-height:620px){.pv .stalls{display:block;width:230px;margin:0 auto}}
+@media(max-height:560px){.pv{display:none}}
+/* 질문 화면 장바구니 */
+.cartpic{width:112px;height:auto;display:block;margin-bottom:-4px}
+.app[data-s="4"] .cartpic{display:none}
+#modes button{white-space:normal;line-height:1.25;padding:10px 6px}
+#modes button small{display:block;font-size:11px;font-weight:600;opacity:.75;margin-top:2px}
+#stepCta .diag{border-radius:6px;box-shadow:none;border:1.500px dashed var(--tx);background:#fffdf9}
+.realbtn{display:block;text-decoration:none;text-align:center;background:var(--yel);color:var(--tx);border:2px solid var(--tx);border-radius:12px;padding:12px 12px 11px}
+.realbtn b{display:block;font-size:16px;font-weight:700}
+.realbtn small{display:block;font-size:12.5px;font-weight:600;color:#6b5300;margin-top:3px;line-height:1.4;word-break:keep-all}
 </style>
 </head>
 <body>
@@ -292,12 +464,12 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   <header class="top" data-on="0">
     <h1>같은 보장,<br><span>회사마다 얼마나 다를까</span></h1>
   </header>
-  <dl class="hook" data-on="0">
-    <div><dt>예전</dt><dd>아는 설계사 한 명, 그 회사 상품으로 전부</dd></div>
-    <div class="now"><dt>요즘</dt><dd>담보마다 싼 회사를 골라 2~3곳에 나눠서</dd></div>
-  </dl>
-  <p class="hk-sub" data-on="0">담보마다 가장 싼 회사가 달라요. 내 나이로 확인해보세요.</p>
-
+  <p class="hk-sub" data-on="0">같은 과자도 마트마다 값이 다르듯,<br>같은 보장도 회사마다 값이 달라요.</p>
+  <div class="pv" data-on="0" aria-hidden="true">
+    <p class="pv-item"><span>같은 물건</span>암에 걸리면 5천만 원</p>
+    <svg class="stalls" viewBox="0 0 330 146" fill="none" stroke="#2a211b" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(4 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">A사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt0"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">비싸요</text></g></g><g transform="translate(115 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">B사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt1 best"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#ee4b2b"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" stroke="none">제일 싸요</text></g></g><g transform="translate(226 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">C사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt2"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">보통</text></g></g></svg>
+    <p class="pv-cap"><s>예전 · 한 회사에서 전부 사기</s><b>요즘 · 보장마다 싼 곳에서 골라 담기</b></p>
+  </div>
   <div class="pickers" data-on="0">
     <div class="pair">
       <div><div class="lab" style="margin-bottom:6px">내 나이대</div>
@@ -317,7 +489,13 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   </section>
   <main class="printer" data-on="1">
     <canvas id="fx"></canvas>
-    <div class="slot"></div>
+    <svg class="pos" viewBox="0 0 340 78" fill="none" stroke="#2a211b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<rect x="34" y="3" width="150" height="40" rx="7" fill="#2a211b"/><text x="109" y="29" text-anchor="middle" font-size="15" font-weight="700" fill="#7dffb0" stroke="none">5개사 가격 비교</text>
+<path d="M12 78V46a10 10 0 0 1 10-10h296a10 10 0 0 1 10 10v32z" fill="#ee4b2b"/>
+<g fill="#fff"><rect x="204" y="44" width="13" height="7" rx="2"/><rect x="222" y="44" width="13" height="7" rx="2"/><rect x="240" y="44" width="13" height="7" rx="2"/><rect x="258" y="44" width="13" height="7" rx="2"/><rect x="276" y="44" width="13" height="7" rx="2"/><rect x="204" y="54" width="13" height="7" rx="2"/><rect x="222" y="54" width="13" height="7" rx="2"/><rect x="240" y="54" width="13" height="7" rx="2"/><rect x="258" y="54" width="13" height="7" rx="2"/><rect x="276" y="54" width="13" height="7" rx="2"/></g>
+<rect x="296" y="44" width="20" height="16" rx="3" fill="#ffd43b"/>
+<rect x="30" y="64" width="280" height="9" rx="4.500" fill="#2a211b"/>
+</svg>
     <div class="feed">
       <article class="receipt" id="receipt">
         <div class="r-head"><span class="r-no" id="rNo">NO. 0000</span><span class="r-no">5개사 비교 · 예시 수치</span></div>
@@ -330,7 +508,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
           <div class="sc-bar"><i id="scBar"></i></div>
         </div>
         <hr class="rule">
-        <div class="sec"><span>담보별 명세</span><span id="rFoot">버튼을 누르면 채워져요</span></div>
+        <div class="sec"><span>이럴 때 이만큼 받아요</span><span id="rFoot">월 보험료</span></div>
         <div class="rows" id="rows"></div>
         <div class="extra" id="extra" style="margin-top:10px"><span id="extraL"></span><em id="extraV"></em></div>
         <hr class="rule">
@@ -340,32 +518,38 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
           <div class="stamp" id="stamp"><span>월 최대</span><strong id="stV"></strong><span>차이</span></div>
         </div>
         <div class="pB">
-        <div class="cmp" id="cmp"><div id="cmpBars" style="display:flex;flex-direction:column;gap:11px;margin-top:6px"></div><div class="vs" id="vs"></div><p class="why" id="why"></p></div>
-        <p class="renew" id="renew"></p>
+        <div class="cmp" id="cmp">
+          <div class="gapline" id="gapLine"></div>
+          <div id="cmpBars" class="bars"></div>
+          <details class="more" id="more"><summary id="moreS">왜 골라 담으면 더 쌀까요?</summary>
+            <div class="vs" id="vs"></div><p class="why" id="why"></p><p class="renew" id="renew"></p>
+          </details>
+        </div>
         </div>
         <div class="r-cond" id="rCond"></div>
       </article>
     </div>
   </main>
   <div class="sharebar" id="shareBar" data-on="1">
+    <a class="realbtn" id="realBtn" href="https://ig.me/m/bohum.check.note"><b>내 조건으로 진짜 영수증 받기</b><small>누르면 조건이 복사돼요. DM에 붙여넣기만 하면 실제 보험사 이름으로 뽑아드려요</small></a>
     <div class="two"><button class="share" id="optBtn" type="button">조건 바꿔보기</button><button class="share" id="share" type="button">친구에게 보내기</button></div>
     <div class="sharemsg" id="shareMsg" role="status"></div>
   </div>
 
   <section class="step" id="stepOpt" data-on="9">
     <span class="k">조건 바꿔보기</span>
-    <h2>내 상황에 맞게 <b>바꿔서</b> 다시 보기</h2>
+    <h2>다르게 <b>담아서</b> 다시 보기</h2>
     <div class="pickers">
-    <div class="lab">납입 방식 <button type="button" class="qm" id="helpBtn" aria-label="갱신형과 비갱신형 설명 보기">?</button></div>
+    <div class="lab">보험료 내는 방식 <button type="button" class="qm" id="helpBtn" aria-label="갱신형과 비갱신형 설명 보기">?</button></div>
     <div class="seg" id="modes" role="group" aria-label="납입 방식">
-      <button type="button" data-v="fix" aria-pressed="false">비갱신</button><button type="button" data-v="ren" aria-pressed="false">갱신</button><button type="button" data-v="mix" aria-pressed="true">섞기<i class="rec">추천</i></button>
+      <button type="button" data-v="fix" aria-pressed="false">값 그대로<small>비갱신</small></button><button type="button" data-v="ren" aria-pressed="false">싸게 시작<small>갱신 · 나중에 오름</small></button><button type="button" data-v="mix" aria-pressed="true">섞기<i class="rec">추천</i><small>둘을 나눠서</small></button>
     </div>
     <div class="lab">보장 크기</div>
     <div class="seg" id="tiers" role="group" aria-label="보장 크기">
       <button type="button" data-v="0" aria-pressed="false">가볍게</button><button type="button" data-v="1" aria-pressed="true">표준</button><button type="button" data-v="2" aria-pressed="false">든든하게</button>
     </div>
     <div class="cap show" id="tierCap"></div>
-    <div class="lab">넣을 보장</div>
+    <div class="lab">담을 보장</div>
     <div class="scroll" id="sets" role="group" aria-label="보장 묶음"></div>
     <div class="wrap" id="custom" role="group" aria-label="담보 직접 고르기"></div>
     <div class="cap" id="cap">2개 이상 고르면 돼요. 실손은 비교에서 뺐어요</div>
@@ -375,10 +559,10 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   <section class="step" id="stepSelf" data-on="3 4">
     <span class="k" id="selfK">내 보험 점검</span>
     <h2>그럼 <b>내 보험</b>은 어떨까</h2>
-    <div class="q q1w"><label id="q1l">지금 보험, 어디에 들어 있나요?</label>
-      <div class="opts" data-q="q1" role="group" aria-labelledby="q1l"><button type="button" data-v="one">한 회사에 전부</button><button type="button" data-v="many">여러 회사에 나눠서</button><button type="button" data-v="idk">잘 모르겠어요</button></div></div>
+    <svg class="cartpic" viewBox="0 0 120 84" fill="none" stroke="#2a211b" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="38" y="24" width="20" height="24" rx="3" fill="#ff9ec0"/><rect x="59" y="14" width="22" height="34" rx="3" fill="#ffd43b"/><rect x="82" y="26" width="17" height="22" rx="3" fill="#7fd6c2"/><path d="M70 24c-2.500 0-4 2-4 3.500M70 36v.5" /><path d="M30 30h78l-8 28H36z" fill="#fff"/><path d="M6 14h14l16 44M36 58h64"/><path d="M50 30v28M68 30v28M86 30v28" stroke-width="1.500"/><circle cx="44" cy="70" r="5" fill="#6b5f55"/><circle cx="92" cy="70" r="5" fill="#6b5f55"/></svg><div class="q q1w"><label id="q1l">지금 내 보험, 어디서 담았나요?</label>
+      <div class="opts" data-q="q1" role="group" aria-labelledby="q1l"><button type="button" data-v="one"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.500" y="4" width="13" height="16" rx="1" fill="#8fc7ff"/><path d="M9 8h1.500M13.500 8H15M9 11.500h1.500M13.500 11.500H15" stroke="#fff" stroke-width="2"/><path d="M10.500 20v-4h3v4" fill="#fff"/></svg></span>한 회사에서 전부</button><button type="button" data-v="many"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.500" y="11.500" width="8" height="8" rx="1" fill="#ffb02e"/><rect x="12.500" y="11.500" width="8" height="8" rx="1" fill="#7fd6c2"/><rect x="8" y="4" width="8" height="7.500" rx="1" fill="#ff9ec0"/></svg></span>여러 회사에서 나눠서</button><button type="button" data-v="idk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#ffd43b"/><path d="M9.500 9.800a2.600 2.600 0 1 1 3.800 2.300c-.9.5-1.300 1-1.300 2"/><circle cx="12" cy="16.900" r=".7" fill="#2a211b"/></svg></span>잘 모르겠어요</button></div></div>
     <div class="q q2w"><label id="q2l">가입한 지 얼마나 됐나요?</label>
-      <div class="opts" data-q="q2" role="group" aria-labelledby="q2l"><button type="button" data-v="new">3년 안쪽</button><button type="button" data-v="mid">3~10년</button><button type="button" data-v="old">10년 넘음</button><button type="button" data-v="idk">잘 모르겠어요</button></div></div>
+      <div class="opts" data-q="q2" role="group" aria-labelledby="q2l"><button type="button" data-v="new"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.500v-8"/><path d="M12 12c0-4-3-5.500-6.500-5.500C5.500 10 7.500 12 12 12z" fill="#3ccf7e"/><path d="M12 14.500c0-3 2.500-4.500 6-4.500 0 3-2 4.500-6 4.500z" fill="#8be0a8"/></svg></span>3년 안쪽</button><button type="button" data-v="mid"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5.500" width="16" height="14" rx="2" fill="#fff"/><path d="M4 9.500V7.500a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2z" fill="#ff7b6b"/><path d="M8 4v3M16 4v3M8 13h2M12.500 13h2M8 16h2"/></svg></span>3~10년</button><button type="button" data-v="old"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#fff"/><path d="M12 7.500V12l3 2"/></svg></span>10년 넘음</button><button type="button" data-v="idk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#ffd43b"/><path d="M9.500 9.800a2.600 2.600 0 1 1 3.800 2.300c-.9.5-1.300 1-1.300 2"/><circle cx="12" cy="16.900" r=".7" fill="#2a211b"/></svg></span>잘 모르겠어요</button></div></div>
   </section>
 
   <section class="step" id="stepCta" data-on="5">
@@ -386,9 +570,9 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     <span class="k">점검 신청</span>
     <h2>내 보험, <b>한 번</b> 점검해드려요</h2>
     <div class="how">
-      <div><span>인스타 DM으로 신청해요<small>"점검" 두 글자만 보내도 돼요</small></span></div>
-      <div><span>간단한 동의만 하면 돼요<small>동의 없이는 아무것도 조회하지 않아요</small></span></div>
-      <div><span>내 보험을 한눈에 정리해드려요<small>유지가 나으면 유지하라고 말씀드려요</small></span></div>
+      <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.500a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4 3.500v-3.500H6a2 2 0 0 1-2-2z" fill="#8fc7ff"/><path d="M8 9.300h8M8 12.300h5" stroke="#fff" stroke-width="1.600"/></svg></i><span>인스타 DM으로 신청해요<small>"점검" 두 글자만 보내도 돼요</small></span></div>
+      <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#3ccf7e"/><path d="m8 12.300 2.800 2.800 5.400-5.600" stroke="#fff" stroke-width="2.400"/></svg></i><span>간단한 동의만 하면 돼요<small>동의 없이는 아무것도 조회하지 않아요</small></span></div>
+      <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="15.500" rx="2" fill="#fff"/><rect x="9" y="3.500" width="6" height="3.500" rx="1" fill="#ffb02e"/><path d="M8.500 11h7M8.500 14h7M8.500 17h4"/></svg></i><span>내 보험을 한눈에 정리해드려요<small>유지가 나으면 유지하라고 말씀드려요</small></span></div>
     </div>
     <p class="daily1">꼼꼼히 보려고 점검은 <b>하루 1명</b>만 받아요</p>
     <a class="kakao" id="kakao" href="https://ig.me/m/bohum.check.note" target="_blank" rel="noopener">DM으로 점검 신청하기</a>
@@ -398,9 +582,10 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 
   <div class="dock">
     <button class="go" id="go" type="button">비교 영수증 뽑기</button>
+    <a class="go" id="goDm" href="https://ig.me/m/bohum.check.note" hidden>DM으로 점검 신청하기</a>
     <button class="again" id="again" type="button">다시</button>
   </div>
-  <p class="note" data-on="0">프로토타입입니다. 보험료는 화면 확인용 예시 수치이고 실제 견적이 아닙니다. 실제 보험료는 나이·병력·직업과 심사 결과에 따라 달라집니다.</p>
+  <p class="note" data-on="0">실제 보험료는 나이·병력·직업과 심사 결과에 따라 달라집니다.</p>
 </div>
 
 <div class="sheet-bg" id="help" role="dialog" aria-modal="true" aria-labelledby="helpT">
@@ -419,6 +604,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 </div>
 
 <script>
+var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z\" fill=\"#ff7aa8\"/></svg>", "🎀": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 12 4.5 7.5v9zM12 12l7.5-4.5v9z\" fill=\"#ff9ec0\"/><circle cx=\"12\" cy=\"12\" r=\"2.3\" fill=\"#ff5f95\"/></svg>", "🔎": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"5.8\" fill=\"#cfeaff\"/><path d=\"m15 15 5 5\" stroke-width=\"2.4\"/></svg>", "🧠": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 6c-1-1.7-4-1.6-4.8.4-2 .2-3 2.4-2 4-1.2 1.6-.4 4 1.6 4.4.4 2 3.4 2.6 5.2.8 1.8 1.8 4.8 1.2 5.2-.8 2-.4 2.8-2.8 1.600-4.400 1-1.6 0-3.800-2-4-.8-2-3.800-2.1-4.800-.4z\" fill=\"#ffb3c7\"/><path d=\"M12 6v9.600M9 9.500c.8.8.8 1.800 0 2.600M15 9.500c-.8.8-.8 1.800 0 2.600\"/></svg>", "❤": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 19.500C5 14.500 3.500 11 4.800 8c1.400-3 5.200-3 7.200-.2 2-2.800 5.800-2.800 7.200.2 1.300 3-.2 6.500-7.200 11.500z\" fill=\"#ff5a4f\"/></svg>", "💓": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 19.500C5 14.500 3.500 11 4.800 8c1.400-3 5.200-3 7.200-.2 2-2.800 5.800-2.800 7.200.2 1.300 3-.2 6.500-7.200 11.500z\" fill=\"#ff5a4f\"/><path d=\"M6.500 12h2.500l1.300-2.500 2.200 5 1.300-2.500H17\" stroke=\"#fff\" stroke-width=\"1.500\"/></svg>", "🫀": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 19.500C5 14.500 3.500 11 4.800 8c1.400-3 5.200-3 7.200-.2 2-2.800 5.800-2.800 7.200.2 1.300 3-.2 6.500-7.200 11.500z\" fill=\"#ff5a4f\"/></svg>", "🏥": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4.500\" y=\"6.500\" width=\"15\" height=\"13\" rx=\"1.500\" fill=\"#fff\"/><path d=\"M9 6.500v-2.500h6v2.500\"/><path d=\"M12 10v6M9 13h6\" stroke=\"#ee4b2b\" stroke-width=\"2.600\"/></svg>", "➕": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.300\" fill=\"#3ccf7e\"/><path d=\"M12 8v8M8 12h8\" stroke=\"#fff\" stroke-width=\"2.600\"/></svg>", "🩺": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4\" y=\"8\" width=\"16\" height=\"11.500\" rx=\"2\" fill=\"#ff7b6b\"/><path d=\"M9 8V5.500h6V8\"/><path d=\"M12 11v5.500M9.300 13.700h5.400\" stroke=\"#fff\" stroke-width=\"2.200\"/></svg>", "💊": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g transform=\"rotate(-40 12 12)\"><rect x=\"3.500\" y=\"8.300\" width=\"17\" height=\"7.400\" rx=\"3.700\" fill=\"#fff\"/><path d=\"M3.500 12a3.700 3.700 0 0 1 3.700-3.700H12v7.400H7.200A3.700 3.700 0 0 1 3.500 12z\" fill=\"#ffb02e\"/></g></svg>", "✨": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.500 13.800 10l6.700 2-6.700 2L12 20.500 10.200 14 3.500 12l6.700-2z\" fill=\"#ffd43b\"/></svg>", "🎯": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.300\" fill=\"#fff\"/><circle cx=\"12\" cy=\"12\" r=\"5\" fill=\"#ff7b6b\"/><circle cx=\"12\" cy=\"12\" r=\"1.600\" fill=\"#fff\"/></svg>", "⚡": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13.500 3 6 13.500h5L10 21l8-11h-5.200z\" fill=\"#ffd43b\"/></svg>", "💳": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"6.500\" width=\"17\" height=\"11.500\" rx=\"2\" fill=\"#8fc7ff\"/><path d=\"M3.500 10.500h17\" stroke-width=\"2.400\"/><path d=\"M7 14.500h4\"/></svg>", "🔬": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"5.8\" fill=\"#cfeaff\"/><path d=\"m15 15 5 5\" stroke-width=\"2.4\"/></svg>", "🧑‍⚕": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 20c.5-4 3.500-6 7-6s6.500 2 7 6z\" fill=\"#7fd6c2\"/><circle cx=\"12\" cy=\"8.500\" r=\"3.700\" fill=\"#ffd9b8\"/><path d=\"M12 15.800v3M10.500 17.300h3\" stroke=\"#fff\" stroke-width=\"1.500\"/></svg>", "🛏": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"13\" width=\"17\" height=\"3.800\" fill=\"#8fc7ff\"/><path d=\"M3.500 7.500V19.500M20.500 16.800v2.700M10 13v-2h8a2.500 2.500 0 0 1 2.500 2.500\"/><circle cx=\"6.800\" cy=\"10.800\" r=\"1.900\" fill=\"#ffd9b8\"/></svg>", "🚑": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 16.500V9.500a1 1 0 0 1 1-1h9v8zM13 11h4l3 3v2.500h-7z\" fill=\"#fff\"/><path d=\"M8 10.300v3.800M6.100 12.200h3.800\" stroke=\"#ee4b2b\" stroke-width=\"2\"/><circle cx=\"7.500\" cy=\"17\" r=\"1.900\" fill=\"#6b5f55\"/><circle cx=\"16.500\" cy=\"17\" r=\"1.900\" fill=\"#6b5f55\"/></svg>", "🦽": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.500 5 6v5.500c0 4.500 3 7.500 7 9 4-1.500 7-4.500 7-9V6z\" fill=\"#7fb6ff\"/><path d=\"m9 12 2.200 2.200L15.200 10\" stroke=\"#fff\" stroke-width=\"2.200\"/></svg>", "🩹": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g transform=\"rotate(-40 12 12)\"><rect x=\"2.500\" y=\"8.300\" width=\"19\" height=\"7.400\" rx=\"3.700\" fill=\"#ffcf9e\"/><rect x=\"8.800\" y=\"8.300\" width=\"6.400\" height=\"7.400\" fill=\"#fff6ea\"/><circle cx=\"11\" cy=\"11\" r=\".5\"/><circle cx=\"13\" cy=\"13\" r=\".5\"/></g></svg>", "🦴": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><g transform=\"rotate(-40 12 12)\"><circle cx=\"5.300\" cy=\"10\" r=\"2.400\" fill=\"#fff\"/><circle cx=\"5.300\" cy=\"14\" r=\"2.400\" fill=\"#fff\"/><circle cx=\"18.700\" cy=\"10\" r=\"2.400\" fill=\"#fff\"/><circle cx=\"18.700\" cy=\"14\" r=\"2.400\" fill=\"#fff\"/><rect x=\"5.300\" y=\"10.200\" width=\"13.400\" height=\"3.600\" fill=\"#fff\" stroke=\"none\"/><path d=\"M7.600 10.200h8.800M7.600 13.800h8.800\"/></g></svg>", "🤝": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.500 5 6v5.500c0 4.500 3 7.500 7 9 4-1.500 7-4.500 7-9V6z\" fill=\"#7fb6ff\"/><path d=\"m9 12 2.200 2.200L15.200 10\" stroke=\"#fff\" stroke-width=\"2.200\"/></svg>", "🚗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.500 16.500v-3.500l2.200-4.500h12.600l2.200 4.500v3.500z\" fill=\"#ff7b6b\"/><path d=\"M5.500 12.500h13\"/><circle cx=\"7.500\" cy=\"16.800\" r=\"1.900\" fill=\"#6b5f55\"/><circle cx=\"16.500\" cy=\"16.800\" r=\"1.900\" fill=\"#6b5f55\"/></svg>", "⚖": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 8l-2.300 5h4.600zM19 8l-2.300 5h4.600z\" fill=\"#ffd43b\"/><path d=\"M12 5v14M7.500 19.500h9M5 8h14\"/></svg>", "👪": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.500 19.500c0-4 2-6 4.500-6s4.500 2 4.500 6z\" fill=\"#7fb6ff\"/><path d=\"M13 19.500c0-3 1.500-4.800 3.500-4.800s3.500 1.800 3.500 4.800z\" fill=\"#ff9ec0\"/><circle cx=\"8\" cy=\"8.300\" r=\"2.900\" fill=\"#ffd9b8\"/><circle cx=\"16.500\" cy=\"10\" r=\"2.300\" fill=\"#ffd9b8\"/></svg>", "🏢": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5.500\" y=\"4\" width=\"13\" height=\"16\" rx=\"1\" fill=\"#8fc7ff\"/><path d=\"M9 8h1.500M13.500 8H15M9 11.500h1.500M13.500 11.500H15\" stroke=\"#fff\" stroke-width=\"2\"/><path d=\"M10.500 20v-4h3v4\" fill=\"#fff\"/></svg>", "🧩": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3.500\" y=\"11.500\" width=\"8\" height=\"8\" rx=\"1\" fill=\"#ffb02e\"/><rect x=\"12.500\" y=\"11.500\" width=\"8\" height=\"8\" rx=\"1\" fill=\"#7fd6c2\"/><rect x=\"8\" y=\"4\" width=\"8\" height=\"7.500\" rx=\"1\" fill=\"#ff9ec0\"/></svg>", "🤔": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.500\" fill=\"#ffd43b\"/><path d=\"M9.500 9.800a2.600 2.600 0 1 1 3.800 2.300c-.9.5-1.300 1-1.300 2\"/><circle cx=\"12\" cy=\"16.900\" r=\".7\" fill=\"#2a211b\"/></svg>", "🌱": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 20.500v-8\"/><path d=\"M12 12c0-4-3-5.500-6.500-5.500C5.500 10 7.500 12 12 12z\" fill=\"#3ccf7e\"/><path d=\"M12 14.500c0-3 2.500-4.500 6-4.500 0 3-2 4.500-6 4.500z\" fill=\"#8be0a8\"/></svg>", "📅": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4\" y=\"5.500\" width=\"16\" height=\"14\" rx=\"2\" fill=\"#fff\"/><path d=\"M4 9.500V7.500a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2z\" fill=\"#ff7b6b\"/><path d=\"M8 4v3M16 4v3M8 13h2M12.500 13h2M8 16h2\"/></svg>", "🕰": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.500\" fill=\"#fff\"/><path d=\"M12 7.500V12l3 2\"/></svg>", "💬": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6.500a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4 3.500v-3.500H6a2 2 0 0 1-2-2z\" fill=\"#8fc7ff\"/><path d=\"M8 9.300h8M8 12.300h5\" stroke=\"#fff\" stroke-width=\"1.600\"/></svg>", "✅": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.500\" fill=\"#3ccf7e\"/><path d=\"m8 12.300 2.800 2.800 5.400-5.600\" stroke=\"#fff\" stroke-width=\"2.400\"/></svg>", "📋": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"5\" width=\"14\" height=\"15.500\" rx=\"2\" fill=\"#fff\"/><rect x=\"9\" y=\"3.500\" width=\"6\" height=\"3.500\" rx=\"1\" fill=\"#ffb02e\"/><path d=\"M8.500 11h7M8.500 14h7M8.500 17h4\"/></svg>"};function ICO(e){return ICOS[e.replace(/\uFE0F/g,'')]||e}
 (function(){
   "use strict";
   // ── 예시 데이터. 실제 견적으로 바꿀 곳은 여기뿐이다 ──
@@ -496,13 +682,29 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     drv1:{b:20000,t:[10000,20000,30000],s:5000,min:5000,max:30000},
     drv2:{b:5000,t:[3000,5000,7000],s:1000,min:1000,max:7000}
   };
-  var GROUPS=["암·뇌·심 진단","수술·치료","입원·간병","상해·배상·운전자","사망보장"];
+  var GROUPS=["큰 병 진단받으면","수술·치료받으면","입원하면","다치거나 사고 나면","사망하면"];
+  // 쉬운 말: [그림, 이럴 때, 금액이 이름에 박힌 담보의 금액]
+  var PL={
+    cancer:["🎗️","암에 걸리면"], fem:["🎀","유방·자궁·전립선암이면"], minor:["🔎","갑상선암 같은 가벼운 암이면"],
+    brain:["🧠","뇌졸중 같은 뇌 질환이면"], heart:["❤️","심근경색 같은 심장 질환이면"],
+    arr:["💓","부정맥 진단을 받으면"], hf:["🫀","심부전 진단을 받으면"],
+    opb:["🏥","병으로 수술할 때마다"], op5:["➕","큰 수술일수록 더 받는 수술비"], op7:["➕","건강보험 되는 수술이면 추가로"],
+    bhop:["🩺","뇌·심장 수술을 받으면"], chemoD:["💊","항암 주사·약 치료를 받으면"], radio:["✨","방사선 치료를 받으면"],
+    target:["🎯","표적항암제를 쓰면"], ion:["⚡","중입자 치료를 받으면","5천만 원"], nonpay:["💳","비급여까지 드는 암 치료를 받으면"],
+    polyp:["🔬","용종을 떼어내면"],
+    care:["🧑‍⚕️","아파서 입원해 간병인을 쓰면 하루"], carei:["🧑‍⚕️","다쳐서 입원해 간병인을 쓰면 하루"], careY:["🛏️","요양병원에서 간병인을 쓰면 하루","5만 원"],
+    nurse:["🛏️","아파서 간호간병 병동에 있으면 하루"], nursei:["🛏️","다쳐서 간호간병 병동에 있으면 하루"], hosp:["🛏️","아파서 입원하면 하루"],
+    death:["🚑","사고로 사망하면"], dis:["🦽","사고로 장해가 남으면 최대"], injop:["🩹","다쳐서 수술할 때마다"], injop5:["➕","다쳐서 하는 큰 수술일수록 더"],
+    bone:["🦴","뼈가 부러지면"], liab:["🤝","남에게 피해를 줘서 물어줄 때 최대","1억 원"],
+    drv1:["🚗","교통사고 합의금이 필요하면 최대"], drv2:["⚖️","교통사고로 변호사를 쓰면 최대"], drv3:["🚗","교통사고 벌금이 나오면 최대","3천만 원"],
+    life:["👪","사망하면 가족에게"]
+  };
   var ORDER=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","polyp","care","carei","careY","nurse","nursei","hosp","death","dis","injop","injop5","bone","liab","drv1","drv2","drv3"];
   // rows는 나이대에 따라 달라질 수 있다(간병인 일당은 40대부터)
   var SETS=[
-    {id:"core",name:"핵심 진단",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart"]}},
-    {id:"basic",name:"진단+수술",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart","opb","op5","injop","bone"]}},
-    {id:"full",name:"풀세팅",ages:[30,40,50],rows:function(a){
+    {id:"core",name:"큰 병 3가지",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart"]}},
+    {id:"basic",name:"큰 병 + 수술",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart","opb","op5","injop","bone"]}},
+    {id:"full",name:"전부 든든하게",ages:[30,40,50],rows:function(a){
       var r=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","nurse","nursei","death","dis","injop","injop5","bone","liab"];
       if(a>=40)r.splice(16,0,"care","carei");return r}},
     {id:"young",name:"사회초년생 실속",ages:[20,30],rows:function(){return ["cancer","minor","opb","op5","polyp","injop","bone","liab"]}},
@@ -527,6 +729,16 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     if(v>=10000){var e=Math.floor(v/10000),r=v%10000;return e+"억"+(r?" "+r/1000+"천":"")}
     if(v>=1000){var c=Math.floor(v/1000),h=v%1000;return c+"천"+(h?" "+h+"만":"")}
     return v+"만";
+  }
+  function fmtFull(v){
+    var e=Math.floor(v/10000), r=v%10000, t="";
+    if(e)t+=e+"억";
+    if(r){var c=Math.floor(r/1000), h=r%1000; t+=(t?" ":"")+(c?c+"천":"")+(h?h:"")+"만"}
+    return t+" 원";
+  }
+  function plainHTML(key){
+    var q=PL[key], a=q[2]||(AMT[key]?fmtFull(amt(key)):"");
+    return '<span class="sit">'+q[1]+'</span>'+(a?'<b class="amt">'+a+'</b>':'');
   }
   function nm(key){return D[key].nm+(AMT[key]?" "+fmtAmt(amt(key)):"")}
   function isLife(){return S.set==="life"}
@@ -583,7 +795,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     return at<0?t+rb:t.slice(0,at)+' <span class="nb">'+t.slice(at+1)+rb+'</span>';
   }
   function rowHTML(key,i){
-    return '<div class="rowb idle" role="button" tabindex="0" data-i="'+i+'" aria-expanded="false"><span class="name">'+nmHTML(key)+'</span>'+
+    return '<div class="rowb idle" role="button" tabindex="0" data-i="'+i+'" aria-expanded="false"><span class="ic" aria-hidden="true">'+ICO(PL[key][0])+'</span><span class="name">'+plainHTML(key)+'</span>'+
       '<span class="pick"><span class="co">?사</span><span class="won">· · ·</span></span>'+
       '<span class="tag"><span class="rng"></span><b></b></span><span class="all"></span></div>';
   }
@@ -591,7 +803,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   function idle(){
     var set=SETS.filter(function(t){return t.id===S.set})[0];
     $("rTheme").textContent=set?set.name:"직접 고른 보장";
-    $("rSub").innerHTML=[S.age+"대 "+(S.sex==="f"?"여성":"남성"),"보장 "+TIER[S.tier],isLife()?"비갱신 · 20년납":MODE[S.mode]+(S.mode==="mix"?" (진단 비갱신 + 나머지 갱신)":""),"담보 "+S.rows.length+"개"].map(function(t){return "<span>"+t+"</span>"}).join("");
+    $("rSub").innerHTML=[S.age+"대 "+(S.sex==="f"?"여성":"남성"),"보장 "+S.rows.length+"가지","보장 크기 "+TIER[S.tier]].map(function(t){return "<span>"+t+"</span>"}).join("");
     var html="", g=-1;
     S.rows.forEach(function(k,i){
       if(D[k].g!==g){g=D[k].g;html+='<div class="gh"><span>'+GROUPS[g]+'</span><em data-g="'+g+'"></em></div>'}
@@ -610,11 +822,11 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     var lo=Math.min.apply(null,P), hi=Math.max.apply(null,P), isMin=P[ci]===lo;
     r.classList.remove("spin","idle"); r.classList.add("done");
     r.querySelector(".rng").textContent="5개사 "+won(lo)+"~"+won(hi)+"원";
-    r.querySelector(".tag b").textContent=isMin?"최저":"묶어서 절약";
+    r.querySelector(".tag b").textContent=isMin?"제일 싼 곳":"묶어서 절약";
     var order=CO.map(function(_,c){return c}).sort(function(a,b){return P[a]-P[b]});
     r.querySelector(".all").innerHTML=order.map(function(c){
       return '<div class="c'+c+(P[c]===lo?" min":"")+'"><span>'+CO[c]+'사</span><i style="width:'+Math.round(P[c]/hi*100)+'%"></i><em>'+won(P[c])+'</em></div>';
-    }).join("")+"<p>"+(isMin?"":"이 담보만 보면 "+CO[order[0]]+"사가 더 싸지만, 회사를 하나 더 쓰면 주계약 보험료가 붙어서 묶는 쪽이 싸요. ")+D[S.rows[i]].t+"</p>";
+    }).join("")+"<p>"+(isMin?"":"이것만 보면 "+CO[order[0]]+"사가 더 싸지만, 회사를 하나 더 쓰면 기본료가 붙어서 묶는 쪽이 싸요. ")+D[S.rows[i]].t+'</p><p class="off">보험 용어로는 「'+nm(S.rows[i])+"」 · "+(isRen(S.rows[i])?"갱신형":"비갱신형")+"</p>";
   }
   function follow(r){if(reduce)return;var b=r.getBoundingClientRect(),lim=window.innerHeight-170;if(b.bottom>lim)window.scrollBy({top:b.bottom-lim+60,behavior:"smooth"})}
   function spinRow(i,finalCi,ms){
@@ -649,7 +861,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
       function finish(){
         Array.prototype.forEach.call(chips,function(c){c.classList.add("on")});
         $("scN").textContent=n+"/"+n; $("scBar").style.width="100%";
-        $("scT").textContent="담보 "+S.rows.length+"개 × 5개사, 가격 "+n+"개 대조 완료"; el.classList.add("ok"); res();
+        $("scT").textContent="보장 "+S.rows.length+"가지 × 5개사, 가격 "+n+"개 비교 완료"; el.classList.add("ok"); res();
       }
       if(reduce){finish();return}
       var t0=performance.now();
@@ -667,47 +879,48 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   function fillAfter(R){
     var sub={};S.rows.forEach(function(k,i){sub[D[k].g]=(sub[D[k].g]||0)+R.P[i][R.picks[i]]});
     Array.prototype.forEach.call(rowsEl.querySelectorAll(".gh em"),function(e){e.textContent=won(sub[e.dataset.g])});
-    $("extraL").textContent="주계약 보험료 (회사 "+R.cnt+"곳)"; $("extraV").textContent="+"+won(R.mains);
+    $("extraL").textContent="회사별 기본료 ("+R.cnt+"곳)"; $("extraV").textContent="+"+won(R.mains);
     $("extra").classList.toggle("show",!isLife());
     var rn=0,now=0,later=0;
     S.rows.forEach(function(k,i){if(isRen(k)){rn++;now+=R.P[i][R.picks[i]];later+=price(k,R.picks[i],S.age+20)}});
-    $("renew").innerHTML=rn?"갱신 담보 "+rn+"개는 지금 월 <b>"+won(now)+"원</b>, 20년 뒤 갱신 때는 약 <b>"+won(later)+"원</b>으로 예상돼요. 보장받는 동안 계속 내요.":"전부 비갱신이라 20년 납입이 끝나면 더 내지 않고 만기까지 보장받아요.";
+    $("renew").innerHTML=rn?"이 중 "+rn+"가지는 20년마다 보험료가 다시 정해져요. 지금은 월 <b>"+won(now)+"원</b>, 20년 뒤엔 약 <b>"+won(later)+"원</b>으로 예상돼요.":"20년만 내면 그 뒤로는 더 내지 않고 계속 보장받아요.";
     if(isLife())$("renew").innerHTML="20년 납입이 끝나면 더 내지 않고 평생 보장받아요.";
     $("renew").classList.add("show");
-    $("sumL").textContent=isLife()?"가장 싼 회사의 월 보험료":R.cnt===1?"한 회사로 가입한 월 합계":"회사 "+R.cnt+"곳에 나눈 월 합계";
+    $("sumL").textContent=isLife()?"가장 싼 회사의 월 보험료":R.cnt===1?"한 회사에 담은 월 합계":"회사 "+R.cnt+"곳에 나눠 담은 월 합계";
   }
   function showResult(){
     var R=S.res, top=R.hi, gap=R.hi-R.total, viaPick=R.hi-R.lo, viaMix=R.lo-R.total;
-    var mixName=R.cnt===1?CO[R.loCo]+"사 한 곳":R.cos.join("+")+"사로 나눔";
+    var mixName=R.cnt===1?CO[R.loCo]+"사 한 곳":R.cos.join("+")+"사";
     var bars=[
-      {c:"",l:"가장 비싼 한 곳에 전부 ("+CO[R.hiCo]+"사)",v:R.hi},
-      {c:"",l:"가장 싼 한 곳에 전부 ("+CO[R.loCo]+"사)",v:R.lo},
-      {c:"mix",l:"가장 싼 조합 ("+mixName+")",v:R.total}
+      {c:"",l:"제일 비싼 회사 한 곳",s:CO[R.hiCo]+"사",v:R.hi},
+      {c:"",l:"제일 싼 회사 한 곳",s:CO[R.loCo]+"사",v:R.lo},
+      {c:"mix",l:"보장마다 골라 담기",s:mixName,v:R.total}
     ];
     if(isLife()){
       var ord=[0,1,2,3,4].sort(function(a,b){return R.P[0][b]-R.P[0][a]});
-      bars=[{c:"",l:"가장 비싼 회사 ("+CO[ord[0]]+"사)",v:R.P[0][ord[0]]},{c:"",l:"가운데 회사 ("+CO[ord[2]]+"사)",v:R.P[0][ord[2]]},{c:"mix",l:"가장 싼 회사 ("+CO[ord[4]]+"사)",v:R.P[0][ord[4]]}];
+      bars=[{c:"",l:"제일 비싼 회사",s:CO[ord[0]]+"사",v:R.P[0][ord[0]]},{c:"",l:"가운데 회사",s:CO[ord[2]]+"사",v:R.P[0][ord[2]]},{c:"mix",l:"제일 싼 회사",s:CO[ord[4]]+"사",v:R.P[0][ord[4]]}];
     }
-    $("cmpBars").innerHTML=bars.map(function(b){return '<div class="cb '+b.c+'"><span>'+b.l+'</span><em>'+won(b.v)+'원</em><i data-w="'+Math.round(b.v/top*100)+'"></i></div>'}).join("");
+    $("cmpBars").innerHTML=bars.map(function(b){return '<div class="cb '+b.c+'"><span>'+b.l+' <small>'+b.s+'</small></span><em>'+won(b.v)+'원</em><i data-w="'+Math.round(b.v/top*100)+'"></i></div>'}).join("");
+    $("gapLine").innerHTML="<small>"+(isLife()?"같은 사망보험금인데":"같은 보장인데")+"</small>20년이면 <b>"+won(Math.round(gap*240/10000))+"만원</b> 차이";
+    $("moreS").textContent=isLife()?"자세히 보기":"왜 골라 담으면 더 쌀까요?"; $("more").open=false;
     $("cmp").classList.add("show");
     setTimeout(function(){Array.prototype.forEach.call($("cmpBars").querySelectorAll("i"),function(b){b.style.width=b.dataset.w+"%"})},reduce?0:80);
     $("stV").textContent=won(gap)+"원";
-    $("vs").innerHTML="같은 보장인데 20년이면 <b>"+won(Math.round(gap*240/10000))+"만원</b> 차이예요. "+
-      "회사만 잘 골라도 월 <b>"+won(viaPick)+"원</b>"+(viaMix>0?", 담보별로 나누면 <b>"+won(viaMix)+"원</b> 더 줄어요.":"이 줄고, 이 조합은 한 회사로 드는 게 가장 싸요.");
-    if(isLife())$("vs").innerHTML="같은 사망보험금인데 20년이면 <b>"+won(Math.round(gap*240/10000))+"만원</b> 차이예요. 금액이 큰 보험일수록 회사 하나 차이가 크게 벌어져요.";
+    $("vs").innerHTML="회사만 잘 골라도 월 <b>"+won(viaPick)+"원</b>"+(viaMix>0?", 보장마다 골라 담으면 <b>"+won(viaMix)+"원</b> 더 줄어요.":"이 줄고, 이 조합은 한 회사로 드는 게 가장 싸요.");
+    if(isLife())$("vs").innerHTML="금액이 큰 보험일수록 회사 하나 차이가 크게 벌어져요.";
     var why="";
     if(viaMix>0){
       var nOther=0,sav=0;
       S.rows.forEach(function(k,i){if(R.picks[i]!==R.loCo){nOther++;sav+=R.P[i][R.loCo]-R.P[i][R.picks[i]]}});
       var addMain=R.mains-MAIN[R.loCo];
-      why="<b>왜 나누면 더 쌀까요?</b> 합계로는 "+CO[R.loCo]+"사가 가장 싸지만, 담보 "+S.rows.length+"개 중 "+nOther+"개는 다른 회사가 더 싸요. 그 "+nOther+"개만 옮기면 <b>"+won(sav)+"원</b>이 줄고, "+
-        (addMain>0?"회사가 늘어 주계약 <b>"+won(addMain)+"원</b>이 더 붙어도 <b>"+won(viaMix)+"원</b>이 남아요.":"주계약도 더 들지 않아요.");
+      why="<b>왜 나누면 더 쌀까요?</b> 합계로는 "+CO[R.loCo]+"사가 가장 싸지만, 보장 "+S.rows.length+"가지 중 "+nOther+"가지는 다른 회사가 더 싸요. 그 "+nOther+"가지만 옮기면 <b>"+won(sav)+"원</b>이 줄고, "+
+        (addMain>0?"회사가 늘어 기본료 <b>"+won(addMain)+"원</b>이 더 붙어도 <b>"+won(viaMix)+"원</b>이 남아요.":"기본료도 더 들지 않아요.");
     }
     $("why").innerHTML=why; $("why").classList.toggle("show",!!why);
-    $("rFoot").textContent="줄을 누르면 5개사 가격";
+    $("rFoot").textContent="월 보험료";
     stamp.classList.remove("hit"); void stamp.offsetWidth; stamp.classList.add("hit");
     sfx.stamp();
-    if(!reduce){app.classList.remove("shake");void app.offsetWidth;app.classList.add("shake");burst(["#2f6bff","#ffffff","#f2b93b"],90)}
+    if(!reduce){app.classList.remove("shake");void app.offsetWidth;app.classList.add("shake");burst(["#ee4b2b","#ffd43b","#3ccf7e"],90)}
     $("gapH").innerHTML=isLife()?"같은 사망보험금인데<br><b>20년이면 "+won(Math.round(gap*240/10000))+"만원</b> 차이":"같은 보장인데<br><b>20년이면 "+won(Math.round(gap*240/10000))+"만원</b> 차이";
   }
 
@@ -723,7 +936,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     var at=DOT[n], d="";
     for(var i=0;i<5;i++)d+='<b'+(i===at?' class="on"':'')+'></b>';
     $("dots").innerHTML=d;
-    $("selfK").textContent="내 보험 점검 · "+(n===4?"2/2":"1/2");
+    $("selfK").textContent="내 장바구니 점검 · "+(n===4?"2/2":"1/2");
     app.classList.remove("enter","enterB"); void app.offsetWidth; app.classList.add(backward?"enterB":"enter");
     window.scrollTo(0,0);
     ui();
@@ -737,6 +950,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     if(SCR===5)t="DM으로 점검 신청하기";
     if(SCR===9)t="이 조건으로 다시 뽑기";
     goBtn.textContent=t; goBtn.disabled=dis;
+    goBtn.hidden=(SCR===5); $("goDm").hidden=(SCR!==5);
     goBtn.parentNode.style.display=show?"":"none";
     againBtn.classList.remove("show");
   }
@@ -750,7 +964,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     idle();
     $("rNo").textContent="NO. "+("000"+S.serial).slice(-4);
     $("sum").textContent="?"; $("cmp").classList.remove("show"); $("extra").classList.remove("show"); $("renew").classList.remove("show"); stamp.classList.remove("hit");
-    $("rFoot").textContent="비교하는 중"; $("scan").classList.remove("show");
+    $("rFoot").textContent="월 보험료"; $("scan").classList.remove("show");
     receipt.classList.remove("print"); void receipt.offsetWidth; receipt.classList.add("print");
     receipt.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
     sfx.feed(); buzz(20);
@@ -845,7 +1059,6 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
       go(1); run(); return;
     }
     if(SCR===1){if(!S.busy&&S.done)go(3);return}
-    if(SCR===5){window.open(DM,"_blank","noopener");return}
     if(SCR===9){go(1);run();return}
   });
   $("back").addEventListener("click",function(){if(S.busy)return;go(BACK[SCR]||0,true)});
@@ -862,8 +1075,8 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
   // ── 내 보험 점검 ──
   var ANS={}, TIP={
     q1:{one:"한 회사에 전부 들었다면, 그 회사가 싼 쪽인지 비싼 쪽인지 비교해본 적이 없을 가능성이 커요.",
-        many:"나눠 들었어도 같은 담보가 겹치거나, 비싼 회사 쪽에 몰려 있을 수 있어요.",
-        idk:"어느 회사에 어떤 담보가 있는지부터 한눈에 정리하는 게 먼저예요."},
+        many:"나눠 들었어도 같은 보장이 겹치거나, 비싼 회사 쪽에 몰려 있을 수 있어요.",
+        idk:"어느 회사에 어떤 보장이 있는지부터 한눈에 정리하는 게 먼저예요."},
     q2:{"new":"낸 보험료가 적을 때가 고치기 가장 쉬워요. 잘못 짜인 부분이 있다면 지금 잡아야 손해가 제일 작아요.",
         mid:"가입할 때와 지금은 상황이 달라졌을 거예요. 그 사이 새로 나온 보장도 많아서, 빠진 게 가장 많이 나오는 구간이에요.",
         old:"예전 기준이라 보장 범위가 좁고 만기가 짧은 경우가 많아요. 정작 필요한 나이에 보장이 끝나 있거나, 진단받고도 해당이 안 될 수 있어요.",
@@ -885,6 +1098,13 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 
   // ── 공유 ──
   var SHARE_URL="https://dkswldnwkd-ship-it.github.io/bohum-check/";
+  $("realBtn").addEventListener("click",function(){
+    var set=SETS.filter(function(s){return s.id===S.set})[0];
+    var t="영수증 · "+S.age+"대 "+(S.sex==="f"?"여성":"남성")+" · "+(set?set.name:"직접 고름 "+S.rows.length+"가지")+" · 보장 크기 "+TIER[S.tier];
+    try{var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,999);document.execCommand("copy");document.body.removeChild(ta)}catch(e){}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).catch(function(){})}catch(e){}
+    $("shareMsg").textContent="조건을 복사했어요. DM에 붙여넣기만 하면 돼요";
+  });
   $("share").addEventListener("click",function(){
     var d={title:"보험료 비교 영수증",text:"같은 보장인데 회사마다 보험료가 이만큼 달라요. 나이대만 누르면 나와요.",url:SHARE_URL}, msg=$("shareMsg");
     function copied(){msg.textContent="링크를 복사했어요. 붙여넣어서 보내면 돼요."}
