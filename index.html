@@ -4,6 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>보험료 비교 영수증</title>
+<meta name="description" content="내 나이대만 누르면 담보마다 어느 회사가 싼지 영수증으로 보여줘요.">
+<meta name="theme-color" content="#090c12">
+<link rel="canonical" href="https://dkswldnwkd-ship-it.github.io/bohum-check/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="보험료 비교 영수증">
+<meta property="og:title" content="같은 보장, 회사마다 얼마나 다를까">
+<meta property="og:description" content="내 나이대만 누르면 담보마다 어느 회사가 싼지 영수증으로 보여줘요.">
+<meta property="og:url" content="https://dkswldnwkd-ship-it.github.io/bohum-check/">
+<meta property="og:image" content="https://dkswldnwkd-ship-it.github.io/bohum-check/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -167,7 +179,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offse
 .extra.show{display:flex}
 .extra em{font-style:normal;font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
 
-.total{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;position:relative;min-height:62px}
+.total{scroll-margin-top:84px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;position:relative;min-height:62px}
 .total small{display:block;font-size:12px;font-weight:600;color:var(--paper-mute)}
 .total .sum{font-family:var(--mono);font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
 .total .sum i{font-style:normal;font-size:17px;font-family:var(--sans);margin-left:2px}
@@ -237,6 +249,10 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 .go[disabled]{background:var(--ink-2);color:var(--muted);box-shadow:none;cursor:default;transform:none}
 .again{padding:0 16px;border-radius:12px;border:1px solid var(--line);font-size:14px;font-weight:700;color:var(--soft);display:none}
 .again.show{display:block}
+.sharebar{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.sharebar[hidden]{display:none}
+.share{padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--ink-2);color:#fff;font-size:15px;font-weight:700}
+.sharemsg{font-size:12.5px;font-weight:600;color:var(--gold);text-align:center;min-height:1em}
 .note{font-size:12.5px;line-height:1.55;color:var(--muted);text-align:center}
 
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
@@ -281,20 +297,24 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
           <div class="sc-bar"><i id="scBar"></i></div>
         </div>
         <hr class="rule">
+        <div class="sec"><span>담보별 명세</span><span id="rFoot">버튼을 누르면 채워져요</span></div>
+        <div class="rows" id="rows"></div>
+        <div class="extra" id="extra" style="margin-top:10px"><span id="extraL"></span><em id="extraV"></em></div>
+        <hr class="rule">
         <div class="total">
           <div><small id="sumL">가장 싼 조합의 월 합계</small><div class="sum"><span id="sum">?</span><i>원</i></div></div>
           <div class="stamp" id="stamp"><span>월 최대</span><strong id="stV"></strong><span>차이</span></div>
         </div>
         <div class="cmp" id="cmp"><div id="cmpBars" style="display:flex;flex-direction:column;gap:11px;margin-top:6px"></div><div class="vs" id="vs"></div><p class="why" id="why"></p></div>
         <p class="renew" id="renew"></p>
-        <hr class="rule">
-        <div class="sec"><span>담보별 명세</span><span id="rFoot">버튼을 누르면 채워져요</span></div>
-        <div class="rows" id="rows"></div>
-        <div class="extra" id="extra" style="margin-top:10px"><span id="extraL"></span><em id="extraV"></em></div>
         <div class="r-cond" id="rCond"></div>
       </article>
     </div>
   </main>
+  <div class="sharebar" id="shareBar" hidden>
+    <button class="share" id="share" type="button">이 비교, 친구에게도 보내기</button>
+    <div class="sharemsg" id="shareMsg" role="status"></div>
+  </div>
 
   <section class="step" id="stepOpt" hidden>
     <span class="k">조건 바꿔보기</span>
@@ -550,6 +570,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
       return '<div class="c'+c+(P[c]===lo?" min":"")+'"><span>'+CO[c]+'사</span><i style="width:'+Math.round(P[c]/hi*100)+'%"></i><em>'+won(P[c])+'</em></div>';
     }).join("")+"<p>"+(isMin?"":"이 담보만 보면 "+CO[order[0]]+"사가 더 싸지만, 회사를 하나 더 쓰면 주계약 보험료가 붙어서 묶는 쪽이 싸요. ")+D[S.rows[i]].t+"</p>";
   }
+  function follow(r){if(reduce)return;var b=r.getBoundingClientRect(),lim=window.innerHeight-170;if(b.bottom>lim)window.scrollBy({top:b.bottom-lim+60,behavior:"smooth"})}
   function spinRow(i,finalCi,ms){
     return new Promise(function(res){
       var r=rowEl(i);
@@ -557,7 +578,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
       if(reduce){finish();return}
       var iv=setInterval(function(){showRow(i,Math.floor(Math.random()*5),false)},55);
       setTimeout(function(){clearInterval(iv);finish()},ms);
-      function finish(){showRow(i,finalCi,true);void r.offsetWidth;r.classList.add("lock");sfx.lock(i);res()}
+      function finish(){showRow(i,finalCi,true);void r.offsetWidth;r.classList.add("lock");sfx.lock(i);follow(r);res()}
     });
   }
   function countTo(to,ms){
@@ -635,6 +656,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     stamp.classList.remove("hit"); void stamp.offsetWidth; stamp.classList.add("hit");
     sfx.stamp();
     if(!reduce){app.classList.remove("shake");void app.offsetWidth;app.classList.add("shake");burst(["#2f6bff","#ffffff","#f2b93b"],90)}
+    $("shareBar").hidden=false;
     $("stepOpt").hidden=false; $("stepSelf").hidden=false; $("stepCta").hidden=false;
   }
 
@@ -648,6 +670,7 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
     else{goBtn.textContent="내 보험도 점검해보기";againBtn.classList.add("show")}
   }
 
+  function toTotal(){document.querySelector("#receipt .total").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
   function run(){
     if(S.busy)return;
     S.busy=true; S.stale=false; receipt.classList.remove("stale"); ui();
@@ -667,10 +690,12 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
       return Promise.all(S.rows.map(function(k,i){return spinRow(i,R.picks[i],(reduce?0:SCAN_MS)+420+i*gapMs)}));
     }).then(function(){
       fillAfter(R);
-      return wait(200);
+      toTotal();
+      return wait(520);
     }).then(function(){return countTo(R.total,700)})
       .then(function(){return wait(180)})
-      .then(function(){S.done=true;showResult();S.busy=false;ui();receipt.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})});
+      .then(function(){S.done=true;showResult();S.busy=false;ui();return wait(120)})
+      .then(toTotal);
   }
 
   // ── 종이 가루 ──
@@ -777,6 +802,18 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
         $("diag").classList.add("show");
       }
     });
+  });
+
+  // ── 공유 ──
+  var SHARE_URL="https://dkswldnwkd-ship-it.github.io/bohum-check/";
+  $("share").addEventListener("click",function(){
+    var d={title:"보험료 비교 영수증",text:"같은 보장인데 회사마다 보험료가 이만큼 달라요. 나이대만 누르면 나와요.",url:SHARE_URL}, msg=$("shareMsg");
+    function copied(){msg.textContent="링크를 복사했어요. 붙여넣어서 보내면 돼요."}
+    function manual(){msg.textContent=SHARE_URL}
+    function copy(){
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(SHARE_URL).then(copied,manual)}else{manual()}
+    }
+    if(navigator.share){navigator.share(d).catch(function(e){if(!e||e.name!=="AbortError")copy()})}else{copy()}
   });
 
   drawSets(); idle(); ui();
