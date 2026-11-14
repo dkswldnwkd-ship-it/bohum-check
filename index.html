@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>보험료 비교 영수증</title>
+<title>보장마트 · 보험, 보장마다 싼 곳에서 골라 담기</title>
 <meta name="description" content="내 나이대만 누르면 보장마다 어느 회사가 싼지 영수증으로 보여줘요.">
 <meta name="theme-color" content="#fff6e5">
 <link rel="canonical" href="https://dkswldnwkd-ship-it.github.io/bohum-check/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="보험료 비교 영수증">
-<meta property="og:title" content="같은 보장, 회사마다 얼마나 다를까">
+<meta property="og:site_name" content="보장마트">
+<meta property="og:title" content="보장마트 · 내 또래는 보험료 얼마 내고 있을까?">
 <meta property="og:description" content="내 나이대만 누르면 보장마다 어느 회사가 싼지 영수증으로 보여줘요.">
 <meta property="og:url" content="https://dkswldnwkd-ship-it.github.io/bohum-check/">
-<meta property="og:image" content="https://dkswldnwkd-ship-it.github.io/bohum-check/og.png">
+<meta property="og:image" content="https://dkswldnwkd-ship-it.github.io/bohum-check/og-bojangmart.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -457,30 +457,140 @@ body{background:var(--ink);color:var(--tx)}
 .realbtn b{display:block;font-size:16px;font-weight:700}
 .realbtn small{display:block;font-size:12.5px;font-weight:600;color:#6b5300;margin-top:3px;line-height:1.4;word-break:keep-all}
 </style>
-</head>
+
+<style>
+.lz-bj{display:flex;align-items:center;gap:10px}
+.lz-bj img,.lz-who2 img{width:52px;height:52px;border-radius:50%;border:2.5px solid #2a211b;flex:none;object-fit:cover}
+.lz-bj p{position:relative;flex:1;background:#fff;border:2.5px solid #2a211b;border-radius:16px;padding:9px 12px;font-size:14px;line-height:1.45;font-weight:600;color:#2a211b;box-shadow:0 3px 0 #2a211b;word-break:keep-all}
+.lz-bj p b,.lz-more b.lz-hl{background:linear-gradient(transparent 55%,#ffd43b 55%)}
+.lz-bj p:before{content:"";position:absolute;left:-9px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#2a211b;border-left:0}
+.lz-bj p:after{content:"";position:absolute;left:-5.5px;top:50%;margin-top:-5px;border:5px solid transparent;border-right-color:#fff;border-left:0}
+.lz-mask{background:#fffdf8;border:2.5px solid #2a211b;border-radius:14px;padding:11px 14px 13px;box-shadow:0 4px 0 #2a211b;cursor:pointer;text-align:left;width:100%;font-family:inherit;color:#2a211b}
+.lz-mask .lz-tag{display:inline-block;font-size:11.5px;font-weight:700;color:#8a7a66;border:1.5px dashed #c9b99f;border-radius:999px;padding:2px 9px;margin-bottom:4px}
+.lz-mask .lz-tag b{color:#2a211b}
+.lz-mask .lz-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;color:#6b5d4d;padding:7px 0;border-bottom:1.5px dashed #e3d6c0}
+.lz-mask .lz-row>b{font-size:15px;color:#2a211b;font-weight:800;display:flex;align-items:center;gap:4px}
+.lz-mask .lz-row.lz-hot{color:#2a211b}.lz-mask .lz-row.lz-hot>b{color:#ee4b2b}
+.lz-q{display:inline-block;font-style:normal;height:22px;border-radius:5px;background:repeating-linear-gradient(-45deg,#d9d2c5 0 5px,#c8c0b1 5px 10px);color:#fff;font-size:13px;font-weight:800;line-height:22px;text-align:center;letter-spacing:2px}
+.lz-mask .lz-sum{margin-top:10px;background:#ffd43b;border:2.5px solid #2a211b;border-radius:10px;padding:8px 10px;font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:5px}
+.lz-mask .lz-sum .lz-q{background:repeating-linear-gradient(-45deg,#e9b90f 0 5px,#d6a800 5px 10px)}
+.lz-mask .lz-tap{display:block;text-align:center;font-size:12.5px;font-weight:700;color:#ee4b2b;margin-top:8px}
+.lz-safe{font-size:13px;font-weight:700;color:#5d5046;text-align:center;margin:-2px 0 -4px}
+.lz-safe i{font-style:normal;color:#1f9d55}
+.app[data-s="0"] .pickers{margin-top:0 !important}
+.app[data-s="0"] .top h1{font-size:clamp(30px,10vw,42px)}
+.lz-more{display:flex;flex-direction:column;gap:14px;margin-top:10px;padding-bottom:6px}
+.lz-more[hidden]{display:none}
+.lz-more .lz-peekh{font-size:14px;font-weight:800;color:#8c7b6a;text-align:center;padding:6px 0 0}
+.lz-more section{background:#fff;border:2px solid #2a211b;border-radius:16px;padding:18px 16px;display:flex;flex-direction:column;gap:11px}
+.lz-more .lz-k2{align-self:flex-start;font-size:12px;font-weight:800;color:#fff;background:#2a211b;border-radius:999px;padding:3px 10px}
+.lz-more h2{font-family:var(--display);font-weight:400;font-size:25px;line-height:1.2;color:#2a211b;word-break:keep-all}
+.lz-more h2 b{font-weight:400;color:#ee4b2b}
+.lz-more p{font-size:14.5px;line-height:1.6;color:#5d5046;font-weight:500;word-break:keep-all}
+.lz-more p b{color:#2a211b}
+.lz-more .stalls{max-height:128px}
+.lz-bars{display:flex;flex-direction:column;gap:7px}
+.lz-bars .lz-ex{font-size:11.5px;font-weight:700;color:#8a7a66}
+.lz-bars div{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#5d5046}
+.lz-bars div{padding:9px 10px;border-radius:10px;background:#fff6e5}.lz-bars div span{flex:1;line-height:1.25}.lz-bars em{font-style:normal;flex:none;width:74px;text-align:center;font-size:12px;font-weight:800;color:#8c7b6a;background:#fff;border:1.5px solid #ead9bb;border-radius:999px;padding:3px 0}.lz-bars div.lz-win{background:#fff;box-shadow:inset 0 0 0 2px #ee4b2b}.lz-bars div.lz-win em{background:#ee4b2b;color:#fff;border-color:#ee4b2b}
+.lz-bars div i{display:block;height:30px;border-radius:6px;background:#eadfcd;border:1.5px solid #2a211b}
+.lz-bars div b{font-size:13.5px;color:#2a211b;white-space:nowrap}
+.lz-bars div.lz-win i{background:#ee4b2b}.lz-bars div.lz-win b,.lz-bars div.lz-win span{color:#ee4b2b}
+.lz-vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lz-vs div{border:2px solid #ead9bb;border-radius:12px;padding:12px 10px;display:flex;flex-direction:column;gap:6px;background:#fffaf0}
+.lz-vs div.lz-on{border-color:#2a211b;background:#fff6c9}
+.lz-vs em{font-style:normal;font-size:12px;font-weight:800;color:#8c7b6a}
+.lz-vs strong{font-size:15px;line-height:1.3;color:#2a211b;word-break:keep-all}
+.lz-vs small{font-size:12.5px;line-height:1.45;color:#5d5046;font-weight:600;word-break:keep-all}
+.lz-vs .lz-dots2{display:flex;gap:4px}.lz-vs .lz-dots2 u{width:15px;height:15px;border-radius:4px;border:1.5px solid #2a211b;background:#fff}
+.lz-vs .lz-dots2 u:nth-child(1){background:#2f6fed}.lz-vs .lz-on .lz-dots2 u:nth-child(2){background:#e08a1e}.lz-vs .lz-on .lz-dots2 u:nth-child(3){background:#1f9d8a}.lz-vs .lz-on .lz-dots2 u:nth-child(4){background:#ee4b2b}.lz-vs .lz-on .lz-dots2 u:nth-child(5){background:#8a5cf6}
+.lz-stat{display:flex;align-items:center;gap:12px;background:#fff6e5;border-radius:12px;padding:10px 12px}
+.lz-stat b{font-family:var(--display);font-weight:400;font-size:30px;color:#ee4b2b;white-space:nowrap}
+.lz-stat span{font-size:13px;line-height:1.4;font-weight:700;color:#2a211b}
+.lz-stat small{display:block;font-size:11px;color:#8c7b6a;font-weight:600}
+.lz-chk{list-style:none;display:flex;flex-direction:column;gap:8px}
+.lz-chk li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.45;font-weight:700;color:#2a211b;word-break:keep-all}
+.lz-chk li:before{content:"✓";flex:none;width:21px;height:21px;border-radius:50%;background:#1f9d55;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.lz-steps3{display:flex;flex-direction:column;gap:9px}
+.lz-steps3 div{display:flex;gap:10px;align-items:center;font-size:14.5px;font-weight:700;color:#2a211b;line-height:1.4;word-break:keep-all}
+.lz-steps3 div i{flex:none;width:26px;height:26px;border-radius:50%;background:#ffd43b;border:2px solid #2a211b;font-style:normal;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.lz-steps3 small{display:block;font-size:12.5px;color:#8c7b6a;font-weight:600}
+.lz-who2{display:flex;gap:12px;align-items:center}
+.lz-who2 p{font-size:13.5px;line-height:1.5}
+.lz-promise{font-size:13.5px;font-weight:700;color:#2a211b;text-align:center;background:#fff;border:1.5px dashed #c9b99f;border-radius:10px;padding:9px 8px;line-height:1.5}
+</style></head>
 <body>
 <div class="app" id="app">
-  <div class="bar"><button class="back" id="back" type="button" aria-label="이전 화면" hidden>‹</button><span>보험료 비교 영수증</span><i class="dots" id="dots" aria-hidden="true"></i><button class="snd" type="button" id="snd" aria-pressed="true">소리 켬</button></div>
+  <div class="bar"><button class="back" id="back" type="button" aria-label="이전 화면" hidden>‹</button><span>보장마트</span><i class="dots" id="dots" aria-hidden="true"></i><button class="snd" type="button" id="snd" aria-pressed="true">소리 켬</button></div>
   <header class="top" data-on="0">
-    <h1>같은 보장,<br><span>회사마다 얼마나 다를까</span></h1>
+    <h1>내 또래는 보험료<br><span>얼마 내고 있을까?</span></h1>
   </header>
-  <p class="hk-sub" data-on="0">같은 과자도 마트마다 값이 다르듯,<br>같은 보장도 회사마다 값이 달라요.</p>
-  <div class="pv" data-on="0" aria-hidden="true">
-    <p class="pv-item"><span>같은 물건</span>암에 걸리면 5천만 원</p>
-    <svg class="stalls" viewBox="0 0 330 146" fill="none" stroke="#2a211b" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(4 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">A사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt0"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">비싸요</text></g></g><g transform="translate(115 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">B사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt1 best"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#ee4b2b"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" stroke="none">제일 싸요</text></g></g><g transform="translate(226 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">C사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt2"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">보통</text></g></g></svg>
-    <p class="pv-cap"><s>예전 · 한 회사에서 전부 사기</s><b>요즘 · 보장마다 싼 곳에서 골라 담기</b></p>
-  </div>
+
+  <div class="lz-bj" data-on="0"><img src="data:image/jpeg;base64,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" alt="보장이"><p>나이대만 누르면 <b>5개 회사 가격 <span id="bjN">45</span>개</b>를 한 장에 대조해 드려요.</p></div>
+  <button class="lz-mask" id="mask" type="button" data-on="0">
+    <span class="lz-tag"><b id="mkWho">30대 남성</b> · 같은 보장 · 예시</span>
+    <div class="lz-row"><span>제일 비싼 한 곳에서 다 사면</span><b>월 <i class="lz-q" style="width:74px">?</i>원</b></div>
+    <div class="lz-row lz-hot"><span>싼 곳만 골라 담으면</span><b>월 <i class="lz-q" style="width:66px">?</i>원</b></div>
+    <div class="lz-sum">20년이면 <i class="lz-q" style="width:44px">?</i>만 원 차이</div>
+    <span class="lz-tap">▼ 아래 버튼 누르면 숫자가 열려요</span>
+  </button>
   <div class="pickers" data-on="0">
     <div class="pair">
       <div><div class="lab" style="margin-bottom:6px">내 나이대</div>
         <div class="seg" id="ages" role="group" aria-label="나이대">
-          <button type="button" data-v="20" aria-pressed="false">20대</button><button type="button" data-v="30" aria-pressed="false">30대</button><button type="button" data-v="40" aria-pressed="false">40대</button><button type="button" data-v="50" aria-pressed="false">50대</button>
+          <button type="button" data-v="20" aria-pressed="false">20대</button><button type="button" data-v="30" aria-pressed="true">30대</button><button type="button" data-v="40" aria-pressed="false">40대</button><button type="button" data-v="50" aria-pressed="false">50대</button>
         </div></div>
       <div><div class="lab" style="margin-bottom:6px">성별</div>
         <div class="seg" id="sexes" role="group" aria-label="성별">
           <button type="button" data-v="m" aria-pressed="true">남</button><button type="button" data-v="f" aria-pressed="false">여</button>
         </div></div>
     </div>
+  </div>
+
+  <p class="lz-safe" data-on="0"><i>✓</i> 이름·전화번호 안 물어요 &nbsp;<i>✓</i> 10초면 끝나요</p>
+  <div class="lz-more" data-on="0">
+    <p class="lz-peekh">왜 이렇게 차이가 날까? ↓</p>
+    <section>
+      <span class="lz-k2">이유 1</span>
+      <h2>어느 회사도<br><b>전부 다 싸진</b> 않아요</h2>
+      <p>암은 B사가 싸고, 뇌는 D사가 싸고. 회사마다 싸게 파는 보장이 달라요. 마트마다 싼 물건이 다른 것처럼요.</p>
+      <svg class="stalls" viewBox="0 0 330 146" fill="none" stroke="#2a211b" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(4 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">A사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt0"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">비싸요</text></g></g><g transform="translate(115 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">B사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt1 best"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#ee4b2b"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" stroke="none">제일 싸요</text></g></g><g transform="translate(226 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">C사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt2"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">보통</text></g></g></svg>
+      <div class="lz-bars">
+        <span class="lz-ex">예시 · 30대 남성 · 같은 보장 월 보험료</span>
+        <div><span>제일 비싼 한 곳에서 전부</span><b>110,200원</b><em>+10,500원</em></div>
+        <div><span>제일 싼 한 곳에서 전부</span><b>101,300원</b><em>+1,600원</em></div>
+        <div class="lz-win"><span>보장마다 싼 곳 골라 담기</span><b>99,700원</b><em>제일 쌈</em></div>
+      </div>
+      <p><b>제일 싼 회사 한 곳</b>에서 전부 사도, 골라 담는 것보다 비싸요.</p>
+    </section>
+    <section>
+      <span class="lz-k2">이유 2</span>
+      <h2>누구한테 가입하느냐에<br>따라 <b>고를 수 있는 폭</b>이 달라요</h2>
+      <div class="lz-vs">
+        <div><em>한 회사 소속 설계사</em><span class="lz-dots2"><u></u></span><strong>그 회사 상품만</strong><small>그 회사가 비싸게 파는 보장도 같이 사게 돼요.</small></div>
+        <div class="lz-on"><em>보험대리점(GA) 설계사</em><span class="lz-dots2"><u></u><u></u><u></u><u></u><u></u></span><strong>여러 회사 상품을</strong><small>보장마다 싼 곳을 골라 담을 수 있어요.</small></div>
+      </div>
+      <div class="lz-stat"><b>60.4%</b><span>지금은 설계사 10명 중 6명이 보험대리점 소속<small>보험연구원 · 2024년 기준</small></span></div>
+    </section>
+    <section>
+      <span class="lz-k2">그런데</span>
+      <h2>대리점이라고<br><b>다 비교해 주진</b> 않아요</h2>
+      <p>여러 회사를 다룰 수 있어도, 비교표 없이 한 상품만 권하면 소용이 없어요. 그래서 이렇게 하세요.</p>
+      <ul class="lz-chk"><li>비슷한 상품 3개 이상 비교해 달라고 하기</li><li>보장마다 어느 회사가 싼지 표로 받기</li></ul>
+      <p><b class="lz-hl">이 영수증이 바로 그 비교표예요.</b> 5개 회사 가격을 한 장에 놓고 보여 드려요.</p>
+    </section>
+    <section>
+      <span class="lz-k2">이렇게 진행돼요</span>
+      <div class="lz-steps3">
+        <div><i>1</i><span>나이대 누르기<small>10초 · 개인정보 입력 없음</small></span></div>
+        <div><i>2</i><span>5개사 비교 영수증 받기<small>보장마다 제일 싼 곳이 어딘지</small></span></div>
+        <div><i>3</i><span>원하면 내 보험 점검 신청<small>유지가 나으면 유지하라고 말해요</small></span></div>
+      </div>
+    </section>
+    <section>
+      <span class="lz-k2">만든 사람</span>
+      <div class="lz-who2"><img src="data:image/jpeg;base64,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" alt=""><p><b>보장이</b> · 인스타그램 @bojangi.note<br>운영 안지우 · 에즈금융서비스 소속 설계사<br>생명·손해보험 35개사 상품을 함께 다뤄요</p></div>
+    </section>
   </div>
 
   <section class="step gaph" data-on="none">
@@ -531,7 +641,7 @@ body{background:var(--ink);color:var(--tx)}
     </div>
   </main>
   <div class="sharebar" id="shareBar" data-on="1">
-    <a class="realbtn" id="realBtn" href="https://ig.me/m/bohum.check.note"><b>내 조건으로 진짜 영수증 받기</b><small>누르면 조건이 복사돼요. DM에 붙여넣기만 하면 실제 보험사 이름으로 뽑아드려요</small></a>
+    <a class="realbtn" id="realBtn" href="https://ig.me/m/bojangi.note"><b>내 조건으로 진짜 영수증 받기</b><small>누르면 조건이 복사돼요. DM에 붙여넣기만 하면 실제 보험사 이름으로 뽑아드려요</small></a>
     <div class="two"><button class="share" id="optBtn" type="button">조건 바꿔보기</button><button class="share" id="share" type="button">친구에게 보내기</button></div>
     <div class="sharemsg" id="shareMsg" role="status"></div>
   </div>
@@ -574,15 +684,16 @@ body{background:var(--ink);color:var(--tx)}
       <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#3ccf7e"/><path d="m8 12.300 2.800 2.800 5.400-5.600" stroke="#fff" stroke-width="2.400"/></svg></i><span>간단한 동의만 하면 돼요<small>동의 없이는 아무것도 조회하지 않아요</small></span></div>
       <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="15.500" rx="2" fill="#fff"/><rect x="9" y="3.500" width="6" height="3.500" rx="1" fill="#ffb02e"/><path d="M8.500 11h7M8.500 14h7M8.500 17h4"/></svg></i><span>내 보험을 한눈에 정리해드려요<small>유지가 나으면 유지하라고 말씀드려요</small></span></div>
     </div>
+    <p class="lz-promise">전화 안 해요 · 가입 권유 없어요<br>유지가 나으면 유지하라고 말해요</p>
     <p class="daily1">꼼꼼히 보려고 점검은 <b>하루 1명</b>만 받아요</p>
-    <a class="kakao" id="kakao" href="https://ig.me/m/bohum.check.note" target="_blank" rel="noopener">DM으로 점검 신청하기</a>
+    <a class="kakao" id="kakao" href="https://ig.me/m/bojangi.note" target="_blank" rel="noopener">DM으로 점검 신청하기</a>
     <p class="fine2">점검이 아니어도 괜찮아요. 보험 때문에 궁금하거나 고민되는 게 있으면 편하게 물어보세요.</p>
     <p class="fine2">여러 회사를 한자리에서 볼 수 있는 건, 한 회사에 소속되지 않고 생명·손해보험 35개사 상품을 함께 다루는 보험대리점(GA) 설계사라서예요.</p>
   </section>
 
   <div class="dock">
     <button class="go" id="go" type="button">비교 영수증 뽑기</button>
-    <a class="go" id="goDm" href="https://ig.me/m/bohum.check.note" hidden>DM으로 점검 신청하기</a>
+    <a class="go" id="goDm" href="https://ig.me/m/bojangi.note" hidden>DM으로 점검 신청하기</a>
     <button class="again" id="again" type="button">다시</button>
   </div>
   <p class="note" data-on="0">실제 보험료는 나이·병력·직업과 심사 결과에 따라 달라집니다.</p>
@@ -719,7 +830,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
 
   function $(id){return document.getElementById(id)}
   function won(n){return Math.round(n).toLocaleString("ko-KR")}
-  var S={picked:false,amt:{},tier:1,mode:"mix",age:30,sex:"m",set:"basic",rows:SETS[1].rows(30),busy:false,done:false,stale:false,sound:true,serial:0,res:null};
+  var S={picked:true,amt:{},tier:1,mode:"mix",age:30,sex:"m",set:"basic",rows:SETS[1].rows(30),busy:false,done:false,stale:false,sound:true,serial:0,res:null};
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var rowsEl=$("rows"), receipt=$("receipt"), goBtn=$("go"), againBtn=$("again"), stamp=$("stamp"), app=$("app");
 
@@ -925,7 +1036,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   }
 
   // ── 화면 넘기기: 0 시작 · 1 영수증 · 2 차이 · 3 질문1 · 4 질문2 · 5 신청 · 9 조건 ──
-  var SCR=0, DM="https://ig.me/m/bohum.check.note", BACK={1:0,3:1,4:3,5:4,9:1}, DOT={0:0,1:1,3:2,4:3,5:4,9:1};
+  var SCR=0, DM="https://ig.me/m/bojangi.note", BACK={1:0,3:1,4:3,5:4,9:1}, DOT={0:0,1:1,3:2,4:3,5:4,9:1};
   function go(n,backward){
     SCR=n; app.setAttribute("data-s",String(n));
     Array.prototype.forEach.call(app.children,function(el){
@@ -945,7 +1056,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
     var t="", dis=false, show=true;
     goBtn.classList.toggle("wait",SCR===0&&!S.picked);
     if(SCR===0)t=S.picked?"비교 영수증 뽑기":"나이대를 먼저 눌러주세요";
-    if(SCR===1){t=S.busy?"5개사 비교하는 중":"내 보험은 어떨까";dis=S.busy}
+    if(SCR===1){t=S.busy?"가격 "+(5*S.rows.length)+"개 대조하는 중":"내 보험은 어떨까";dis=S.busy}
     if(SCR===3||SCR===4)show=false;
     if(SCR===5)t="DM으로 점검 신청하기";
     if(SCR===9)t="이 조건으로 다시 뽑기";
@@ -1106,7 +1217,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
     $("shareMsg").textContent="조건을 복사했어요. DM에 붙여넣기만 하면 돼요";
   });
   $("share").addEventListener("click",function(){
-    var d={title:"보험료 비교 영수증",text:"같은 보장인데 회사마다 보험료가 이만큼 달라요. 나이대만 누르면 나와요.",url:SHARE_URL}, msg=$("shareMsg");
+    var d={title:"보장마트",text:"같은 보장인데 회사마다 보험료가 이만큼 달라요. 나이대만 누르면 나와요.",url:SHARE_URL}, msg=$("shareMsg");
     function copied(){msg.textContent="링크를 복사했어요. 붙여넣어서 보내면 돼요."}
     function manual(){msg.textContent=SHARE_URL}
     function copy(){
@@ -1118,5 +1229,10 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   drawSets(); idle(); go(0);
 })();
 </script>
+<script>(function(){var $=function(i){return document.getElementById(i)};
+function upd(){var a=document.querySelector('#ages [aria-pressed="true"]'),x=document.querySelector('#sexes [aria-pressed="true"]');
+ $("mkWho").textContent=(a?a.dataset.v:"30")+"대 "+(x&&x.dataset.v==="f"?"여성":"남성")}
+["ages","sexes"].forEach(function(i){$(i).addEventListener("click",function(){setTimeout(upd,0)})});
+$("mask").addEventListener("click",function(){$("go").click()});upd();})();</script>
 </body>
 </html>
