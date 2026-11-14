@@ -136,7 +136,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offse
 .tag{grid-column:1/-1;display:none;justify-content:space-between;gap:8px;font-size:13px;font-weight:600;color:var(--paper-mute);margin-top:-2px}
 .rowb.done .tag{display:flex}
 .tag b{font-weight:700;color:var(--paper-ink);white-space:nowrap}
-.c0{--cc:#2563eb}.c1{--cc:#d9791a}.c2{--cc:#7b4ee6}.c3{--cc:#0e9f8e}.c4{--cc:#c23a8a}
+.c0{--cc:#2563eb}.c1{--cc:#d9791a}.c2{--cc:#7b4ee6}.c3{--cc:#0e9f8e}.c4{--cc:#c23a8a}.c5{--cc:#5b7f1e}.c6{--cc:#b4442f}.c7{--cc:#1f7a9c}.c8{--cc:#8a6d1a}.c9{--cc:#4b5fc4}.c10{--cc:#a23f6d}.c11{--cc:#2e8b57}.c12{--cc:#9a5b2c}.c13{--cc:#6a4bb0}.c14{--cc:#3f7f7f}.c15{--cc:#7a7a2a}
 .rowb.done .co{background:var(--cc,var(--blue))}
 .rowb{cursor:pointer}
 .r-cond{font-size:13px;color:var(--paper-mute);font-weight:500;margin-top:14px;text-align:center}
@@ -170,7 +170,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offse
 .scan.show{display:flex}
 .sc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;word-break:keep-all;font-size:13px;font-weight:700}
 .sc-top b{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.sc-cos{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.sc-cos{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.sc-cos span.nx{background:transparent !important;border:1.5px dashed #dccdb1;color:#cdbd9f;padding:3.5px 0}.sc-cos span.nx.on{border-style:solid;border-color:#b9a888;color:#9c8b6c}
 .sc-cos span{text-align:center;font-size:12px;font-weight:700;padding:5px 0;border-radius:5px;background:#dfe3ea;color:var(--paper-mute);transition:background .2s,color .2s}
 .sc-cos span.on{background:var(--cc);color:#fff}
 .sc-bar{height:6px;border-radius:3px;background:#dfe3ea;overflow:hidden}
@@ -475,6 +475,7 @@ body{background:var(--ink);color:var(--tx)}
 .lz-mask .lz-sum{margin-top:10px;background:#ffd43b;border:2.5px solid #2a211b;border-radius:10px;padding:8px 10px;font-size:14.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:5px}
 .lz-mask .lz-sum .lz-q{background:repeating-linear-gradient(-45deg,#e9b90f 0 5px,#d6a800 5px 10px)}
 .lz-mask .lz-tap{display:block;text-align:center;font-size:12.5px;font-weight:700;color:#ee4b2b;margin-top:8px}
+.lz-fine{display:block;text-align:center;font-size:11.5px;font-weight:600;color:#8c7b6a;margin-top:5px}
 .lz-safe{font-size:13px;font-weight:700;color:#5d5046;text-align:center;margin:-2px 0 -4px}
 .lz-safe i{font-style:normal;color:#1f9d55}
 .app[data-s="0"] .pickers{margin-top:0 !important}
@@ -517,6 +518,11 @@ body{background:var(--ink);color:var(--tx)}
 .lz-steps3 small{display:block;font-size:12.5px;color:#8c7b6a;font-weight:600}
 .lz-who2{display:flex;gap:12px;align-items:center}
 .lz-who2 p{font-size:13.5px;line-height:1.5}
+.lz-src{font-size:11.5px;line-height:1.5;color:#8c7b6a;font-weight:500;padding:8px 14px 12px;word-break:keep-all}
+.lz-plus{background:#fff6c9;border:2px solid #2a211b;border-radius:12px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:5px}.lz-plus b{font-size:15px;color:#2a211b}.lz-plus p{font-size:13.5px !important;line-height:1.55 !important}.lz-plus small{font-size:11px;color:#8c7b6a;font-weight:600}
+.lz-cl{font-size:12px !important;font-weight:800 !important;color:#8c7b6a !important;margin-bottom:-5px}.lz-chips{display:flex;flex-wrap:wrap;gap:5px}.lz-chips i{font-style:normal;font-size:12.5px;font-weight:700;color:#2a211b;background:#fff6e5;border:1.5px solid #ead9bb;border-radius:999px;padding:4px 9px}
+.lz-more6{font-size:13.5px;font-weight:700;color:#5d5046;text-align:center;line-height:1.5}
+.lz-vary{margin:10px 14px 2px;padding:9px 11px;border-radius:10px;background:#fff6e5;border:1.5px dashed #c9b99f;font-size:13px;line-height:1.5;font-weight:600;color:#5d5046;word-break:keep-all}.lz-vary b{color:#2a211b}
 .lz-promise{font-size:13.5px;font-weight:700;color:#2a211b;text-align:center;background:#fff;border:1.5px dashed #c9b99f;border-radius:10px;padding:9px 8px;line-height:1.5}
 </style></head>
 <body>
@@ -526,13 +532,14 @@ body{background:var(--ink);color:var(--tx)}
     <h1>내 또래는 보험료<br><span>얼마 내고 있을까?</span></h1>
   </header>
 
-  <div class="lz-bj" data-on="0"><img src="data:image/jpeg;base64,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" alt="보장이"><p>나이대만 누르면 <b>5개 회사 가격 <span id="bjN">45</span>개</b>를 한 장에 대조해 드려요.</p></div>
+  <div class="lz-bj" data-on="0"><img src="data:image/jpeg;base64,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" alt="보장이"><p>나이대만 누르면 <b>보험사 35곳을 조회</b>해서 가격표를 한 장에 대조해 드려요.</p></div>
   <button class="lz-mask" id="mask" type="button" data-on="0">
-    <span class="lz-tag"><b id="mkWho">30대 남성</b> · 같은 보장 · 예시</span>
+    <span class="lz-tag"><b id="mkWho">30대 남성</b> · 같은 보장 7가지</span>
     <div class="lz-row"><span>제일 비싼 한 곳에서 다 사면</span><b>월 <i class="lz-q" style="width:74px">?</i>원</b></div>
     <div class="lz-row lz-hot"><span>싼 곳만 골라 담으면</span><b>월 <i class="lz-q" style="width:66px">?</i>원</b></div>
     <div class="lz-sum">20년이면 <i class="lz-q" style="width:44px">?</i>만 원 차이</div>
     <span class="lz-tap">▼ 아래 버튼 누르면 숫자가 열려요</span>
+    <span class="lz-fine">실제 보험료는 나이·성별·직업·병력에 따라 달라져요</span>
   </button>
   <div class="pickers" data-on="0">
     <div class="pair">
@@ -553,12 +560,12 @@ body{background:var(--ink);color:var(--tx)}
     <section>
       <span class="lz-k2">이유 1</span>
       <h2>어느 회사도<br><b>전부 다 싸진</b> 않아요</h2>
-      <p>암은 B사가 싸고, 뇌는 D사가 싸고. 회사마다 싸게 파는 보장이 달라요. 마트마다 싼 물건이 다른 것처럼요.</p>
+      <p>암은 이 회사가 싸고, 뇌는 저 회사가 싸고. 회사마다 싸게 파는 보장이 달라요. 마트마다 싼 물건이 다른 것처럼요.</p>
       <svg class="stalls" viewBox="0 0 330 146" fill="none" stroke="#2a211b" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(4 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#2563eb" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#2563eb"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">A사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt0"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">비싸요</text></g></g><g transform="translate(115 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#d9791a" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#d9791a"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">B사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt1 best"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#ee4b2b"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" stroke="none">제일 싸요</text></g></g><g transform="translate(226 0)"><path d="M8 34v62M92 34v62" stroke-width="2.4"/><rect x="2" y="12" width="96" height="20" rx="3" fill="#fff"/><rect x="2" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="34" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="66" y="12" width="16" height="20" fill="#0e9f8e" stroke="none"/><rect x="2" y="12" width="96" height="20" rx="3"/><path d="M2 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M18 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M34 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M50 32a8 7 0 0 0 16 0z" fill="#fff"/><path d="M66 32a8 7 0 0 0 16 0z" fill="#0e9f8e"/><path d="M82 32a8 7 0 0 0 16 0z" fill="#fff"/><rect x="30" y="2" width="40" height="19" rx="5" fill="#fff"/><text x="50" y="16" text-anchor="middle" font-size="12.500" font-weight="700" fill="#2a211b" stroke="none">C사</text><rect x="27" y="45" width="46" height="46" rx="6" fill="#fff"/><g transform="translate(32 50) scale(1.5)" stroke-width="1.300"><path d="M12 3.5c-2.8 0-4.2 2-3 4.3l5.6 10.7 2.6-1.6L12 7 6.8 16.9l2.6 1.6L15 7.8c1.2-2.3-.2-4.3-3-4.3z" fill="#ff7aa8"/></g><rect x="0" y="91" width="100" height="16" rx="4" fill="#ffe3ae"/><g class="pt pt2"><path d="M50 107v6" /><rect x="7" y="112" width="86" height="30" rx="7" fill="#fff"/><text x="50" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#2a211b" stroke="none">보통</text></g></g></svg>
       <div class="lz-bars">
-        <span class="lz-ex">예시 · 30대 남성 · 같은 보장 월 보험료</span>
-        <div><span>제일 비싼 한 곳에서 전부</span><b>110,200원</b><em>+10,500원</em></div>
-        <div><span>제일 싼 한 곳에서 전부</span><b>101,300원</b><em>+1,600원</em></div>
+        <span class="lz-ex">30대 남성 · 보장 7가지 · 보험사 16곳 실제 공시가 기준</span>
+        <div><span>제일 비싼 한 곳에서 전부</span><b>126,400원</b><em>+26,700원</em></div>
+        <div><span>제일 싼 한 곳에서 전부</span><b>113,100원</b><em>+13,400원</em></div>
         <div class="lz-win"><span>보장마다 싼 곳 골라 담기</span><b>99,700원</b><em>제일 쌈</em></div>
       </div>
       <p><b>제일 싼 회사 한 곳</b>에서 전부 사도, 골라 담는 것보다 비싸요.</p>
@@ -571,19 +578,27 @@ body{background:var(--ink);color:var(--tx)}
         <div class="lz-on"><em>보험대리점(GA) 설계사</em><span class="lz-dots2"><u></u><u></u><u></u><u></u><u></u></span><strong>여러 회사 상품을</strong><small>보장마다 싼 곳을 골라 담을 수 있어요.</small></div>
       </div>
       <div class="lz-stat"><b>60.4%</b><span>지금은 설계사 10명 중 6명이 보험대리점 소속<small>보험연구원 · 2024년 기준</small></span></div>
+      <div class="lz-plus"><b>생명보험까지 섞으면 더 내려가요</b><p>뇌혈관 진단 2천만 원이 손해보험 제일 싼 곳은 월 20,460원, 생명보험 제일 싼 곳은 13,452원이에요. 다만 회사를 하나 더 쓰면 기본료가 붙어서, 실제로 이득인지는 조합을 계산해 봐야 알아요. 영수증이 그 계산을 해 드려요.</p><small>35세 남성 · 20년납 100세 만기 · 각 사 공시가 기준</small></div>
     </section>
     <section>
       <span class="lz-k2">그런데</span>
       <h2>대리점이라고<br><b>다 비교해 주진</b> 않아요</h2>
       <p>여러 회사를 다룰 수 있어도, 비교표 없이 한 상품만 권하면 소용이 없어요. 그래서 이렇게 하세요.</p>
       <ul class="lz-chk"><li>비슷한 상품 3개 이상 비교해 달라고 하기</li><li>보장마다 어느 회사가 싼지 표로 받기</li></ul>
-      <p><b class="lz-hl">이 영수증이 바로 그 비교표예요.</b> 5개 회사 가격을 한 장에 놓고 보여 드려요.</p>
+      <p><b class="lz-hl">이 영수증이 바로 그 비교표예요.</b> 가격표가 있는 보험사를 한 장에 놓고 보여 드려요.</p>
+    </section>
+    <section>
+      <span class="lz-k2">다루는 보험사</span>
+      <h2>이 보험사 상품을<br><b>전부 다뤄요</b></h2>
+      <p class="lz-cl">생명보험</p><div class="lz-chips"><i>삼성생명</i><i>한화생명</i><i>교보생명</i><i>신한라이프</i><i>흥국생명</i><i>동양생명</i><i>미래에셋생명</i><i>KB라이프</i><i>라이나생명</i><i>메트라이프</i><i>AIA생명</i><i>DB생명</i><i>NH농협생명</i><i>ABL생명</i><i>푸본현대생명</i><i>iM라이프</i><i>KDB생명</i><i>하나생명</i><i>처브라이프</i><i>BNP파리바카디프</i><i>IBK연금</i></div>
+      <p class="lz-cl">손해보험</p><div class="lz-chips"><i>메리츠화재</i><i>한화손해보험</i><i>롯데손해보험</i><i>흥국화재</i><i>삼성화재</i><i>현대해상</i><i>KB손해보험</i><i>DB손해보험</i><i>AIG손해보험</i><i>라이나손해보험</i><i>NH농협손해보험</i><i>하나손해보험</i></div>
+      <p>이 중 <b>26곳은 가격 공시를 미리 확인해 뒀어요.</b> 영수증에 지금 가격표가 들어 있는 곳은 16곳이에요. 나머지는 내 나이·병력으로 직접 뽑아봐야 해서, 점검에서 전체를 놓고 찾아드려요.</p>
     </section>
     <section>
       <span class="lz-k2">이렇게 진행돼요</span>
       <div class="lz-steps3">
         <div><i>1</i><span>나이대 누르기<small>10초 · 개인정보 입력 없음</small></span></div>
-        <div><i>2</i><span>5개사 비교 영수증 받기<small>보장마다 제일 싼 곳이 어딘지</small></span></div>
+        <div><i>2</i><span>35개사 조회 영수증 받기<small>보장마다 제일 싼 곳이 어딘지</small></span></div>
         <div><i>3</i><span>원하면 내 보험 점검 신청<small>유지가 나으면 유지하라고 말해요</small></span></div>
       </div>
     </section>
@@ -600,7 +615,7 @@ body{background:var(--ink);color:var(--tx)}
   <main class="printer" data-on="1">
     <canvas id="fx"></canvas>
     <svg class="pos" viewBox="0 0 340 78" fill="none" stroke="#2a211b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-<rect x="34" y="3" width="150" height="40" rx="7" fill="#2a211b"/><text x="109" y="29" text-anchor="middle" font-size="15" font-weight="700" fill="#7dffb0" stroke="none">5개사 가격 비교</text>
+<rect x="34" y="3" width="150" height="40" rx="7" fill="#2a211b"/><text x="109" y="29" text-anchor="middle" font-size="15" font-weight="700" fill="#7dffb0" stroke="none">35개사 가격 조회</text>
 <path d="M12 78V46a10 10 0 0 1 10-10h296a10 10 0 0 1 10 10v32z" fill="#ee4b2b"/>
 <g fill="#fff"><rect x="204" y="44" width="13" height="7" rx="2"/><rect x="222" y="44" width="13" height="7" rx="2"/><rect x="240" y="44" width="13" height="7" rx="2"/><rect x="258" y="44" width="13" height="7" rx="2"/><rect x="276" y="44" width="13" height="7" rx="2"/><rect x="204" y="54" width="13" height="7" rx="2"/><rect x="222" y="54" width="13" height="7" rx="2"/><rect x="240" y="54" width="13" height="7" rx="2"/><rect x="258" y="54" width="13" height="7" rx="2"/><rect x="276" y="54" width="13" height="7" rx="2"/></g>
 <rect x="296" y="44" width="20" height="16" rx="3" fill="#ffd43b"/>
@@ -608,13 +623,13 @@ body{background:var(--ink);color:var(--tx)}
 </svg>
     <div class="feed">
       <article class="receipt" id="receipt">
-        <div class="r-head"><span class="r-no" id="rNo">NO. 0000</span><span class="r-no">5개사 비교 · 예시 수치</span></div>
+        <div class="r-head"><span class="r-no" id="rNo">NO. 0000</span><span class="r-no" id="rTag">35곳 조회</span></div>
         <div class="r-theme" id="rTheme"></div>
         <div class="pA">
         <div class="tags" id="rSub"></div>
         <div class="scan" id="scan">
-          <div class="sc-top"><span id="scT">5개사 가격표 대조 중</span><b id="scN"></b></div>
-          <div class="sc-cos" id="scCos"><span class="c0">A사</span><span class="c1">B사</span><span class="c2">C사</span><span class="c3">D사</span><span class="c4">E사</span></div>
+          <div class="sc-top"><span id="scT">보험사 35곳 조회 중</span><b id="scN"></b></div>
+          <div class="sc-cos" id="scCos"><span class="c0">A</span><span class="nx">·</span><span class="c1">B</span><span class="nx">·</span><span class="c2">C</span><span class="nx">·</span><span class="nx">·</span><span class="c3">D</span><span class="nx">·</span><span class="c4">E</span><span class="nx">·</span><span class="c5">F</span><span class="nx">·</span><span class="c6">G</span><span class="nx">·</span><span class="c7">H</span><span class="nx">·</span><span class="nx">·</span><span class="c8">I</span><span class="nx">·</span><span class="c9">J</span><span class="nx">·</span><span class="c10">K</span><span class="nx">·</span><span class="c11">L</span><span class="nx">·</span><span class="c12">M</span><span class="nx">·</span><span class="c13">N</span><span class="nx">·</span><span class="nx">·</span><span class="c14">O</span><span class="nx">·</span><span class="c15">P</span><span class="nx">·</span></div>
           <div class="sc-bar"><i id="scBar"></i></div>
         </div>
         <hr class="rule">
@@ -627,6 +642,7 @@ body{background:var(--ink);color:var(--tx)}
           <div><small id="sumL">가장 싼 조합의 월 합계</small><div class="sum"><span id="sum">?</span><i>원</i></div></div>
           <div class="stamp" id="stamp"><span>월 최대</span><strong id="stV"></strong><span>차이</span></div>
         </div>
+        <p class="lz-vary">같은 보장이라도 <b>나이·성별·직업·병력</b>에 따라 실제 보험료는 달라져요. 이 금액은 건강한 사무직 기준이에요.</p>
         <div class="pB">
         <div class="cmp" id="cmp">
           <div class="gapline" id="gapLine"></div>
@@ -637,11 +653,12 @@ body{background:var(--ink);color:var(--tx)}
         </div>
         </div>
         <div class="r-cond" id="rCond"></div>
+        <p class="lz-src" id="lzSrc" hidden></p>
       </article>
     </div>
   </main>
   <div class="sharebar" id="shareBar" data-on="1">
-    <a class="realbtn" id="realBtn" href="https://ig.me/m/bojangi.note"><b>내 조건으로 진짜 영수증 받기</b><small>누르면 조건이 복사돼요. DM에 붙여넣기만 하면 실제 보험사 이름으로 뽑아드려요</small></a>
+    <a class="realbtn" id="realBtn" href="https://ig.me/m/bojangi.note"><b>영수증 속 회사 이름 확인하기</b><small>누르면 조건이 복사돼요. DM에 붙여넣으면 A사~P사가 어디인지 바로 보내드려요</small></a>
     <div class="two"><button class="share" id="optBtn" type="button">조건 바꿔보기</button><button class="share" id="share" type="button">친구에게 보내기</button></div>
     <div class="sharemsg" id="shareMsg" role="status"></div>
   </div>
@@ -684,6 +701,7 @@ body{background:var(--ink);color:var(--tx)}
       <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#3ccf7e"/><path d="m8 12.300 2.800 2.800 5.400-5.600" stroke="#fff" stroke-width="2.400"/></svg></i><span>간단한 동의만 하면 돼요<small>동의 없이는 아무것도 조회하지 않아요</small></span></div>
       <div><i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a211b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="15.500" rx="2" fill="#fff"/><rect x="9" y="3.500" width="6" height="3.500" rx="1" fill="#ffb02e"/><path d="M8.500 11h7M8.500 14h7M8.500 17h4"/></svg></i><span>내 보험을 한눈에 정리해드려요<small>유지가 나으면 유지하라고 말씀드려요</small></span></div>
     </div>
+    <p class="lz-more6">영수증에 가격이 들어간 곳은 16곳이에요.<br>나머지 보험사는 내 조건으로 점검에서 찾아드려요.</p>
     <p class="lz-promise">전화 안 해요 · 가입 권유 없어요<br>유지가 나으면 유지하라고 말해요</p>
     <p class="daily1">꼼꼼히 보려고 점검은 <b>하루 1명</b>만 받아요</p>
     <a class="kakao" id="kakao" href="https://ig.me/m/bojangi.note" target="_blank" rel="noopener">DM으로 점검 신청하기</a>
@@ -696,7 +714,7 @@ body{background:var(--ink);color:var(--tx)}
     <a class="go" id="goDm" href="https://ig.me/m/bojangi.note" hidden>DM으로 점검 신청하기</a>
     <button class="again" id="again" type="button">다시</button>
   </div>
-  <p class="note" data-on="0">실제 보험료는 나이·병력·직업과 심사 결과에 따라 달라집니다.</p>
+  <p class="note" data-on="0 1">실제 보험료는 나이·성별·직업·병력과 심사 결과에 따라 달라집니다.</p>
 </div>
 
 <div class="sheet-bg" id="help" role="dialog" aria-modal="true" aria-labelledby="helpT">
@@ -722,47 +740,50 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   // base = 30세 남성 비갱신 월 보험료(원), f = 여성 배율, m = A~E사 배율, MAIN = 회사별 주계약(기본 계약) 월 보험료
   // a = 보장 크기 3단계의 [가입금액 표시, base 금액 대비 보험료 배율]. base는 배율 1인 금액(암 3천 등)의 견적이고 나머지는 비례 계산
   // r = 갱신형 첫 보험료가 비갱신의 몇 배인지, ro = 갱신형으로만 파는 담보
-  var CO=["A","B","C","D","E"];
-  var MAIN=[1200,1000,1500,1100,1300];
-  var MAX_CO=3;
+  var CO="ABCDEFGHIJKLMNOP".split(""), NCO=CO.length;
+  var REALK=["cancer", "minor", "brain", "heart", "opb", "injop", "bone"], REALT={"cancer": 5000, "minor": 1000, "brain": 2000, "heart": 2000, "opb": 50, "injop": 50, "bone": 50}, REAL={"fix": {"m": [[61550, 2000, 25500, 15000, 12815, 3485, 2385], [68750, 5150, 20840, 11880, 7070, 1460, 3065], [69240, 2360, 23316, 18466, 14425, 3085, 7170], [70900, 2730, 24580, 17080, 11940, 2665, 3310], [67550, 2700, 25340, 11300, 25605, 2850, 6020], [74250, 3050, 25460, 19100, 15625, 2770, 3800], [59400, 1440, 20460, 12560, null, 2250, null], [null, null, null, null, null, null, null], [null, null, 13660, 10660, 11730, null, null], [null, null, 14920, 10260, null, null, null], [null, null, 13452, 8342, 7855, null, null], [null, null, 16900, 12800, null, null, null], [null, null, 33600, 22600, null, null, null], [null, null, 14000, 17086, null, null, null], [null, null, 14320, 12560, 10970, null, null], [null, null, null, null, null, null, null]], "f": [[35700, 5700, 22520, 6980, 14500, 2560, 3280], [43750, 8820, 16240, 5420, 8120, 1125, 3795], [54445, 7540, 21060, 8560, 16440, 2790, 7980], [57750, 6560, 20420, 7920, 12705, 3295, 3660], [54200, 8000, 23800, 8320, 25955, 2600, 6940], [60850, 7690, 22200, 7860, 16135, 2850, 4935], [48150, 6290, 18500, 5740, null, 1970, null], [null, null, null, null, null, null, null], [null, null, 12780, 4760, 12190, null, null], [null, null, 10300, 5600, null, null, null], [null, null, 11172, 3982, 8165, null, null], [null, null, 15780, 5500, null, null, null], [null, null, 31400, 13200, null, null, null], [null, null, 13200, 9946, null, null, null], [null, null, 13440, 6060, 13000, null, null], [null, null, null, null, null, null, null]]}, "ren": {"m": [[18250, 700, 5760, 5120, 5450, 2365, 1585], [17500, 1770, 3940, 3480, 2880, 1085, 1350], [14070, 680, 4830, 4502, 5630, 1930, 3970], [null, null, null, null, null, null, null], [20500, 1200, 6400, 4240, 10925, 1755, 3530], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [11484, 510, 3116, 4026, 6185, 1675, 443], [null, null, 4240, 3620, 5160, null, null], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [null, null, 7400, 8800, null, null, null], [null, null, null, null, null, null, null], [null, null, 5320, 4720, 5925, null, null], [null, null, 6160, 5760, null, null, null]], "f": [[13650, 3900, 5240, 2560, 7220, 1530, 1715], [20400, 5250, 3300, 1180, 4290, 720, 1470], [23445, 4740, 4430, 1452, 7965, 1100, 3970], [null, null, null, null, null, null, null], [26900, 5500, 6500, 3000, 12150, 1330, 3710], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [9186, 3300, 2656, 1342, 7720, 1345, 640], [null, null, 4060, 1200, 5925, null, null], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [null, null, null, null, null, null, null], [null, null, 7000, 4800, null, null, null], [null, null, null, null, null, null, null], [null, null, 4680, 1240, 7990, null, null], [null, null, 5060, 4500, null, null, null]]}};
+  function isReal(key){return REALK.indexOf(key)>=0}
+
+  var MAIN=[1200,1000,1500,13700,1300,6600,900,100,8900,4100,3600,5600,4000,5600,4000,1500], MINP=CO.map(function(){return 0}), NALL=35;
+  var MAX_CO=2;
   var D={
     // 암·뇌·심 진단
-    cancer:{g:0,r:.34,nm:"암 진단(유사암 제외)",base:26800,f:.92,m:[1.00,1.09,1.14,1.05,1.19],t:"일반암에서 유방·생식기암을 빼는 회사가 있어요. 그 경우 남녀특정암 담보로 채워요"},
-    fem:{g:0,r:.4,nm:"남녀특정암 진단",base:1500,f:2.6,m:[1.07,1.00,1.15,1.10,1.04],t:"유방·자궁·전립선 같은 암이에요. 일반암 진단금에 포함되는지 회사마다 달라요"},
-    minor:{g:0,r:.4,nm:"유사암 진단",base:4200,f:1.25,m:[1.12,1.00,1.07,1.18,1.04],t:"갑상선암·제자리암·경계성종양·기타피부암이에요. 일반암의 20%까지만 받는 회사가 많아요"},
-    brain:{g:0,r:.26,nm:"뇌혈관질환 진단",base:6100,f:.88,m:[1.17,1.08,1.00,1.22,1.11],t:"뇌졸중보다 넓은 범위예요. 최초 1회만 주는지 확인하세요"},
-    heart:{g:0,r:.38,nm:"허혈성심장질환 진단",base:7700,f:.62,m:[1.06,1.21,1.13,1.00,1.16],t:"협심증까지 포함돼요. 부정맥·심부전은 별도 담보예요"},
-    arr:{g:0,r:.4,nm:"부정맥 진단",base:900,f:.9,m:[1.10,1.18,1.00,1.06,1.14],t:"허혈성심장 진단에는 안 들어가요. 해당 질병코드를 확인하세요"},
-    hf:{g:0,r:.4,nm:"심부전 진단",base:1100,f:.9,m:[1.00,1.12,1.08,1.16,1.05],t:"허혈성심장 진단과는 별개예요"},
+    cancer:{g:0,r:.34,nm:"암 진단(유사암 제외)",base:26800,f:.92,m:[1.00,1.09,1.14,1.05,1.19,1.12],t:"일반암에서 유방·생식기암을 빼는 회사가 있어요. 그 경우 남녀특정암 담보로 채워요"},
+    fem:{g:0,r:.4,nm:"남녀특정암 진단",base:1500,f:2.6,m:[1.07,1.00,1.15,1.10,1.04,1.09],t:"유방·자궁·전립선 같은 암이에요. 일반암 진단금에 포함되는지 회사마다 달라요"},
+    minor:{g:0,r:.4,nm:"유사암 진단",base:4200,f:1.25,m:[1.12,1.00,1.07,1.18,1.04,1.11],t:"갑상선암·제자리암·경계성종양·기타피부암이에요. 일반암의 20%까지만 받는 회사가 많아요"},
+    brain:{g:0,r:.26,nm:"뇌혈관질환 진단",base:6100,f:.88,m:[1.17,1.08,1.00,1.22,1.11,1.15],t:"뇌졸중보다 넓은 범위예요. 최초 1회만 주는지 확인하세요"},
+    heart:{g:0,r:.38,nm:"허혈성심장질환 진단",base:7700,f:.62,m:[1.06,1.21,1.13,1.00,1.16,1.16],t:"협심증까지 포함돼요. 부정맥·심부전은 별도 담보예요"},
+    arr:{g:0,r:.4,nm:"부정맥 진단",base:900,f:.9,m:[1.10,1.18,1.00,1.06,1.14,1.13],t:"허혈성심장 진단에는 안 들어가요. 해당 질병코드를 확인하세요"},
+    hf:{g:0,r:.4,nm:"심부전 진단",base:1100,f:.9,m:[1.00,1.12,1.08,1.16,1.05,1.11],t:"허혈성심장 진단과는 별개예요"},
     // 수술·치료
-    opb:{g:1,r:.35,nm:"질병수술비",base:7800,f:1.1,m:[1.06,1.13,1.00,1.17,1.09],t:"수술할 때마다 받는 기본 수술비예요. 종수술과 따로 받아요. 제외되는 수술을 확인하세요"},
-    op5:{g:1,r:.35,nm:"질병 1~5종 수술",base:10200,f:1.08,m:[1.15,1.00,1.20,1.09,1.05],t:"수술 종류별로 금액이 정해져요. 같은 수술이 회사마다 다른 종으로 분류돼요"},
-    op7:{g:1,r:.35,nm:"급여 1~7종 수술",base:20900,f:1.05,m:[1.29,1.12,1.00,1.18,1.07],t:"1~5종과 분류표가 달라요. 수술코드당 연 1회"},
-    bhop:{g:1,r:.35,nm:"뇌·심장 수술비",base:2400,f:.8,m:[1.10,1.00,1.22,1.06,1.15],t:"진단금과는 달라요. 수술을 해야 받고, 회차에 따라 금액이 달라지는 상품도 있어요"},
-    chemoD:{g:1,r:.4,nm:"항암약물치료",base:2700,f:.95,m:[1.08,1.24,1.15,1.00,1.19],t:"최초 1회인지, 해마다 반복해서 주는지 확인하세요"},
-    radio:{g:1,r:.4,nm:"항암방사선치료",base:2500,f:.95,m:[1.12,1.00,1.20,1.07,1.15],t:"1회 한도인지 확인하세요. 유사암은 금액이 줄어요"},
-    target:{g:1,ro:1,nm:"표적항암약물허가치료",base:1800,f:1.1,m:[1.00,1.27,1.10,1.18,1.06],t:"갱신형으로만 나와요. 첫 지급과 반복 지급 조건이 달라요"},
-    ion:{g:1,ro:1,nm:"항암중입자방사선 5천",base:400,f:1,m:[1.00,1.20,1.08,1.15,1.25],t:"갱신형이에요. 치료받을 수 있는 병원이 정해져 있어요"},
-    nonpay:{g:1,ro:1,nm:"암주요치료비(비급여 포함)",base:9000,f:.97,m:[1.20,1.44,1.00,1.31,1.12],t:"총한도와 항목별 금액은 따로예요. 한도 전체를 한 번에 받는 게 아니에요"},
-    polyp:{g:1,r:.53,nm:"용종 수술비",base:1500,f:.95,m:[1.19,1.07,1.13,1.00,1.10],t:"급여 수술만, 연 1회 한도예요"},
+    opb:{g:1,r:.35,nm:"질병수술비",base:7800,f:1.1,m:[1.06,1.13,1.00,1.17,1.09,1.12],t:"수술할 때마다 받는 기본 수술비예요. 종수술과 따로 받아요. 제외되는 수술을 확인하세요"},
+    op5:{g:1,r:.35,nm:"질병 1~5종 수술",base:10200,f:1.08,m:[1.15,1.00,1.20,1.09,1.05,1.13],t:"수술 종류별로 금액이 정해져요. 같은 수술이 회사마다 다른 종으로 분류돼요"},
+    op7:{g:1,r:.35,nm:"급여 1~7종 수술",base:20900,f:1.05,m:[1.29,1.12,1.00,1.18,1.07,1.16],t:"1~5종과 분류표가 달라요. 수술코드당 연 1회"},
+    bhop:{g:1,r:.35,nm:"뇌·심장 수술비",base:2400,f:.8,m:[1.10,1.00,1.22,1.06,1.15,1.14],t:"진단금과는 달라요. 수술을 해야 받고, 회차에 따라 금액이 달라지는 상품도 있어요"},
+    chemoD:{g:1,r:.4,nm:"항암약물치료",base:2700,f:.95,m:[1.08,1.24,1.15,1.00,1.19,1.18],t:"최초 1회인지, 해마다 반복해서 주는지 확인하세요"},
+    radio:{g:1,r:.4,nm:"항암방사선치료",base:2500,f:.95,m:[1.12,1.00,1.20,1.07,1.15,1.15],t:"1회 한도인지 확인하세요. 유사암은 금액이 줄어요"},
+    target:{g:1,ro:1,nm:"표적항암약물허가치료",base:1800,f:1.1,m:[1.00,1.27,1.10,1.18,1.06,1.15],t:"갱신형으로만 나와요. 첫 지급과 반복 지급 조건이 달라요"},
+    ion:{g:1,ro:1,nm:"항암중입자방사선 5천",base:400,f:1,m:[1.00,1.20,1.08,1.15,1.25,1.18],t:"갱신형이에요. 치료받을 수 있는 병원이 정해져 있어요"},
+    nonpay:{g:1,ro:1,nm:"암주요치료비(비급여 포함)",base:9000,f:.97,m:[1.20,1.44,1.00,1.31,1.12,1.26],t:"총한도와 항목별 금액은 따로예요. 한도 전체를 한 번에 받는 게 아니에요"},
+    polyp:{g:1,r:.53,nm:"용종 수술비",base:1500,f:.95,m:[1.19,1.07,1.13,1.00,1.10,1.12],t:"급여 수술만, 연 1회 한도예요"},
     // 입원·간병
-    care:{g:2,r:.3,nm:"질병 간병인 일당",base:18000,f:1.12,m:[1.31,1.14,1.22,1.07,1.00],t:"요양병원·한방병원 입원은 빠져요. 사용형인지 지원형인지 확인하세요"},
-    carei:{g:2,flat:1,r:.4,nm:"상해 간병인 일당",base:2800,f:.8,m:[1.20,1.05,1.12,1.00,1.09],t:"질병 간병인 일당과 따로 가입해요"},
-    careY:{g:2,r:.4,nm:"요양병원 간병인 일당 5만",base:2000,f:1.2,m:[1.15,1.00,1.22,1.08,1.12],t:"요양병원에 입원했을 때는 금액이 따로 정해져요"},
-    nurse:{g:2,r:.4,nm:"질병 간호간병통합 일당",base:3200,f:1.1,m:[1.08,1.15,1.00,1.20,1.05],t:"간병인 일당과는 다른 담보예요. 통합서비스 병동에 입원했을 때만 받아요"},
-    nursei:{g:2,flat:1,r:.4,nm:"상해 간호간병통합 일당",base:900,f:.8,m:[1.05,1.12,1.00,1.15,1.08],t:"다쳐서 통합서비스 병동에 입원했을 때 받아요"},
-    hosp:{g:2,r:.4,nm:"질병입원 일당",base:6900,f:1.15,m:[1.00,1.12,1.18,1.07,1.22],t:"며칠째부터 주는지, 한 번 입원에 최대 며칠인지 확인하세요"},
+    care:{g:2,r:.3,nm:"질병 간병인 일당",base:18000,f:1.12,m:[1.31,1.14,1.22,1.07,1.00,1.19],t:"요양병원·한방병원 입원은 빠져요. 사용형인지 지원형인지 확인하세요"},
+    carei:{g:2,flat:1,r:.4,nm:"상해 간병인 일당",base:2800,f:.8,m:[1.20,1.05,1.12,1.00,1.09,1.11],t:"질병 간병인 일당과 따로 가입해요"},
+    careY:{g:2,r:.4,nm:"요양병원 간병인 일당 5만",base:2000,f:1.2,m:[1.15,1.00,1.22,1.08,1.12,1.15],t:"요양병원에 입원했을 때는 금액이 따로 정해져요"},
+    nurse:{g:2,r:.4,nm:"질병 간호간병통합 일당",base:3200,f:1.1,m:[1.08,1.15,1.00,1.20,1.05,1.12],t:"간병인 일당과는 다른 담보예요. 통합서비스 병동에 입원했을 때만 받아요"},
+    nursei:{g:2,flat:1,r:.4,nm:"상해 간호간병통합 일당",base:900,f:.8,m:[1.05,1.12,1.00,1.15,1.08,1.11],t:"다쳐서 통합서비스 병동에 입원했을 때 받아요"},
+    hosp:{g:2,r:.4,nm:"질병입원 일당",base:6900,f:1.15,m:[1.00,1.12,1.18,1.07,1.22,1.16],t:"며칠째부터 주는지, 한 번 입원에 최대 며칠인지 확인하세요"},
     // 상해·배상·운전자
-    death:{g:3,flat:1,r:.6,nm:"상해사망",base:1500,f:.5,m:[1.00,1.05,1.03,1.08,1.02],t:"기본 계약으로 꼭 넣어야 하는 회사가 많아요"},
-    dis:{g:3,flat:1,r:.6,nm:"상해후유장해",base:2100,f:.6,m:[1.00,1.08,1.05,1.14,1.10],t:"3% 이상부터 주는지, 80% 이상만 주는지 확인하세요"},
-    injop:{g:3,flat:1,r:.6,nm:"상해수술비",base:1300,f:.7,m:[1.06,1.00,1.12,1.15,1.03],t:"질병수술비로는 다쳐서 하는 수술을 대신할 수 없어요"},
-    injop5:{g:3,flat:1,r:.6,nm:"상해 1~5종 수술",base:700,f:.7,m:[1.00,1.10,1.06,1.14,1.03],t:"다쳐서 하는 수술을 종별로 보장해요"},
-    bone:{g:3,flat:1,r:.6,nm:"골절 진단",base:3900,f:.9,m:[1.05,1.11,1.00,1.08,1.14],t:"치아 파절을 빼는 회사가 있어요"},
-    liab:{g:3,flat:1,ro:1,nm:"일상생활배상책임 1억",base:900,f:1,m:[1.00,1.05,1.02,1.08,1.04],t:"가족이 이미 들었으면 중복이에요. 누수 사고 자기부담금을 확인하세요"},
-    drv1:{g:3,flat:1,r:.7,nm:"교통사고처리지원금",base:4200,f:.85,m:[1.12,1.00,1.07,1.18,1.03],t:"6주 미만 사고와 중상해를 포함하는지가 회사마다 달라요"},
-    drv2:{g:3,flat:1,r:.7,nm:"변호사선임비용",base:1900,f:.85,m:[1.00,1.14,1.09,1.05,1.20],t:"경찰 조사 단계부터 주는지 확인하세요"},
-    drv3:{g:3,flat:1,r:.7,nm:"운전자 벌금 3천",base:600,f:.85,m:[1.05,1.00,1.03,1.08,1.02],t:"스쿨존 사고 한도를 확인하세요"},
-    life:{g:4,fo:1,nm:"일반사망(종신)",base:198000,f:.85,m:[1.00,1.07,.94,1.12,1.03],t:"해지환급금이 적은 유형일수록 보험료가 싸요. 같은 유형끼리 비교해야 해요"}
+    death:{g:3,flat:1,r:.6,nm:"상해사망",base:1500,f:.5,m:[1.00,1.05,1.03,1.08,1.02,1.05],t:"기본 계약으로 꼭 넣어야 하는 회사가 많아요"},
+    dis:{g:3,flat:1,r:.6,nm:"상해후유장해",base:2100,f:.6,m:[1.00,1.08,1.05,1.14,1.10,1.10],t:"3% 이상부터 주는지, 80% 이상만 주는지 확인하세요"},
+    injop:{g:3,flat:1,r:.6,nm:"상해수술비",base:1300,f:.7,m:[1.06,1.00,1.12,1.15,1.03,1.10],t:"질병수술비로는 다쳐서 하는 수술을 대신할 수 없어요"},
+    injop5:{g:3,flat:1,r:.6,nm:"상해 1~5종 수술",base:700,f:.7,m:[1.00,1.10,1.06,1.14,1.03,1.09],t:"다쳐서 하는 수술을 종별로 보장해요"},
+    bone:{g:3,flat:1,r:.6,nm:"골절 진단",base:3900,f:.9,m:[1.05,1.11,1.00,1.08,1.14,1.11],t:"치아 파절을 빼는 회사가 있어요"},
+    liab:{g:3,flat:1,ro:1,nm:"일상생활배상책임 1억",base:900,f:1,m:[1.00,1.05,1.02,1.08,1.04,1.05],t:"가족이 이미 들었으면 중복이에요. 누수 사고 자기부담금을 확인하세요"},
+    drv1:{g:3,flat:1,r:.7,nm:"교통사고처리지원금",base:4200,f:.85,m:[1.12,1.00,1.07,1.18,1.03,1.11],t:"6주 미만 사고와 중상해를 포함하는지가 회사마다 달라요"},
+    drv2:{g:3,flat:1,r:.7,nm:"변호사선임비용",base:1900,f:.85,m:[1.00,1.14,1.09,1.05,1.20,1.12],t:"경찰 조사 단계부터 주는지 확인하세요"},
+    drv3:{g:3,flat:1,r:.7,nm:"운전자 벌금 3천",base:600,f:.85,m:[1.05,1.00,1.03,1.08,1.02,1.05],t:"스쿨존 사고 한도를 확인하세요"},
+    life:{g:4,fo:1,nm:"일반사망(종신)",base:198000,f:.85,m:[1.00,1.07,.94,1.12,1.03,1.06],t:"해지환급금이 적은 유형일수록 보험료가 싸요. 같은 유형끼리 비교해야 해요"}
   };
   // 가입금액(만원). b = base 보험료가 가리키는 금액, t = 가볍게/표준/든든하게, s = 한 번에 바뀌는 폭
   var AMT={
@@ -813,8 +834,8 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   var ORDER=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","polyp","care","carei","careY","nurse","nursei","hosp","death","dis","injop","injop5","bone","liab","drv1","drv2","drv3"];
   // rows는 나이대에 따라 달라질 수 있다(간병인 일당은 40대부터)
   var SETS=[
-    {id:"core",name:"큰 병 3가지",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart"]}},
-    {id:"basic",name:"큰 병 + 수술",ages:[20,30,40,50],rows:function(){return ["cancer","fem","minor","brain","heart","opb","op5","injop","bone"]}},
+    {id:"core",name:"큰 병 3가지",ages:[20,30,40,50],rows:function(){return ["cancer","minor","brain","heart"]}},
+    {id:"basic",name:"큰 병 + 수술",ages:[20,30,40,50],rows:function(){return ["cancer","minor","brain","heart","opb","injop","bone"]}},
     {id:"full",name:"전부 든든하게",ages:[30,40,50],rows:function(a){
       var r=["cancer","fem","minor","brain","heart","arr","hf","opb","op5","op7","bhop","chemoD","radio","target","ion","nonpay","nurse","nursei","death","dis","injop","injop5","bone","liab"];
       if(a>=40)r.splice(16,0,"care","carei");return r}},
@@ -856,26 +877,32 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   function isRen(key){var d=D[key];if(d.fo)return false;return !!d.ro||S.mode==="ren"||(S.mode==="mix"&&d.g!==0)}
   function price(key,ci,age){
     var d=D[key],A=AGE[age||S.age],a=d.flat?Math.pow(A,.2):A;
-    return Math.round(d.base*a*(S.sex==="f"?d.f:1)*d.m[ci]*(isRen(key)&&!d.ro?d.r:1)*(AMT[key]?amt(key)/AMT[key].b:1)/100)*100;
+    if(isReal(key)){var tb=REAL[isRen(key)?"ren":"fix"][S.sex==="f"?"f":"m"][ci][REALK.indexOf(key)];if(tb==null)return null;return Math.round(tb*a*amt(key)/REALT[key]/100)*100}
+    return Math.round(d.base*a*(S.sex==="f"?d.f:1)*(d.m[ci%d.m.length]*(1+(ci>=d.m.length?((ci*7)%5)/100:0)))*(isRen(key)&&!d.ro?d.r:1)*(AMT[key]?amt(key)/AMT[key].b:1)/100)*100;
   }
 
   // ── 계산: 주계약까지 넣고 가장 싼 조합 찾기(모든 회사 배정을 다 따져본다) ──
   function solve(){
     var P=S.rows.map(function(k){return CO.map(function(_,c){return price(k,c)})}), best=null;
-    var MN=isLife()?[0,0,0,0,0]:MAIN; // 종신은 사망보장 자체가 주계약이라 따로 붙지 않는다
-    for(var mask=1;mask<32;mask++){
-      var mains=0,cnt=0,sum=0,picks=[];
-      for(var c=0;c<5;c++)if(mask>>c&1){mains+=MN[c];cnt++}
-      if(cnt>MAX_CO)continue; // 실제 설계처럼 회사는 최대 3곳까지만 나눈다
-      P.forEach(function(r){var b=-1;for(var c=0;c<5;c++)if(mask>>c&1&&(b<0||r[c]<r[b]))b=c;picks.push(b);sum+=r[b]});
-      var used=0;picks.forEach(function(c){used|=1<<c});
-      if(used!==mask)continue; // 안 쓰는 회사가 낀 묶음은 건너뛴다
-      var t=sum+mains;
-      if(!best||t<best.total||(t===best.total&&cnt<best.cnt))best={total:t,picks:picks,mains:mains,cnt:cnt,mask:mask};
+    var MN=isLife()?CO.map(function(){return 0}):MAIN;
+    function tryset(cs){
+      var mains=0,sum=0,picks=[],used={},i,j;
+      for(i=0;i<cs.length;i++)mains+=MN[cs[i]];
+      for(i=0;i<P.length;i++){var bb=-1;for(j=0;j<cs.length;j++){var v=P[i][cs[j]];if(v!=null&&(bb<0||v<P[i][bb]))bb=cs[j]}
+        if(bb<0)return; picks.push(bb); sum+=P[i][bb]; used[bb]=1}
+      for(i=0;i<cs.length;i++)if(!used[cs[i]])return;
+      if(cs.length>1){var cntBy={},sumBy={};picks.forEach(function(c,ri){cntBy[c]=(cntBy[c]||0)+1;sumBy[c]=(sumBy[c]||0)+P[ri][c]});
+        for(i=0;i<cs.length;i++){if(cntBy[cs[i]]<2)return; var lack=MINP[cs[i]]-(sumBy[cs[i]]+MN[cs[i]]); if(lack>0)mains+=lack}}
+      var t=sum+mains,mask=0; cs.forEach(function(c){mask|=1<<c});
+      if(!best||t<best.total||(t===best.total&&cs.length<best.cnt))best={total:t,picks:picks,mains:mains,cnt:cs.length,mask:mask};
     }
-    var singles=CO.map(function(_,c){return P.reduce(function(s,r){return s+r[c]},0)+MN[c]});
-    var lo=Math.min.apply(null,singles), hi=Math.max.apply(null,singles);
-    best.P=P; best.lo=lo; best.hi=hi; best.loCo=singles.indexOf(lo); best.hiCo=singles.indexOf(hi);
+    for(var x=0;x<NCO;x++){tryset([x]);
+      if(MAX_CO>=2)for(var y=x+1;y<NCO;y++){tryset([x,y]);
+        if(MAX_CO>=3)for(var z=y+1;z<NCO;z++)tryset([x,y,z])}}
+    var singles=CO.map(function(_,c){var t=MN[c];for(var i=0;i<P.length;i++){if(P[i][c]==null)return null;t+=P[i][c]}return t});
+    var full=singles.filter(function(v){return v!=null});
+    var lo=Math.min.apply(null,full), hi=Math.max.apply(null,full);
+    best.P=P; best.lo=lo; best.hi=hi; best.loCo=singles.indexOf(lo); best.hiCo=singles.indexOf(hi); best.nFull=full.length;
     best.cos=CO.filter(function(_,c){return best.mask>>c&1});
     return best;
   }
@@ -927,14 +954,15 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   }
   function showRow(i,ci,final){
     var r=rowEl(i), P=S.res.P[i];
+    if(P[ci]==null){var av=[];P.forEach(function(v,c){if(v!=null)av.push(c)});ci=av[Math.floor(Math.random()*av.length)]}
     var badge=r.querySelector(".co"); badge.textContent=CO[ci]+"사"; badge.className="co c"+ci;
     r.querySelector(".won").textContent=won(P[ci]);
     if(!final)return;
-    var lo=Math.min.apply(null,P), hi=Math.max.apply(null,P), isMin=P[ci]===lo;
+    var has=P.filter(function(v){return v!=null}), lo=Math.min.apply(null,has), hi=Math.max.apply(null,has), isMin=P[ci]===lo;
     r.classList.remove("spin","idle"); r.classList.add("done");
-    r.querySelector(".rng").textContent="5개사 "+won(lo)+"~"+won(hi)+"원";
+    r.querySelector(".rng").textContent=has.length+"곳 "+won(lo)+"~"+won(hi)+"원";
     r.querySelector(".tag b").textContent=isMin?"제일 싼 곳":"묶어서 절약";
-    var order=CO.map(function(_,c){return c}).sort(function(a,b){return P[a]-P[b]});
+    var order=CO.map(function(_,c){return c}).filter(function(c){return P[c]!=null}).sort(function(a,b){return P[a]-P[b]});
     r.querySelector(".all").innerHTML=order.map(function(c){
       return '<div class="c'+c+(P[c]===lo?" min":"")+'"><span>'+CO[c]+'사</span><i style="width:'+Math.round(P[c]/hi*100)+'%"></i><em>'+won(P[c])+'</em></div>';
     }).join("")+"<p>"+(isMin?"":"이것만 보면 "+CO[order[0]]+"사가 더 싸지만, 회사를 하나 더 쓰면 기본료가 붙어서 묶는 쪽이 싸요. ")+D[S.rows[i]].t+'</p><p class="off">보험 용어로는 「'+nm(S.rows[i])+"」 · "+(isRen(S.rows[i])?"갱신형":"비갱신형")+"</p>";
@@ -945,7 +973,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
       var r=rowEl(i);
       r.classList.remove("idle","done","lock","open"); r.classList.add("spin");
       if(reduce){finish();return}
-      var iv=setInterval(function(){showRow(i,Math.floor(Math.random()*5),false)},55);
+      var iv=setInterval(function(){showRow(i,Math.floor(Math.random()*NCO),false)},55);
       setTimeout(function(){clearInterval(iv);finish()},ms);
       function finish(){showRow(i,finalCi,true);void r.offsetWidth;r.classList.add("lock");sfx.lock(i);follow(r);res()}
     });
@@ -964,23 +992,23 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   }
   var SCAN_MS=2800;
   function scan(){
-    var n=S.rows.length*5, el=$("scan"), chips=$("scCos").children, lit=0;
+    var n=0;S.res.P.forEach(function(r){r.forEach(function(v){if(v!=null)n++})});var el=$("scan"), chips=$("scCos").children, lit=0;
     el.classList.add("show"); el.classList.remove("ok");
-    $("scT").textContent="5개사 가격표 대조 중";
+    $("scT").textContent="보험사 35곳 조회 중";
     Array.prototype.forEach.call(chips,function(c){c.classList.remove("on")});
     return new Promise(function(res){
       function finish(){
         Array.prototype.forEach.call(chips,function(c){c.classList.add("on")});
         $("scN").textContent=n+"/"+n; $("scBar").style.width="100%";
-        $("scT").textContent="보장 "+S.rows.length+"가지 × 5개사, 가격 "+n+"개 비교 완료"; el.classList.add("ok"); res();
+        $("scT").textContent="보장 "+S.rows.length+"가지 · "+NALL+"곳 조회, 가격표 있는 "+NCO+"곳에서 "+n+"개 비교 완료"; el.classList.add("ok"); res();
       }
       if(reduce){finish();return}
       var t0=performance.now();
       (function step(t){
         var k=Math.min(1,(t-t0)/SCAN_MS);
         $("scN").textContent=Math.round(n*k)+"/"+n; $("scBar").style.width=(k*100)+"%";
-        var want=Math.min(5,Math.floor(k*5.2));
-        while(lit<want){chips[lit].classList.add("on");tone(500+lit*90,.07,"square",.04);lit++}
+        var want=Math.min(chips.length,Math.floor(k*(chips.length+.2)));
+        while(lit<want){chips[lit].classList.add("on");tone(500+(lit%12)*90,.07,"square",.04);lit++}
         if(k<1)requestAnimationFrame(step);else finish();
       })(t0);
     });
@@ -999,7 +1027,12 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
     $("renew").classList.add("show");
     $("sumL").textContent=isLife()?"가장 싼 회사의 월 보험료":R.cnt===1?"한 회사에 담은 월 합계":"회사 "+R.cnt+"곳에 나눠 담은 월 합계";
   }
-  function showResult(){
+  function srcTag(){
+    var all=S.rows.every(isReal), some=S.rows.some(isReal);
+    $("rTag").textContent=NALL+"곳 조회 · "+(all?(S.age===30?NCO+"곳 실제 공시가":"30대 공시가서 추정"):some?"일부 예시 수치":"예시 수치");
+    var el=$("lzSrc"); if(el){el.hidden=!some; el.innerHTML=all?"취급 보험사 35곳을 조회해 가격표가 있는 16곳(손해보험 8·생명보험 8)을 대조했어요. 가격표 기준 조합이라, 실제 계약은 회사별 최저보험료·연계조건에 맞춰 조정돼요. 가격 출처: 각 사 가격공시·전산 가계산(35세, 2026-11-14 확인). 가입금액이 다른 상품은 같은 금액으로 맞춰 계산했어요. 회사마다 파는 보장이 달라 보장별로 비교한 회사 수가 다르고, 만기가 90세인 상품과 예시 기본료가 일부 섞여 있어요."+(S.age===30?"":" 30대가 아닌 나이대는 30대 가격에 나이 배율을 곱한 추정이에요."):"암·유사암·뇌·심장·질병수술·상해수술·골절은 실제 공시가(35세, 2026-11-14), 나머지 보장은 예시 수치예요."}
+  }
+  function showResult(){ srcTag();
     var R=S.res, top=R.hi, gap=R.hi-R.total, viaPick=R.hi-R.lo, viaMix=R.lo-R.total;
     var mixName=R.cnt===1?CO[R.loCo]+"사 한 곳":R.cos.join("+")+"사";
     var bars=[
@@ -1008,8 +1041,8 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
       {c:"mix",l:"보장마다 골라 담기",s:mixName,v:R.total}
     ];
     if(isLife()){
-      var ord=[0,1,2,3,4].sort(function(a,b){return R.P[0][b]-R.P[0][a]});
-      bars=[{c:"",l:"제일 비싼 회사",s:CO[ord[0]]+"사",v:R.P[0][ord[0]]},{c:"",l:"가운데 회사",s:CO[ord[2]]+"사",v:R.P[0][ord[2]]},{c:"mix",l:"제일 싼 회사",s:CO[ord[4]]+"사",v:R.P[0][ord[4]]}];
+      var ord=CO.map(function(_,c){return c}).sort(function(a,b){return R.P[0][b]-R.P[0][a]});
+      bars=[{c:"",l:"제일 비싼 회사",s:CO[ord[0]]+"사",v:R.P[0][ord[0]]},{c:"",l:"가운데 회사",s:CO[ord[3]]+"사",v:R.P[0][ord[3]]},{c:"mix",l:"제일 싼 회사",s:CO[ord[NCO-1]]+"사",v:R.P[0][ord[NCO-1]]}];
     }
     $("cmpBars").innerHTML=bars.map(function(b){return '<div class="cb '+b.c+'"><span>'+b.l+' <small>'+b.s+'</small></span><em>'+won(b.v)+'원</em><i data-w="'+Math.round(b.v/top*100)+'"></i></div>'}).join("");
     $("gapLine").innerHTML="<small>"+(isLife()?"같은 사망보험금인데":"같은 보장인데")+"</small>20년이면 <b>"+won(Math.round(gap*240/10000))+"만원</b> 차이";
@@ -1056,7 +1089,7 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
     var t="", dis=false, show=true;
     goBtn.classList.toggle("wait",SCR===0&&!S.picked);
     if(SCR===0)t=S.picked?"비교 영수증 뽑기":"나이대를 먼저 눌러주세요";
-    if(SCR===1){t=S.busy?"가격 "+(5*S.rows.length)+"개 대조하는 중":"내 보험은 어떨까";dis=S.busy}
+    if(SCR===1){t=S.busy?"보험사 "+NALL+"곳 조회하는 중":"내 보험은 어떨까";dis=S.busy}
     if(SCR===3||SCR===4)show=false;
     if(SCR===5)t="DM으로 점검 신청하기";
     if(SCR===9)t="이 조건으로 다시 뽑기";
@@ -1211,10 +1244,10 @@ var ICOS={"🎗": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#2a211b\" s
   var SHARE_URL="https://dkswldnwkd-ship-it.github.io/bohum-check/";
   $("realBtn").addEventListener("click",function(){
     var set=SETS.filter(function(s){return s.id===S.set})[0];
-    var t="영수증 · "+S.age+"대 "+(S.sex==="f"?"여성":"남성")+" · "+(set?set.name:"직접 고름 "+S.rows.length+"가지")+" · 보장 크기 "+TIER[S.tier];
+    var t="보장마트 영수증 · "+S.age+"대 "+(S.sex==="f"?"여성":"남성")+" · "+(set?set.name:"직접 고름 "+S.rows.length+"가지")+" · 보장 크기 "+TIER[S.tier]+" · 월 "+won(S.res.total)+"원 (참고용, 2026-11-14 기준)";
     try{var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,999);document.execCommand("copy");document.body.removeChild(ta)}catch(e){}
     try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).catch(function(){})}catch(e){}
-    $("shareMsg").textContent="조건을 복사했어요. DM에 붙여넣기만 하면 돼요";
+    $("shareMsg").textContent="조건을 복사했어요. DM 창에 붙여넣고 보내면 회사 이름표가 와요";
   });
   $("share").addEventListener("click",function(){
     var d={title:"보장마트",text:"같은 보장인데 회사마다 보험료가 이만큼 달라요. 나이대만 누르면 나와요.",url:SHARE_URL}, msg=$("shareMsg");
